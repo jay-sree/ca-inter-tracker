@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CA Intermediate Exam Tracker & Study Studio</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Outfit', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#fbf7ee',
+              100: '#f5ebd3',
+              200: '#edd8aa',
+              300: '#e1be76',
+              400: '#d5a347',
+              500: '#c58728',
+              600: '#a8681f',
+              700: '#834b1c',
+              800: '#6d3d1d',
+              900: '#5c331c',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(150, 150, 150, 0.3);
+      border-radius: 9999px;
+    }
+    .custom-checkbox {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 1.15rem;
+      height: 1.15rem;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 0.375rem;
+      outline: none;
+      transition: all 0.15s ease-in-out;
+      cursor: pointer;
+      display: inline-grid;
+      place-content: center;
+    }
+    .dark .custom-checkbox {
+      border-color: #475569;
+      background-color: #1e293b;
+    }
+    .custom-checkbox:checked {
+      background-color: #c58728;
+      border-color: #c58728;
+    }
+    .custom-checkbox:checked::before {
+      content: "";
+      width: 0.65rem;
+      height: 0.4rem;
+      border-left: 2px solid #ffffff;
+      border-bottom: 2px solid #ffffff;
+      transform: rotate(-45deg) translate(1px, -1px);
+    }
+    /* Ambient backdrop styling */
+    .ambient-bg {
+      background-size: cover;
+      background-position: center;
+      transition: background-image 0.8s ease-in-out, filter 0.8s ease;
+    }
+    .rain-overlay {
+      background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.03) 75%, rgba(255,255,255,0.1) 100%),
+                  radial-gradient(circle at 50% 50%, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.85) 100%);
+    }
+    @keyframes rain-fall {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 20% 100%; }
+    }
+    .rain-active {
+      animation: rain-fall 1.2s linear infinite;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-[#0b0f19] dark:text-slate-200 min-h-screen font-sans transition-colors duration-200">
+
+  <!-- Main Container -->
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-5 pb-28 sm:pb-14">
+
+    <!-- Top Bar: Title, Exam Countdown, Quick Actions -->
+    <header class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-200 dark:border-slate-800/80">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border border-amber-300 dark:border-amber-700/50">
+            ICAI New Scheme
+          </span>
+          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Attempt Preparation</span>
+        </div>
+        <h1 class="font-display text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mt-1">
+          CA Intermediate Tracker & Studio
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
+          Deep-work Pomodoro timer, ambient lofi cafe backdrops, Spotify study lounge, and chapter checklist.
+        </p>
+      </div>
+
+      <!-- Action items: Countdown, Studio Toggles & Theme -->
+      <div class="flex flex-wrap items-center gap-2.5">
+        <!-- Target Exam Date Badge -->
+        <div class="flex items-center gap-2.5 bg-white dark:bg-slate-900/80 px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+          <i data-lucide="calendar" class="w-4 h-4 text-brand-500"></i>
+          <div>
+            <div class="text-[10px] uppercase font-semibold text-slate-400">Days to Exam</div>
+            <div id="countdown-display" class="font-display font-bold text-sm text-slate-900 dark:text-white leading-none mt-0.5">
+              Calculating...
+            </div>
+          </div>
+          <button id="edit-exam-date-btn" title="Change Target Exam Date" class="ml-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1 rounded">
+            <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+        <!-- Data Backups & Tools -->
+        <div class="flex items-center gap-1.5 bg-white dark:bg-slate-900/80 p-1 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+          <button id="toggle-focus-suite-btn" title="Toggle Pomodoro & Music Suite" class="p-2 text-brand-600 dark:text-brand-400 rounded-lg hover:bg-amber-50 dark:hover:bg-amber-950/40 transition">
+            <i data-lucide="headphones" class="w-4 h-4"></i>
+          </button>
+          <button id="export-btn" title="Backup / Export JSON" class="p-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+            <i data-lucide="download" class="w-4 h-4"></i>
+          </button>
+          <label for="import-input" title="Import JSON Backup" class="p-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer">
+            <i data-lucide="upload" class="w-4 h-4"></i>
+          </label>
+          <input type="file" id="import-input" accept=".json" class="hidden" />
+          <button id="reset-all-btn" title="Reset All Progress" class="p-2 text-red-500 hover:text-red-600 dark:text-red-400 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/40 transition">
+            <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+          </button>
+          <button id="theme-toggle" title="Toggle Dark/Light Mode" class="p-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+            <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
+            <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- STUDY STUDIO: DEEP WORK POMODORO & SPOTIFY SECTION -->
+    <section id="focus-studio-section" class="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-4">
+      
+      <!-- Deep Work Timer Card with Ambient Backdrop (7 cols) -->
+      <div id="pomo-card-container" class="lg:col-span-7 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden relative ambient-bg flex flex-col justify-between transition-all duration-500 min-h-[420px]" style="background-image: url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1200&q=80');">
+        <!-- Aesthetic Ambient Tint & Frosted Mask -->
+        <div id="ambient-overlay" class="absolute inset-0 bg-slate-900/60 backdrop-blur-[2px] transition-all duration-700 pointer-events-none"></div>
+
+        <div class="relative z-10 p-5 flex flex-col justify-between h-full text-white">
+          <div>
+            <!-- Header, Ambient Theme Switcher & Long-Session Presets -->
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-white/15">
+              <div class="flex items-center gap-2">
+                <span id="timer-live-dot" class="w-2.5 h-2.5 rounded-full bg-brand-400 shadow-[0_0_8px_#e1be76]"></span>
+                <span class="text-xs uppercase font-bold text-white tracking-wider flex items-center gap-1.5">
+                  <i data-lucide="timer" class="w-3.5 h-3.5"></i> Deep-Work Pomodoro
+                </span>
+              </div>
+              
+              <!-- Ambient Theme Selector -->
+              <div class="flex items-center gap-1 bg-black/40 backdrop-blur-md px-2 py-1 rounded-xl text-[11px] border border-white/10">
+                <i data-lucide="image" class="w-3 h-3 text-brand-300"></i>
+                <select id="ambient-theme-select" class="bg-transparent text-white font-medium focus:outline-none cursor-pointer">
+                  <option value="rainy" class="bg-slate-900 text-white">Rainy Cafe Window</option>
+                  <option value="lofi" class="bg-slate-900 text-white">Cozy Lofi Study</option>
+                  <option value="library" class="bg-slate-900 text-white">Midnight Library</option>
+                  <option value="kyoto" class="bg-slate-900 text-white">Kyoto Coffee House</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Deep Work Session Presets (Extended 1hr to 5hr Modes) -->
+            <div class="mt-3 flex items-center gap-1.5 overflow-x-auto pb-1 text-xs font-medium scrollbar-none">
+              <button data-duration="25" data-label="Focus (25m)" class="pomo-mode-btn px-2.5 py-1 rounded-xl bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition whitespace-nowrap">25m</button>
+              <button data-duration="60" data-label="1 Hour Block" class="pomo-mode-btn px-2.5 py-1 rounded-xl bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition whitespace-nowrap">1 hr</button>
+              <button data-duration="90" data-label="90m Deep Work" class="pomo-mode-btn px-2.5 py-1 rounded-xl bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition whitespace-nowrap">90m</button>
+              <button data-duration="120" data-label="2 Hours Study" class="pomo-mode-btn px-2.5 py-1 rounded-xl bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition whitespace-nowrap">2 hrs</button>
+              <button data-duration="180" data-label="3 Hours Deep Session" class="pomo-mode-btn px-2.5 py-1 rounded-xl bg-brand-500 text-white font-semibold shadow-md whitespace-nowrap">3 hrs</button>
+              <button data-duration="240" data-label="4 Hours Marathon" class="pomo-mode-btn px-2.5 py-1 rounded-xl bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition whitespace-nowrap">4 hrs</button>
+              <button data-duration="300" data-label="5 Hours ICAI Sprint" class="pomo-mode-btn px-2.5 py-1 rounded-xl bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition whitespace-nowrap">5 hrs</button>
+              <button data-duration="15" data-label="Break (15m)" class="pomo-mode-btn px-2.5 py-1 rounded-xl bg-emerald-500/40 text-emerald-200 hover:bg-emerald-500/60 transition whitespace-nowrap">15m Break</button>
+            </div>
+
+            <!-- Custom Duration Input Form -->
+            <div class="mt-2.5 flex items-center gap-2 text-[11px] bg-black/30 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10 w-fit">
+              <span class="text-white/70">Custom Hours:</span>
+              <input type="number" id="custom-hours-input" min="0" max="12" step="0.5" placeholder="e.g. 3.5" class="w-16 bg-white/10 border border-white/20 rounded-lg px-2 py-0.5 text-center text-white focus:outline-none focus:ring-1 focus:ring-brand-400">
+              <button id="apply-custom-hours" class="px-2.5 py-0.5 bg-brand-500 hover:bg-brand-600 font-semibold rounded-lg text-white transition">Set</button>
+            </div>
+
+            <!-- Timer Central Display with Hours : Mins : Secs -->
+            <div class="py-7 flex flex-col items-center justify-center">
+              <div id="timer-display" class="font-display text-5xl sm:text-7xl font-extrabold tracking-tight text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)]">
+                03:00:00
+              </div>
+              <div class="flex items-center gap-2 mt-2 text-xs text-amber-200/90 font-medium">
+                <i data-lucide="flame" class="w-4 h-4 text-amber-400 animate-bounce"></i>
+                <span id="pomo-cycle-text">Completed Sessions: <strong class="text-white" id="completed-pomo-count">0</strong></span>
+                <span class="text-white/40">•</span>
+                <span id="current-mode-label" class="text-white/80">3 Hours Deep Session</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controls & Progress bar -->
+          <div>
+            <div class="w-full bg-white/15 rounded-full h-2 mb-4 overflow-hidden backdrop-blur-sm">
+              <div id="timer-bar" class="bg-gradient-to-r from-amber-400 to-brand-400 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+            <div class="flex items-center justify-center gap-3">
+              <button id="pomo-start-pause" class="px-7 py-2.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-semibold text-xs tracking-wide shadow-lg shadow-black/40 flex items-center gap-2 transition hover:scale-105 active:scale-95">
+                <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+                <span id="start-btn-label">Start Focus Session</span>
+              </button>
+              <button id="pomo-reset" class="px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white font-medium text-xs flex items-center gap-1.5 transition backdrop-blur-md">
+                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                <span>Reset</span>
+              </button>
+              <button id="test-chime" title="Test Bell Sound" class="p-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white text-xs transition backdrop-blur-md">
+                <i data-lucide="bell" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spotify Study Lounge Card (5 cols) -->
+      <div class="lg:col-span-5 bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+            <div class="flex items-center gap-2">
+              <i data-lucide="music" class="w-4 h-4 text-emerald-500"></i>
+              <span class="text-xs uppercase font-bold text-slate-700 dark:text-slate-300 tracking-wider">Spotify Study Lounge</span>
+            </div>
+            <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">Direct Embed</span>
+          </div>
+
+          <!-- Quick Presets -->
+          <div class="mt-3 flex items-center gap-1.5 overflow-x-auto pb-1 text-[11px] scrollbar-none">
+            <button data-spotify-uri="playlist/37i9dQZF1DX8Uebhn9wzrS" class="spotify-preset px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 font-medium border border-emerald-200 dark:border-emerald-800/80 whitespace-nowrap">
+              Lo-Fi Beats
+            </button>
+            <button data-spotify-uri="playlist/37i9dQZF1DX4sWSpwq3LiO" class="spotify-preset px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300 hover:bg-slate-200 whitespace-nowrap">
+              Peaceful Piano
+            </button>
+            <button data-spotify-uri="playlist/37i9dQZF1DX3PFDV95bt91" class="spotify-preset px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300 hover:bg-slate-200 whitespace-nowrap">
+              Deep Focus
+            </button>
+          </div>
+
+          <!-- Spotify Embed Iframe Container -->
+          <div class="mt-3 rounded-xl overflow-hidden bg-black/5 dark:bg-black/30 border border-slate-200 dark:border-slate-800 h-[152px]">
+            <iframe id="spotify-iframe" class="w-full h-full border-0" 
+                    src="https://open.spotify.com/embed/playlist/37i9dQZF1DX8Uebhn9wzrS?utm_source=generator&theme=0" 
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                    loading="lazy"></iframe>
+          </div>
+        </div>
+
+        <!-- Custom URL Input -->
+        <div class="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 flex gap-1.5">
+          <input type="text" id="custom-spotify-url" placeholder="Paste custom playlist / album link..." class="flex-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 rounded-xl px-2.5 py-1.5 text-[11px] text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-brand-500">
+          <button id="apply-custom-spotify" class="px-3 py-1.5 bg-slate-900 hover:bg-black dark:bg-slate-700 dark:hover:bg-slate-600 text-white rounded-xl text-[11px] font-semibold transition">
+            Load
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Global Progress & Metric Cards -->
+    <section class="mt-6 grid grid-cols-2 lg:grid-cols-5 gap-3.5 sm:gap-4">
+      <!-- Total Progress Card -->
+      <div class="col-span-2 bg-gradient-to-br from-amber-600 to-amber-700 text-white rounded-2xl p-4 sm:p-5 shadow-lg shadow-amber-600/10 flex flex-col justify-between relative overflow-hidden">
+        <div class="relative z-10">
+          <div class="flex justify-between items-start">
+            <span class="text-xs uppercase font-bold tracking-wider text-amber-200">Overall Readiness</span>
+            <span id="overall-percentage" class="text-2xl sm:text-3xl font-display font-extrabold">0%</span>
+          </div>
+          <div class="mt-3 w-full bg-black/20 rounded-full h-2.5 overflow-hidden">
+            <div id="overall-bar" class="bg-white h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+          </div>
+          <div class="mt-2 text-xs text-amber-100/90 flex justify-between font-medium">
+            <span id="overall-tasks-count">0 / 0 steps done</span>
+            <span id="total-chapters-count">88 Topics</span>
+          </div>
+        </div>
+        <div class="absolute -right-4 -bottom-4 w-28 h-28 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+      </div>
+
+      <!-- Lectures Watched Card -->
+      <div class="bg-white dark:bg-slate-900/90 rounded-2xl p-4 border border-slate-200 dark:border-slate-800/80 shadow-sm flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Lectures</span>
+          <div class="w-7 h-7 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 text-indigo-500 flex items-center justify-center">
+            <i data-lucide="video" class="w-3.5 h-3.5"></i>
+          </div>
+        </div>
+        <div class="mt-2">
+          <div class="flex items-baseline gap-1.5">
+            <span id="lectures-stat-pct" class="text-xl sm:text-2xl font-bold font-display text-slate-900 dark:text-white">0%</span>
+            <span id="lectures-stat-ratio" class="text-[11px] text-slate-400">0/0</span>
+          </div>
+          <div class="mt-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+            <div id="lectures-bar" class="bg-indigo-500 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ICAI Study Material Solved Card -->
+      <div class="bg-white dark:bg-slate-900/90 rounded-2xl p-4 border border-slate-200 dark:border-slate-800/80 shadow-sm flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">ICAI Module</span>
+          <div class="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 text-emerald-500 flex items-center justify-center">
+            <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+          </div>
+        </div>
+        <div class="mt-2">
+          <div class="flex items-baseline gap-1.5">
+            <span id="sm-stat-pct" class="text-xl sm:text-2xl font-bold font-display text-slate-900 dark:text-white">0%</span>
+            <span id="sm-stat-ratio" class="text-[11px] text-slate-400">0/0</span>
+          </div>
+          <div class="mt-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+            <div id="sm-bar" class="bg-emerald-500 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Revision 1+ Completed Card -->
+      <div class="col-span-2 lg:col-span-1 bg-white dark:bg-slate-900/90 rounded-2xl p-4 border border-slate-200 dark:border-slate-800/80 shadow-sm flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Revisions (R1-R3)</span>
+          <div class="w-7 h-7 rounded-lg bg-amber-50 dark:bg-amber-950/50 text-amber-500 flex items-center justify-center">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+          </div>
+        </div>
+        <div class="mt-2">
+          <div class="flex items-baseline gap-1.5">
+            <span id="rev-stat-pct" class="text-xl sm:text-2xl font-bold font-display text-slate-900 dark:text-white">0%</span>
+            <span id="rev-stat-ratio" class="text-[11px] text-slate-400">0 done</span>
+          </div>
+          <div class="mt-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+            <div id="rev-bar" class="bg-amber-500 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filters, Search & View Controls -->
+    <div class="mt-6 flex flex-col md:flex-row md:items-center justify-between gap-3">
+      <!-- Group & Paper Filter Tabs -->
+      <div class="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full text-xs font-medium scrollbar-none" id="group-tabs">
+        <button data-group="all" class="filter-tab active px-3.5 py-2 rounded-xl transition whitespace-nowrap bg-brand-500 text-white shadow-sm font-semibold">
+          All Papers
+        </button>
+        <button data-group="g1" class="filter-tab px-3.5 py-2 rounded-xl transition whitespace-nowrap bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+          Group 1 (P1, P2, P3)
+        </button>
+        <button data-group="g2" class="filter-tab px-3.5 py-2 rounded-xl transition whitespace-nowrap bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+          Group 2 (P4, P5, P6)
+        </button>
+      </div>
+
+      <!-- Search & Confidence Filter -->
+      <div class="flex items-center gap-2">
+        <div class="relative flex-1 sm:w-64">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+          <input type="text" id="search-input" placeholder="Search standard, act, chapter..." class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/40">
+        </div>
+        <select id="confidence-filter" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-2.5 py-2 text-xs text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500/40">
+          <option value="all">All Priorities</option>
+          <option value="High">🔴 High Priority</option>
+          <option value="Medium">🟡 Medium Priority</option>
+          <option value="Low">🟢 Low Priority</option>
+          <option value="Unset">⚪ Not Rated</option>
+        </select>
+        <button id="toggle-expand-all" title="Expand / Collapse All" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+          <i data-lucide="chevrons-up-down" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Paper Accordions Container -->
+    <main class="mt-6 space-y-4" id="papers-container">
+      <!-- Injected by JavaScript -->
+    </main>
+
+  </div>
+
+  <!-- Note Drawer Modal -->
+  <div id="note-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-5 border border-slate-200 dark:border-slate-800 shadow-2xl">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
+        <div>
+          <span class="text-[10px] uppercase font-bold text-brand-600 dark:text-brand-400 tracking-wider">Chapter Notes & Doubts</span>
+          <h3 id="modal-chapter-title" class="font-display font-semibold text-slate-900 dark:text-white text-base">Topic Title</h3>
+        </div>
+        <button id="close-modal-btn" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div class="mt-4">
+        <textarea id="modal-note-text" rows="5" placeholder="Write exam points, weak concepts, RTP question numbers, or reminder notes here..." class="w-full bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80 rounded-xl p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"></textarea>
+      </div>
+      <div class="mt-4 flex justify-end gap-2">
+        <button id="save-note-btn" class="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white rounded-xl text-xs font-semibold shadow transition">
+          Save Note
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Floating Summary Bar with Mini-Pomo -->
+  <div class="sm:hidden fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 px-4 py-2.5 flex items-center justify-between shadow-lg z-30">
+    <div class="flex items-center gap-2.5">
+      <div class="w-8 h-8 rounded-full bg-brand-500 text-white font-display font-bold text-xs flex items-center justify-center">
+        <span id="mobile-progress-badge">0%</span>
+      </div>
+      <div>
+        <div class="text-[11px] font-semibold text-slate-900 dark:text-white">CA Inter Progress</div>
+        <div id="mobile-progress-details" class="text-[10px] text-slate-400">0 tasks done</div>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <div class="text-right">
+        <span id="mobile-mini-timer" class="font-display font-bold text-xs text-brand-600 dark:text-brand-400">03:00:00</span>
+      </div>
+      <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="p-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900">
+        <i data-lucide="arrow-up" class="w-4 h-4"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white dark:bg-white dark:text-slate-900 text-xs font-medium px-4 py-2.5 rounded-xl shadow-xl flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+    <span id="toast-message">Action successful</span>
+  </div>
+
+  <script>
+    /* ==========================================================================
+       1. COMPLETE ICAI CA INTERMEDIATE (NEW SCHEME) SYLLABUS DATA
+       ========================================================================== */
+    const SYLLABUS_DATA = [
+      {
+        id: "p1",
+        code: "Paper 1",
+        title: "Advanced Accounting",
+        group: "g1",
+        badge: "100 Marks",
+        sections: [
+          {
+            sectionTitle: "Accounting Standards (AS 1 to AS 29 Framework)",
+            items: [
+              { id: "p1_as_intro", title: "Ch 1: Introduction to Accounting Standards", sub: "Standard-setting process, GAAP & NFRA framework" },
+              { id: "p1_as_framewk", title: "Ch 2: Framework for Preparation & Presentation of FS", sub: "Qualitative characteristics, elements & capital maintenance" },
+              { id: "p1_as_applic", title: "Ch 3: Applicability of Accounting Standards", sub: "SMC vs Non-SMC entity thresholds & criteria" },
+              { id: "p1_as_01", title: "AS 1: Disclosure of Accounting Policies", sub: "Going Concern, Consistency, Accrual & fundamental assumptions" },
+              { id: "p1_as_02", title: "AS 2: Valuation of Inventories", sub: "Cost vs NRV, conversion cost, cost formula applications" },
+              { id: "p1_as_03", title: "AS 3: Cash Flow Statement", sub: "Operating (direct/indirect), investing & financing flows" },
+              { id: "p1_as_04", title: "AS 4: Contingencies & Events After Balance Sheet Date", sub: "Adjusting vs non-adjusting events, proposed dividend treatment" },
+              { id: "p1_as_05", title: "AS 5: Net Profit/Loss, Prior Period Items & Accounting Policies", sub: "Prior period items, ordinary vs extraordinary, change in estimates" },
+              { id: "p1_as_07", title: "AS 7: Construction Contracts", sub: "Percentage of completion, contract revenue & expected losses" },
+              { id: "p1_as_09", title: "AS 9: Revenue Recognition", sub: "Sale of goods, services, interest, royalties & dividends" },
+              { id: "p1_as_10", title: "AS 10: Property, Plant and Equipment (PPE)", sub: "Initial recognition, cost vs revaluation model, component depreciation" },
+              { id: "p1_as_11", title: "AS 11: The Effects of Changes in Foreign Exchange Rates", sub: "Monetary/non-monetary items, forward contracts & foreign operations" },
+              { id: "p1_as_12", title: "AS 12: Accounting for Government Grants", sub: "Capital vs revenue grants, asset-specific deductions, refund rules" },
+              { id: "p1_as_13", title: "AS 13: Accounting for Investments", sub: "Current vs long-term valuation, reclassification & disposal" },
+              { id: "p1_as_14", title: "AS 14: Accounting for Amalgamations", sub: "Merger vs purchase method, purchase consideration, statutory reserves" },
+              { id: "p1_as_15", title: "AS 15: Employee Benefits", sub: "Defined contribution vs defined benefit plans, actuarial valuations" },
+              { id: "p1_as_16", title: "AS 16: Borrowing Costs", sub: "Qualifying assets, capitalization rate, suspension & cessation" },
+              { id: "p1_as_17", title: "AS 17: Segment Reporting", sub: "Reportable business & geographical segments (10% test, 75% rule)" },
+              { id: "p1_as_18", title: "AS 18: Related Party Disclosures", sub: "Control, significant influence, key management personnel & transactions" },
+              { id: "p1_as_19", title: "AS 19: Leases", sub: "Finance vs operating lease criteria & accounting (lessee & lessor)" },
+              { id: "p1_as_20", title: "AS 20: Earnings Per Share (EPS)", sub: "Basic EPS, Diluted EPS, bonus issue & rights issue adjustments" },
+              { id: "p1_as_21", title: "AS 21: Consolidated Financial Statements (CFS)", sub: "Minority interest, goodwill/capital reserve, inter-company balances" },
+              { id: "p1_as_22", title: "AS 22: Accounting for Taxes on Income", sub: "Deferred tax assets/liabilities, timing differences vs permanent differences" },
+              { id: "p1_as_23", title: "AS 23: Accounting for Investments in Associates in CFS", sub: "Equity method application & carrying amount calculations" },
+              { id: "p1_as_24", title: "AS 24: Discontinuing Operations", sub: "Initial disclosure event, recognition, presentation & disclosures" },
+              { id: "p1_as_25", title: "AS 25: Interim Financial Reporting", sub: "Form and content of interim reports, measurement rules" },
+              { id: "p1_as_26", title: "AS 26: Intangible Assets", sub: "Recognition criteria, research vs development phase, amortization" },
+              { id: "p1_as_27", title: "AS 27: Financial Reporting of Interests in Joint Ventures", sub: "Proportionate consolidation for jointly controlled entities" },
+              { id: "p1_as_28", title: "AS 28: Impairment of Assets", sub: "Cash Generating Units (CGU), value in use, impairment reversal" },
+              { id: "p1_as_29", title: "AS 29: Provisions, Contingent Liabilities & Contingent Assets", sub: "Present obligation vs possible obligation, outflow probability, disclosures" }
+            ]
+          },
+          {
+            sectionTitle: "Company Accounts & Special Transactions",
+            items: [
+              { id: "p1_ca_sch3", title: "Preparation of Financial Statements (Schedule III)", sub: "Division I Balance Sheet and Statement of Profit & Loss format" },
+              { id: "p1_ca_buyback", title: "Buyback of Securities & Differential Voting Rights", sub: "Sec 68-70 tests, CRR capitalization, journal entries" },
+              { id: "p1_ca_recon", title: "Internal Reconstruction", sub: "Capital reduction scheme execution & post-reconstruction balance sheet" },
+              { id: "p1_ca_branch", title: "Accounting for Branches (including Foreign Branches)", sub: "Stock & Debtors method, wholesale branches, currency conversion" }
+            ]
+          }
+        ]
+      },
+      {
+        id: "p2",
+        code: "Paper 2",
+        title: "Corporate and Other Laws",
+        group: "g1",
+        badge: "100 Marks",
+        sections: [
+          {
+            sectionTitle: "Part I: Company Law (The Companies Act, 2013)",
+            items: [
+              { id: "p2_ch1", title: "Ch 1: Preliminary (Sec 1-2)", sub: "Short title, applicability & key definitions" },
+              { id: "p2_ch2", title: "Ch 2: Incorporation of Company & Incidental (Sec 3-22)", sub: "MOA, AOA, Sec 8 company, registered office rules" },
+              { id: "p2_ch3", title: "Ch 3: Prospectus and Allotment of Securities (Sec 23-42)", sub: "Public issue, shelf prospectus, private placement" },
+              { id: "p2_ch4", title: "Ch 4: Share Capital and Debentures (Sec 43-72)", sub: "Sweat equity, bonus shares, transfer/transmission of securities" },
+              { id: "p2_ch5", title: "Ch 5: Acceptance of Deposits by Companies (Sec 73-76A)", sub: "Deposits from members vs public & repayment rules" },
+              { id: "p2_ch6", title: "Ch 6: Registration of Charges (Sec 77-87)", sub: "Creation, modification & satisfaction of charges with RoC" },
+              { id: "p2_ch7", title: "Ch 7: Management and Administration (Sec 88-122)", sub: "Registers, annual returns, AGM, EGM, resolutions, voting" },
+              { id: "p2_ch8", title: "Ch 8: Declaration and Payment of Dividend (Sec 123-127)", sub: "Unpaid dividend account, IEPF, distribution restrictions" },
+              { id: "p2_ch9", title: "Ch 9: Accounts of Companies (Sec 128-138)", sub: "Books of account, financial statements, CSR (Sec 135), internal audit" },
+              { id: "p2_ch10", title: "Ch 10: Audit and Auditors (Sec 139-148)", sub: "Appointment, rotation, removal, qualifications & cost audit" },
+              { id: "p2_ch11", title: "Ch 11: Companies Incorporated Outside India (Sec 379-393A)", sub: "Foreign companies, registration, document delivery" }
+            ]
+          },
+          {
+            sectionTitle: "Part II: Limited Liability Partnership Act, 2008",
+            items: [
+              { id: "p2_ch12", title: "The Limited Liability Partnership Act, 2008", sub: "Nature, incorporation, partners, financial disclosures, winding up" }
+            ]
+          },
+          {
+            sectionTitle: "Part III: Other Laws",
+            items: [
+              { id: "p2_ol_ch1", title: "The General Clauses Act, 1897", sub: "Preamble, general definitions, principles of interpretation" },
+              { id: "p2_ol_ch2", title: "Interpretation of Statutes", sub: "Primary rules, secondary rules, internal & external aids" },
+              { id: "p2_ol_ch3", title: "The Foreign Exchange Management Act, 1999 (FEMA)", sub: "Definitions, current account vs capital account transactions" }
+            ]
+          }
+        ]
+      },
+      {
+        id: "p3",
+        code: "Paper 3",
+        title: "Taxation",
+        group: "g1",
+        badge: "100 Marks (50 + 50)",
+        sections: [
+          {
+            sectionTitle: "Section A: Income-tax Law (50 Marks)",
+            items: [
+              { id: "p3_it_ch1", title: "Ch 1: Basic Concepts", sub: "Assessment year, previous year, basis of charge, tax slab rates" },
+              { id: "p3_it_ch2", title: "Ch 2: Residence and Scope of Total Income", sub: "Section 6 residential status & Section 5 total scope" },
+              { id: "p3_it_ch3a", title: "Ch 3.1: Heads of Income - Salaries", sub: "Allowances, perquisites, retirement benefits, Sec 16 deductions" },
+              { id: "p3_it_ch3b", title: "Ch 3.2: Heads of Income - House Property", sub: "GAV, NAV, standard deduction, interest on housing loan (Sec 24)" },
+              { id: "p3_it_ch3c", title: "Ch 3.3: Profits & Gains of Business or Profession (PGBP)", sub: "Admissible/inadmissible expenses, depreciation, presumptive 44AD/ADA" },
+              { id: "p3_it_ch3d", title: "Ch 3.4: Heads of Income - Capital Gains", sub: "Short term vs long term, exemptions (Sec 54/54EC/54F), special rates" },
+              { id: "p3_it_ch3e", title: "Ch 3.5: Heads of Income - Other Sources", sub: "Gifts, dividend income, family pension, winning from lotteries" },
+              { id: "p3_it_ch4", title: "Ch 4: Clubbing of Income", sub: "Sec 60 to 65 (income of spouse, minor child, etc.)" },
+              { id: "p3_it_ch5", title: "Ch 5: Set-off and Carry Forward of Losses", sub: "Intra-head & inter-head adjustments, time limits" },
+              { id: "p3_it_ch6", title: "Ch 6: Deductions from Gross Total Income", sub: "Chapter VI-A (80C, 80D, 80G, 80JJAA, etc.)" },
+              { id: "p3_it_ch7", title: "Ch 7: Advance Tax, TDS and TCS", sub: "Key thresholds, withholding provisions, payment schedules" },
+              { id: "p3_it_ch8", title: "Ch 8: Filing of Return of Income & Self-Assessment", sub: "Due dates, revised/belated returns, updated return (139(8A))" },
+              { id: "p3_it_ch9", title: "Ch 9: Computation of Total Income & Tax Liability", sub: "Default regime Sec 115BAC vs optional normal regime" }
+            ]
+          },
+          {
+            sectionTitle: "Section B: Goods and Services Tax (GST) (50 Marks)",
+            items: [
+              { id: "p3_gst_ch1", title: "Ch 1: GST in India - An Introduction", sub: "Constitutional provisions, CGST/SGST/IGST framework" },
+              { id: "p3_gst_ch2", title: "Ch 2: Supply under GST", sub: "Section 7, Schedule I, II, III, composite & mixed supply" },
+              { id: "p3_gst_ch3", title: "Ch 3: Charge of GST", sub: "Forward charge, Reverse Charge Mechanism (RCM), Composition scheme" },
+              { id: "p3_gst_ch4", title: "Ch 4: Place of Supply", sub: "Goods and services domestic & cross-border rules" },
+              { id: "p3_gst_ch5", title: "Ch 5: Exemptions from GST", sub: "Important exempt goods & services list" },
+              { id: "p3_gst_ch6", title: "Ch 6: Time of Supply", sub: "Time of supply for goods (Sec 12) & services (Sec 13)" },
+              { id: "p3_gst_ch7", title: "Ch 7: Value of Supply", sub: "Section 15 inclusions, exclusions & discounts" },
+              { id: "p3_gst_ch8", title: "Ch 8: Input Tax Credit (ITC)", sub: "Eligibility, Sec 17(5) blocked credits, utilization order" },
+              { id: "p3_gst_ch9", title: "Ch 9: Registration", sub: "Threshold limits (Sec 22), compulsory registration (Sec 24)" },
+              { id: "p3_gst_ch10", title: "Ch 10: Tax Invoice, Credit & Debit Notes", sub: "E-invoicing thresholds & delivery challan rules" },
+              { id: "p3_gst_ch11", title: "Ch 11: Accounts and Records", sub: "Period of retention & required records" },
+              { id: "p3_gst_ch12", title: "Ch 12: E-Way Bill", sub: "Rule 138 thresholds, validity & exceptions" },
+              { id: "p3_gst_ch13", title: "Ch 13: Payment of Tax", sub: "Electronic cash, credit & liability ledgers" },
+              { id: "p3_gst_ch14", title: "Ch 14: Tax Deduction / Collection at Source", sub: "TDS (Sec 51) & TCS (Sec 52) provisions" },
+              { id: "p3_gst_ch15", title: "Ch 15: Returns", sub: "GSTR-1, GSTR-3B, QRMP scheme & annual returns" }
+            ]
+          }
+        ]
+      },
+      {
+        id: "p4",
+        code: "Paper 4",
+        title: "Cost and Management Accounting",
+        group: "g2",
+        badge: "100 Marks",
+        sections: [
+          {
+            sectionTitle: "Cost Accounting Modules (Chapters 1 - 15)",
+            items: [
+              { id: "p4_ch1", title: "Ch 1: Introduction to Cost & Management Accounting", sub: "Cost units, cost objects, cost classification" },
+              { id: "p4_ch2", title: "Ch 2: Material Cost", sub: "EOQ, stock levels, inventory control techniques (ABC/VED/FSN)" },
+              { id: "p4_ch3", title: "Ch 3: Employee Cost and Direct Expenses", sub: "Labor turnover, Halsey/Rowan incentive schemes, idle time" },
+              { id: "p4_ch4", title: "Ch 4: Overheads - Absorption Costing Method", sub: "Primary/secondary distribution, machine hour rate, under/over-absorption" },
+              { id: "p4_ch5", title: "Ch 5: Activity Based Costing (ABC)", sub: "Cost pools, cost drivers, traditional vs ABC comparison" },
+              { id: "p4_ch6", title: "Ch 6: Cost Sheet", sub: "Historical cost sheet & tenders/quotations preparation" },
+              { id: "p4_ch7", title: "Ch 7: Cost Accounting Systems", sub: "Integrated vs non-integrated accounts & reconciliation" },
+              { id: "p4_ch8", title: "Ch 8: Unit and Batch Costing", sub: "Economic batch quantity (EBQ)" },
+              { id: "p4_ch9", title: "Ch 9: Job Costing", sub: "Job order cost computation" },
+              { id: "p4_ch10", title: "Ch 10: Process and Operation Costing", sub: "Normal/abnormal loss, equivalent units (FIFO/weighted average)" },
+              { id: "p4_ch11", title: "Ch 11: Joint Products and By Products", sub: "Apportionment methods at split-off & post-separation" },
+              { id: "p4_ch12", title: "Ch 12: Service Costing (Operating Costing)", sub: "Transport, hotels, hospitals, power supply costing" },
+              { id: "p4_ch13", title: "Ch 13: Standard Costing", sub: "Material, labor, and overhead variance analysis" },
+              { id: "p4_ch14", title: "Ch 14: Marginal Costing", sub: "CVP analysis, BEP, MOS, key factor, decision making" },
+              { id: "p4_ch15", title: "Ch 15: Budget and Budgetary Control", sub: "Flexible budgets, cash budgets & functional budgets" }
+            ]
+          }
+        ]
+      },
+      {
+        id: "p5",
+        code: "Paper 5",
+        title: "Auditing and Ethics",
+        group: "g2",
+        badge: "100 Marks",
+        sections: [
+          {
+            sectionTitle: "Auditing Standards & Engagement Framework",
+            items: [
+              { id: "p5_ch1", title: "Ch 1: Nature, Objective and Scope of Audit", sub: "SA 200, inherent limitations, ethical principles, SQC 1/SA 220" },
+              { id: "p5_ch2", title: "Ch 2: Audit Strategy, Planning and Programme", sub: "SA 300, overall strategy, planning considerations, audit file" },
+              { id: "p5_ch3", title: "Ch 3: Risk Assessment and Internal Control", sub: "SA 315, internal control evaluation, IT environment risks, IFC" },
+              { id: "p5_ch4", title: "Ch 4: Audit Evidence", sub: "SA 500, SA 501, SA 505 (Confirmations), SA 520 (Analytical), SA 530 (Sampling)" },
+              { id: "p5_ch5", title: "Ch 5: Audit of Items of Financial Statements", sub: "Substantive testing: Share capital, borrowings, PPE, inventory, sales, expenses" },
+              { id: "p5_ch6", title: "Ch 6: Audit Documentation", sub: "SA 230 (Audit files, working papers, assembly & retention)" },
+              { id: "p5_ch7", title: "Ch 7: Completion and Review", sub: "SA 560 (Subsequent Events), SA 570 (Going Concern), SA 580 (Written Reps)" },
+              { id: "p5_ch8", title: "Ch 8: Audit Report", sub: "SA 700, 705 (Modified Opinions), 706 (EOM/OM), CARO 2020 clauses" },
+              { id: "p5_ch9", title: "Ch 9: Special Features of Audit of Different Entities", sub: "Audit of government entities, NGOs, educational institutions, hotels" },
+              { id: "p5_ch10", title: "Ch 10: Audit of Banks", sub: "NPA classification, income recognition norms, LFAR" },
+              { id: "p5_ch11", title: "Ch 11: Ethics and Terms of Audit Engagements", sub: "SA 210 (Engagement letter), independence threats & ICAI code of ethics" }
+            ]
+          }
+        ]
+      },
+      {
+        id: "p6",
+        code: "Paper 6",
+        title: "Financial Management and Strategic Management",
+        group: "g2",
+        badge: "100 Marks (50 + 50)",
+        sections: [
+          {
+            sectionTitle: "Section A: Financial Management (50 Marks)",
+            items: [
+              { id: "p6_fm_ch1", title: "Ch 1: Scope and Objectives of Financial Management", sub: "Financial decisions, profit vs wealth maximization, agency problem" },
+              { id: "p6_fm_ch2", title: "Ch 2: Types of Financing", sub: "Long-term, medium-term, venture capital, bridge finance" },
+              { id: "p6_fm_ch3", title: "Ch 3: Financial Analysis and Planning - Ratio Analysis", sub: "Liquidity, leverage, turnover, profitability & DuPont analysis" },
+              { id: "p6_fm_ch4", title: "Ch 4: Cost of Capital", sub: "Ke (CAPM/dividend model), Kd, Kp, Kr, and WACC computation" },
+              { id: "p6_fm_ch5", title: "Ch 5: Financing Decisions - Capital Structure", sub: "EBIT-EPS analysis, Net Income, Net Operating Income, MM, Trade-off theory" },
+              { id: "p6_fm_ch6", title: "Ch 6: Financing Decisions - Leverages", sub: "Degree of Operating (DOL), Financial (DFL) & Combined (DCL) leverage" },
+              { id: "p6_fm_ch7", title: "Ch 7: Investment Decisions (Capital Budgeting)", sub: "NPV, IRR, MIRR, Payback, ARR, PI & replacement decisions" },
+              { id: "p6_fm_ch8", title: "Ch 8: Dividend Decisions", sub: "Walter's model, Gordon's model, Modigliani-Miller (MM) hypothesis" },
+              { id: "p6_fm_ch9", title: "Ch 9: Management of Working Capital", sub: "Operating cycle estimation, cash/receivables/inventory management models" }
+            ]
+          },
+          {
+            sectionTitle: "Section B: Strategic Management (50 Marks)",
+            items: [
+              { id: "p6_sm_ch1", title: "Ch 1: Introduction to Strategic Management", sub: "Strategic intent, vision, mission, strategic management process" },
+              { id: "p6_sm_ch2", title: "Ch 2: Strategic Analysis - External Environment", sub: "PESTLE analysis, Porter's five forces model, strategic group mapping" },
+              { id: "p6_sm_ch3", title: "Ch 3: Strategic Analysis - Internal Environment", sub: "VRIO framework, Value Chain analysis, SWOT/TOWS matrix, core competence" },
+              { id: "p6_sm_ch4", title: "Ch 4: Strategic Choices", sub: "Porter's generic strategies, growth/diversification, Ansoff matrix, BCG/ADL" },
+              { id: "p6_sm_ch5", title: "Ch 5: Strategy Implementation and Evaluation", sub: "Organizational structure, strategic leadership, strategic control" }
+            ]
+          }
+        ]
+      }
+    ];
+
+    /* ==========================================================================
+       2. STATE MANAGEMENT & STORAGE INITIALIZATION
+       ========================================================================== */
+    const STORAGE_KEY = 'ca_inter_tracker_data_v1';
+    const SETTINGS_KEY = 'ca_inter_tracker_settings_v1';
+
+    let userState = {};
+    let appSettings = {
+      examDate: '2026-11-03',
+      theme: 'dark',
+      pomoCount: 0,
+      spotifyEmbedUri: 'playlist/37i9dQZF1DX8Uebhn9wzrS',
+      ambientTheme: 'rainy',
+      timerDurationMinutes: 180
+    };
+
+    function loadState() {
+      try {
+        const savedData = localStorage.getItem(STORAGE_KEY);
+        if (savedData) {
+          userState = JSON.parse(savedData);
+        } else {
+          userState = {};
+        }
+
+        const savedSettings = localStorage.getItem(SETTINGS_KEY);
+        if (savedSettings) {
+          appSettings = { ...appSettings, ...JSON.parse(savedSettings) };
+        }
+      } catch (e) {
+        console.error("Failed to load local storage", e);
+        userState = {};
+      }
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(userState));
+        localStorage.setItem(SETTINGS_KEY, JSON.stringify(appSettings));
+      } catch (e) {
+        console.error("Failed to persist data", e);
+      }
+      updateAnalytics();
+    }
+
+    function getItemState(id) {
+      if (!userState[id]) {
+        userState[id] = {
+          lecture: false,
+          sm: false,
+          r1: false,
+          r2: false,
+          r3: false,
+          priority: 'Unset',
+          note: ''
+        };
+      }
+      return userState[id];
+    }
+
+    /* ==========================================================================
+       3. AMBIENT BACKGROUNDS & DEEP WORK TIMER ENGINE
+       ========================================================================== */
+    const AMBIENT_WALLPAPERS = {
+      rainy: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1200&q=80",
+      lofi: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&w=1200&q=80",
+      library: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1200&q=80",
+      kyoto: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=80"
+    };
+
+    let totalDurationSeconds = 180 * 60; // Default 3 hours
+    let timeLeft = totalDurationSeconds;
+    let timerInterval = null;
+    let isRunning = false;
+
+    function applyAmbientBackground(themeKey) {
+      const container = document.getElementById('pomo-card-container');
+      const url = AMBIENT_WALLPAPERS[themeKey] || AMBIENT_WALLPAPERS.rainy;
+      container.style.backgroundImage = `url('${url}')`;
+      appSettings.ambientTheme = themeKey;
+      saveState();
+    }
+
+    function playChime() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        const ctx = new AudioContext();
+
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(520, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 1.2);
+
+        gain.gain.setValueAtTime(0.35, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.6);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start();
+        osc.stop(ctx.currentTime + 1.6);
+      } catch (e) {
+        console.log("Audio play prevented", e);
+      }
+    }
+
+    function formatTime(totalSecs) {
+      const hours = Math.floor(totalSecs / 3600);
+      const minutes = Math.floor((totalSecs % 3600) / 60);
+      const seconds = totalSecs % 60;
+
+      if (hours > 0) {
+        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      } else {
+        return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      }
+    }
+
+    function updateTimerDisplay() {
+      const formatted = formatTime(timeLeft);
+      document.getElementById('timer-display').textContent = formatted;
+      document.getElementById('mobile-mini-timer').textContent = formatted;
+
+      const progress = totalDurationSeconds > 0 ? ((totalDurationSeconds - timeLeft) / totalDurationSeconds) * 100 : 0;
+      document.getElementById('timer-bar').style.width = `${progress}%`;
+    }
+
+    function setSessionDuration(minutes, label) {
+      pauseTimer();
+      totalDurationSeconds = minutes * 60;
+      timeLeft = totalDurationSeconds;
+      appSettings.timerDurationMinutes = minutes;
+      saveState();
+
+      if (label) {
+        document.getElementById('current-mode-label').textContent = label;
+      }
+      updateTimerDisplay();
+    }
+
+    function startTimer() {
+      if (isRunning) return;
+      isRunning = true;
+      document.getElementById('start-btn-label').textContent = "Pause Session";
+      document.getElementById('timer-live-dot').classList.add('animate-ping');
+      
+      // Dynamic ambient mood: deepen backdrop slightly while running
+      document.getElementById('ambient-overlay').classList.replace('bg-slate-900/60', 'bg-slate-900/75');
+
+      timerInterval = setInterval(() => {
+        if (timeLeft > 0) {
+          timeLeft--;
+          updateTimerDisplay();
+        } else {
+          clearInterval(timerInterval);
+          isRunning = false;
+          document.getElementById('start-btn-label').textContent = "Start Focus Session";
+          document.getElementById('timer-live-dot').classList.remove('animate-ping');
+          document.getElementById('ambient-overlay').classList.replace('bg-slate-900/75', 'bg-slate-900/60');
+          playChime();
+
+          appSettings.pomoCount = (appSettings.pomoCount || 0) + 1;
+          saveState();
+          document.getElementById('completed-pomo-count').textContent = appSettings.pomoCount;
+          showToast("Study block completed! Outstanding work. Take a break.");
+        }
+      }, 1000);
+    }
+
+    function pauseTimer() {
+      clearInterval(timerInterval);
+      isRunning = false;
+      document.getElementById('start-btn-label').textContent = "Resume Session";
+      document.getElementById('timer-live-dot').classList.remove('animate-ping');
+      document.getElementById('ambient-overlay').classList.replace('bg-slate-900/75', 'bg-slate-900/60');
+    }
+
+    function resetTimer() {
+      pauseTimer();
+      timeLeft = totalDurationSeconds;
+      document.getElementById('start-btn-label').textContent = "Start Focus Session";
+      updateTimerDisplay();
+    }
+
+    /* ==========================================================================
+       4. SPOTIFY INTEGRATION LOGIC
+       ========================================================================== */
+    function loadSpotifyUri(uriPart) {
+      const cleanUri = uriPart.replace(/^https:\/\/open\.spotify\.com\//, '').replace(/^\/+/, '');
+      const iframe = document.getElementById('spotify-iframe');
+      iframe.src = `https://open.spotify.com/embed/${cleanUri}?utm_source=generator&theme=0`;
+      appSettings.spotifyEmbedUri = cleanUri;
+      saveState();
+    }
+
+    /* ==========================================================================
+       5. TRACKER RENDERING ENGINE
+       ========================================================================== */
+    let activeGroupFilter = 'all';
+    let searchQuery = '';
+    let priorityFilter = 'all';
+
+    function renderTracker() {
+      const container = document.getElementById('papers-container');
+      container.innerHTML = '';
+
+      let totalVisiblePapers = 0;
+
+      SYLLABUS_DATA.forEach(paper => {
+        if (activeGroupFilter !== 'all' && paper.group !== activeGroupFilter) {
+          return;
+        }
+
+        const filteredSections = [];
+
+        paper.sections.forEach(section => {
+          const matchingItems = section.items.filter(item => {
+            const state = getItemState(item.id);
+
+            const matchesSearch = searchQuery === '' || 
+              item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              item.sub.toLowerCase().includes(searchQuery.toLowerCase());
+
+            const matchesPriority = priorityFilter === 'all' || state.priority === priorityFilter;
+
+            return matchesSearch && matchesPriority;
+          });
+
+          if (matchingItems.length > 0) {
+            filteredSections.push({
+              sectionTitle: section.sectionTitle,
+              items: matchingItems
+            });
+          }
+        });
+
+        if (filteredSections.length === 0) return;
+        totalVisiblePapers++;
+
+        let paperTotalTasks = 0;
+        let paperDoneTasks = 0;
+        paper.sections.forEach(sec => {
+          sec.items.forEach(it => {
+            const st = getItemState(it.id);
+            paperTotalTasks += 5;
+            if (st.lecture) paperDoneTasks++;
+            if (st.sm) paperDoneTasks++;
+            if (st.r1) paperDoneTasks++;
+            if (st.r2) paperDoneTasks++;
+            if (st.r3) paperDoneTasks++;
+          });
+        });
+        const paperPct = paperTotalTasks > 0 ? Math.round((paperDoneTasks / paperTotalTasks) * 100) : 0;
+
+        const paperCard = document.createElement('div');
+        paperCard.className = "bg-white dark:bg-slate-900/90 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden transition-all duration-200";
+        paperCard.id = `paper-card-${paper.id}`;
+
+        paperCard.innerHTML = `
+          <div class="paper-header cursor-pointer px-4 sm:px-6 py-4 flex items-center justify-between bg-slate-50/70 dark:bg-slate-800/40 hover:bg-slate-100/70 dark:hover:bg-slate-800/60 transition select-none" data-target="content-${paper.id}">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 font-bold text-xs flex items-center justify-center border border-brand-500/20">
+                ${paper.code.replace('Paper ', 'P')}
+              </span>
+              <div>
+                <div class="flex items-center gap-2">
+                  <h2 class="font-display font-bold text-base sm:text-lg text-slate-900 dark:text-white">
+                    ${paper.code}: ${paper.title}
+                  </h2>
+                  <span class="hidden sm:inline-block text-[11px] font-semibold text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">
+                    ${paper.badge}
+                  </span>
+                </div>
+                <div class="text-xs text-slate-400 font-medium">
+                  ${filteredSections.reduce((acc, s) => acc + s.items.length, 0)} Topics Listed
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3 sm:gap-4">
+              <div class="text-right">
+                <span class="text-xs sm:text-sm font-bold font-display text-slate-800 dark:text-slate-200">${paperPct}%</span>
+                <div class="w-16 sm:w-24 bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full mt-1 overflow-hidden">
+                  <div class="bg-brand-500 h-full rounded-full transition-all duration-300" style="width: ${paperPct}%"></div>
+                </div>
+              </div>
+              <div class="text-slate-400 transition-transform duration-200 chevron-icon">
+                <i data-lucide="chevron-down" class="w-5 h-5"></i>
+              </div>
+            </div>
+          </div>
+
+          <div id="content-${paper.id}" class="divide-y divide-slate-100 dark:divide-slate-800/60">
+            ${filteredSections.map(sec => `
+              <div class="p-3 sm:p-5">
+                <h3 class="text-xs uppercase font-bold tracking-wider text-brand-600 dark:text-brand-400/90 mb-3 flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-brand-500"></span>
+                  ${sec.sectionTitle}
+                </h3>
+                
+                <div class="space-y-2">
+                  ${sec.items.map(item => renderRowItem(item)).join('')}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+
+        container.appendChild(paperCard);
+      });
+
+      if (totalVisiblePapers === 0) {
+        container.innerHTML = `
+          <div class="bg-white dark:bg-slate-900 rounded-2xl p-12 text-center border border-slate-200 dark:border-slate-800">
+            <div class="w-12 h-12 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto text-slate-400">
+              <i data-lucide="search-x" class="w-6 h-6"></i>
+            </div>
+            <h4 class="mt-3 font-semibold text-slate-800 dark:text-white">No topics match your filters</h4>
+            <p class="text-xs text-slate-400 mt-1">Try resetting the search keyword or priority filter.</p>
+          </div>
+        `;
+      }
+
+      lucide.createIcons();
+      attachRowEventListeners();
+      attachAccordionListeners();
+    }
+
+    function renderRowItem(item) {
+      const st = getItemState(item.id);
+      
+      const priorityColors = {
+        'High': 'bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-400 border-rose-200 dark:border-rose-900/60',
+        'Medium': 'bg-amber-100 text-amber-700 dark:bg-amber-950/60 dark:text-amber-400 border-amber-200 dark:border-amber-900/60',
+        'Low': 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400 border-emerald-200 dark:border-emerald-900/60',
+        'Unset': 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400 border-slate-200 dark:border-slate-700'
+      };
+
+      const hasNote = st.note && st.note.trim().length > 0;
+
+      return `
+        <div class="item-row p-3 rounded-xl border border-slate-100 dark:border-slate-800/80 bg-slate-50/40 dark:bg-slate-900/40 hover:bg-white dark:hover:bg-slate-800/40 transition flex flex-col md:flex-row md:items-center justify-between gap-3" data-id="${item.id}">
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2">
+              <span class="font-medium text-xs sm:text-sm text-slate-900 dark:text-white truncate">
+                ${item.title}
+              </span>
+              <button class="priority-badge text-[10px] font-semibold px-2 py-0.5 rounded-full border transition cursor-pointer select-none ${priorityColors[st.priority] || priorityColors.Unset}" data-id="${item.id}" title="Click to cycle priority (High / Med / Low)">
+                ${st.priority === 'Unset' ? 'Priority' : st.priority}
+              </button>
+            </div>
+            <div class="text-[11px] text-slate-400 truncate mt-0.5">
+              ${item.sub}
+            </div>
+          </div>
+
+          <div class="flex items-center flex-wrap gap-2.5 sm:gap-3.5 text-xs">
+            <label class="flex items-center gap-1.5 cursor-pointer select-none text-slate-600 dark:text-slate-300">
+              <input type="checkbox" class="custom-checkbox task-check" data-id="${item.id}" data-task="lecture" ${st.lecture ? 'checked' : ''}>
+              <span class="text-[11px] font-medium">Lectures</span>
+            </label>
+
+            <label class="flex items-center gap-1.5 cursor-pointer select-none text-slate-600 dark:text-slate-300">
+              <input type="checkbox" class="custom-checkbox task-check" data-id="${item.id}" data-task="sm" ${st.sm ? 'checked' : ''}>
+              <span class="text-[11px] font-medium">ICAI SM</span>
+            </label>
+
+            <div class="flex items-center gap-1 bg-white dark:bg-slate-800 px-2 py-1 rounded-lg border border-slate-200/80 dark:border-slate-700/60">
+              <label class="flex items-center gap-1 cursor-pointer select-none" title="Revision 1">
+                <input type="checkbox" class="custom-checkbox task-check" data-id="${item.id}" data-task="r1" ${st.r1 ? 'checked' : ''}>
+                <span class="text-[10px] font-bold text-slate-500">R1</span>
+              </label>
+              <label class="flex items-center gap-1 cursor-pointer select-none" title="Revision 2">
+                <input type="checkbox" class="custom-checkbox task-check" data-id="${item.id}" data-task="r2" ${st.r2 ? 'checked' : ''}>
+                <span class="text-[10px] font-bold text-slate-500">R2</span>
+              </label>
+              <label class="flex items-center gap-1 cursor-pointer select-none" title="Revision 3">
+                <input type="checkbox" class="custom-checkbox task-check" data-id="${item.id}" data-task="r3" ${st.r3 ? 'checked' : ''}>
+                <span class="text-[10px] font-bold text-slate-500">R3</span>
+              </label>
+            </div>
+
+            <button class="open-note-btn p-1.5 rounded-lg border border-slate-200 dark:border-slate-700/80 text-slate-400 hover:text-brand-500 hover:border-brand-500 transition relative" data-id="${item.id}" data-title="${item.title}" title="Add Notes / Doubts">
+              <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+              ${hasNote ? '<span class="absolute -top-1 -right-1 w-2 h-2 bg-brand-500 rounded-full"></span>' : ''}
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function attachAccordionListeners() {
+      document.querySelectorAll('.paper-header').forEach(header => {
+        header.addEventListener('click', () => {
+          const targetId = header.getAttribute('data-target');
+          const content = document.getElementById(targetId);
+          const chevron = header.querySelector('.chevron-icon');
+
+          if (content.classList.contains('hidden')) {
+            content.classList.remove('hidden');
+            chevron.classList.remove('rotate-180');
+          } else {
+            content.classList.add('hidden');
+            chevron.classList.add('rotate-180');
+          }
+        });
+      });
+    }
+
+    function attachRowEventListeners() {
+      document.querySelectorAll('.task-check').forEach(chk => {
+        chk.addEventListener('change', (e) => {
+          const id = e.target.getAttribute('data-id');
+          const task = e.target.getAttribute('data-task');
+          const st = getItemState(id);
+          st[task] = e.target.checked;
+          saveState();
+        });
+      });
+
+      document.querySelectorAll('.priority-badge').forEach(badge => {
+        badge.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const id = badge.getAttribute('data-id');
+          const st = getItemState(id);
+          const cycle = ['Unset', 'High', 'Medium', 'Low'];
+          const nextIdx = (cycle.indexOf(st.priority) + 1) % cycle.length;
+          st.priority = cycle[nextIdx];
+          saveState();
+          renderTracker();
+        });
+      });
+
+      document.querySelectorAll('.open-note-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const id = btn.getAttribute('data-id');
+          const title = btn.getAttribute('data-title');
+          openNoteModal(id, title);
+        });
+      });
+    }
+
+    /* ==========================================================================
+       6. NOTE DRAWER MODAL LOGIC
+       ========================================================================== */
+    let currentModalItemId = null;
+    const modal = document.getElementById('note-modal');
+    const modalTitle = document.getElementById('modal-chapter-title');
+    const modalText = document.getElementById('modal-note-text');
+
+    function openNoteModal(id, title) {
+      currentModalItemId = id;
+      const st = getItemState(id);
+      modalTitle.textContent = title;
+      modalText.value = st.note || '';
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      modalText.focus();
+    }
+
+    function closeNoteModal() {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      currentModalItemId = null;
+    }
+
+    document.getElementById('close-modal-btn').addEventListener('click', closeNoteModal);
+    document.getElementById('save-note-btn').addEventListener('click', () => {
+      if (currentModalItemId) {
+        const st = getItemState(currentModalItemId);
+        st.note = modalText.value;
+        saveState();
+        renderTracker();
+        showToast("Note saved successfully!");
+      }
+      closeNoteModal();
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeNoteModal();
+    });
+
+    /* ==========================================================================
+       7. ANALYTICS & STATS ENGINE
+       ========================================================================== */
+    function updateAnalytics() {
+      let totalItems = 0;
+      let totalTasks = 0;
+      let doneTasks = 0;
+
+      let lecturesTotal = 0;
+      let lecturesDone = 0;
+
+      let smTotal = 0;
+      let smDone = 0;
+
+      let revTotal = 0;
+      let revDone = 0;
+
+      SYLLABUS_DATA.forEach(paper => {
+        paper.sections.forEach(section => {
+          section.items.forEach(item => {
+            totalItems++;
+            totalTasks += 5;
+
+            const st = getItemState(item.id);
+
+            lecturesTotal++;
+            if (st.lecture) lecturesDone++;
+
+            smTotal++;
+            if (st.sm) smDone++;
+
+            revTotal += 3;
+            if (st.r1) revDone++;
+            if (st.r2) revDone++;
+            if (st.r3) revDone++;
+
+            if (st.lecture) doneTasks++;
+            if (st.sm) doneTasks++;
+            if (st.r1) doneTasks++;
+            if (st.r2) doneTasks++;
+            if (st.r3) doneTasks++;
+          });
+        });
+      });
+
+      const overallPct = totalTasks > 0 ? Math.round((doneTasks / totalTasks) * 100) : 0;
+      const lecPct = lecturesTotal > 0 ? Math.round((lecturesDone / lecturesTotal) * 100) : 0;
+      const smPct = smTotal > 0 ? Math.round((smDone / smTotal) * 100) : 0;
+      const revPct = revTotal > 0 ? Math.round((revDone / revTotal) * 100) : 0;
+
+      document.getElementById('overall-percentage').textContent = `${overallPct}%`;
+      document.getElementById('overall-bar').style.width = `${overallPct}%`;
+      document.getElementById('overall-tasks-count').textContent = `${doneTasks} of ${totalTasks} steps completed`;
+      document.getElementById('total-chapters-count').textContent = `${totalItems} Total Topics`;
+
+      document.getElementById('lectures-stat-pct').textContent = `${lecPct}%`;
+      document.getElementById('lectures-stat-ratio').textContent = `${lecturesDone}/${lecturesTotal}`;
+      document.getElementById('lectures-bar').style.width = `${lecPct}%`;
+
+      document.getElementById('sm-stat-pct').textContent = `${smPct}%`;
+      document.getElementById('sm-stat-ratio').textContent = `${smDone}/${smTotal}`;
+      document.getElementById('sm-bar').style.width = `${smPct}%`;
+
+      document.getElementById('rev-stat-pct').textContent = `${revPct}%`;
+      document.getElementById('rev-stat-ratio').textContent = `${revDone} total`;
+      document.getElementById('rev-bar').style.width = `${revPct}%`;
+
+      document.getElementById('mobile-progress-badge').textContent = `${overallPct}%`;
+      document.getElementById('mobile-progress-details').textContent = `${doneTasks} / ${totalTasks} tasks done`;
+    }
+
+    /* ==========================================================================
+       8. COUNTDOWN, BACKUPS & THEME
+       ========================================================================== */
+    function updateCountdown() {
+      const targetDate = new Date(appSettings.examDate);
+      const today = new Date();
+      const diffTime = targetDate - today;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      const display = document.getElementById('countdown-display');
+      if (diffDays > 0) {
+        display.textContent = `${diffDays} Days Left`;
+      } else if (diffDays === 0) {
+        display.textContent = `Exam Today!`;
+      } else {
+        display.textContent = `Attempt Finished`;
+      }
+    }
+
+    document.getElementById('edit-exam-date-btn').addEventListener('click', () => {
+      const newDate = prompt("Enter target exam date (YYYY-MM-DD):", appSettings.examDate);
+      if (newDate && !isNaN(new Date(newDate).getTime())) {
+        appSettings.examDate = newDate;
+        saveState();
+        updateCountdown();
+        showToast("Target date updated!");
+      }
+    });
+
+    document.getElementById('export-btn').addEventListener('click', () => {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({
+        state: userState,
+        settings: appSettings,
+        exportedAt: new Date().toISOString()
+      }, null, 2));
+      const dlAnchor = document.createElement('a');
+      dlAnchor.setAttribute("href", dataStr);
+      dlAnchor.setAttribute("download", `CA_Intermediate_Tracker_${new Date().toISOString().slice(0,10)}.json`);
+      document.body.appendChild(dlAnchor);
+      dlAnchor.click();
+      dlAnchor.remove();
+      showToast("Data exported successfully!");
+    });
+
+    document.getElementById('import-input').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          const parsed = JSON.parse(event.target.result);
+          if (parsed.state) {
+            userState = parsed.state;
+            if (parsed.settings) appSettings = parsed.settings;
+            saveState();
+            renderTracker();
+            updateCountdown();
+            if (appSettings.spotifyEmbedUri) loadSpotifyUri(appSettings.spotifyEmbedUri);
+            document.getElementById('completed-pomo-count').textContent = appSettings.pomoCount || 0;
+            showToast("Backup imported successfully!");
+          } else {
+            showToast("Invalid JSON file structure.");
+          }
+        } catch (err) {
+          showToast("Failed to parse JSON file.");
+        }
+      };
+      reader.readAsText(file);
+    });
+
+    document.getElementById('reset-all-btn').addEventListener('click', () => {
+      if (window.confirm("Are you sure you want to reset all checklist marks and notes? This action cannot be undone.")) {
+        userState = {};
+        appSettings.pomoCount = 0;
+        saveState();
+        renderTracker();
+        document.getElementById('completed-pomo-count').textContent = 0;
+        showToast("Progress has been reset.");
+      }
+    });
+
+    function applyTheme() {
+      if (appSettings.theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    }
+
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      appSettings.theme = appSettings.theme === 'dark' ? 'light' : 'dark';
+      applyTheme();
+      saveState();
+    });
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-message');
+      toastMsg.textContent = message;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 2500);
+    }
+
+    /* ==========================================================================
+       9. EVENT BINDINGS FOR POMODORO, MUSIC & FILTERS
+       ========================================================================== */
+    // Focus Studio toggle
+    const studioSection = document.getElementById('focus-studio-section');
+    document.getElementById('toggle-focus-suite-btn').addEventListener('click', () => {
+      studioSection.classList.toggle('hidden');
+    });
+
+    // Ambient wallpaper selector
+    const ambientSelect = document.getElementById('ambient-theme-select');
+    ambientSelect.addEventListener('change', (e) => {
+      applyAmbientBackground(e.target.value);
+    });
+
+    // Pomodoro controls
+    document.getElementById('pomo-start-pause').addEventListener('click', () => {
+      if (isRunning) {
+        pauseTimer();
+      } else {
+        startTimer();
+      }
+    });
+
+    document.getElementById('pomo-reset').addEventListener('click', resetTimer);
+
+    // Extended session preset buttons
+    document.querySelectorAll('.pomo-mode-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.pomo-mode-btn').forEach(b => {
+          b.classList.remove('bg-brand-500', 'font-semibold', 'shadow-md');
+          b.classList.add('bg-white/20');
+        });
+        btn.classList.add('bg-brand-500', 'font-semibold', 'shadow-md');
+        btn.classList.remove('bg-white/20');
+
+        const durationMinutes = parseFloat(btn.getAttribute('data-duration'));
+        const label = btn.getAttribute('data-label');
+        setSessionDuration(durationMinutes, label);
+      });
+    });
+
+    // Custom Hours Button
+    document.getElementById('apply-custom-hours').addEventListener('click', () => {
+      const input = document.getElementById('custom-hours-input');
+      const val = parseFloat(input.value);
+      if (val && val > 0 && val <= 16) {
+        const mins = Math.round(val * 60);
+        setSessionDuration(mins, `${val} Hours Custom Session`);
+        showToast(`Timer set to ${val} hours.`);
+      } else {
+        showToast("Please enter valid hours (e.g., 3.5)");
+      }
+    });
+
+    document.getElementById('test-chime').addEventListener('click', () => {
+      playChime();
+      showToast("Bell chime tested.");
+    });
+
+    // Spotify quick presets
+    document.querySelectorAll('.spotify-preset').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const uri = btn.getAttribute('data-spotify-uri');
+        loadSpotifyUri(uri);
+        showToast("Playlist loaded!");
+      });
+    });
+
+    // Custom Spotify link loader
+    document.getElementById('apply-custom-spotify').addEventListener('click', () => {
+      const input = document.getElementById('custom-spotify-url').value.trim();
+      if (!input) return;
+
+      let clean = input;
+      if (clean.includes('open.spotify.com/')) {
+        clean = clean.split('open.spotify.com/')[1].split('?')[0];
+      }
+      loadSpotifyUri(clean);
+      showToast("Custom audio source loaded!");
+    });
+
+    // Filter by group tabs
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.filter-tab').forEach(t => {
+          t.classList.remove('bg-brand-500', 'text-white', 'font-semibold', 'shadow-sm');
+          t.classList.add('bg-white', 'dark:bg-slate-900', 'text-slate-600', 'dark:text-slate-300');
+        });
+        tab.classList.add('bg-brand-500', 'text-white', 'font-semibold', 'shadow-sm');
+        tab.classList.remove('bg-white', 'dark:bg-slate-900', 'text-slate-600', 'dark:text-slate-300');
+
+        activeGroupFilter = tab.getAttribute('data-group');
+        renderTracker();
+      });
+    });
+
+    document.getElementById('search-input').addEventListener('input', (e) => {
+      searchQuery = e.target.value.trim();
+      renderTracker();
+    });
+
+    document.getElementById('confidence-filter').addEventListener('change', (e) => {
+      priorityFilter = e.target.value;
+      renderTracker();
+    });
+
+    let allExpanded = true;
+    document.getElementById('toggle-expand-all').addEventListener('click', () => {
+      allExpanded = !allExpanded;
+      document.querySelectorAll('[id^="content-p"]').forEach(content => {
+        if (allExpanded) {
+          content.classList.remove('hidden');
+        } else {
+          content.classList.add('hidden');
+        }
+      });
+      document.querySelectorAll('.chevron-icon').forEach(icon => {
+        if (allExpanded) {
+          icon.classList.remove('rotate-180');
+        } else {
+          icon.classList.add('rotate-180');
+        }
+      });
+    });
+
+    /* ==========================================================================
+       10. APPLICATION INITIALIZATION
+       ========================================================================== */
+    window.addEventListener('DOMContentLoaded', () => {
+      loadState();
+      applyTheme();
+      renderTracker();
+      updateAnalytics();
+      updateCountdown();
+
+      // Initialize Ambient Theme & Session
+      if (appSettings.ambientTheme) {
+        applyAmbientBackground(appSettings.ambientTheme);
+        ambientSelect.value = appSettings.ambientTheme;
+      }
+      if (appSettings.timerDurationMinutes) {
+        totalDurationSeconds = appSettings.timerDurationMinutes * 60;
+        timeLeft = totalDurationSeconds;
+      }
+      updateTimerDisplay();
+
+      document.getElementById('completed-pomo-count').textContent = appSettings.pomoCount || 0;
+      if (appSettings.spotifyEmbedUri) {
+        loadSpotifyUri(appSettings.spotifyEmbedUri);
+      }
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
