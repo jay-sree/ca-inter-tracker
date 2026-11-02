@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CA Intermediate Exam Tracker & Study Studio</title>
+  <title>CA Intermediate Exam Tracker & Pastel Studio</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Lucide Icons -->
+  <!-- Lucide Icons CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <script>
     tailwind.config = {
@@ -22,50 +22,51 @@
             display: ['Outfit', 'sans-serif'],
           },
           colors: {
-            // Pastel aesthetic palette
+            // Calm, soft pastel color palette
             cream: {
-              50: '#fdfbf7',
-              100: '#faf6ee',
-              200: '#f3ece0',
-              300: '#ebd9c6',
+              50: '#FAF8F5',
+              100: '#F5EFE6',
+              200: '#EFE7DA',
+              300: '#E4D5BF',
             },
             matcha: {
-              50: '#f3f7f0',
-              100: '#e4eedd',
-              200: '#c8ddba',
-              400: '#8ebc79',
-              600: '#5e8e4a',
-              700: '#486e37'
+              50: '#F2F7F2',
+              100: '#E3EDE3',
+              200: '#C7DBC7',
+              400: '#8FB88F',
+              600: '#5A855A',
+              700: '#436B43'
+            },
+            blush: {
+              50: '#FCF5F5',
+              100: '#F9EBEA',
+              200: '#F3D5D7',
+              400: '#E49B9F',
+              500: '#D9777D',
+              600: '#C2575E'
             },
             peach: {
-              50: '#fff6f2',
-              100: '#ffede5',
-              200: '#ffd7c7',
-              400: '#fba586',
-              500: '#f37f59',
-              600: '#dd5b33'
+              50: '#FFF7F2',
+              100: '#FDECE0',
+              200: '#FBDAC5',
+              400: '#F5A97D',
+              500: '#EB844F',
+              600: '#D4632B'
             },
             lavender: {
-              50: '#f7f6fd',
-              100: '#edeafd',
-              200: '#dad5fa',
-              400: '#ab9ff4',
-              600: '#7d6ce3'
+              50: '#F8F6FC',
+              100: '#EFEBF7',
+              200: '#DDD5F0',
+              400: '#AF9EE0',
+              600: '#7E66C4'
             },
-            skysoft: {
-              50: '#f1f8fc',
-              100: '#e1f0f8',
-              200: '#bfe1f1',
-              400: '#75bfe0',
-              600: '#3e95bf'
-            },
-            amberwarm: {
-              50: '#fdf9f1',
-              100: '#fbf1de',
-              200: '#f6e1ba',
-              400: '#e5b865',
-              500: '#cf9c3b',
-              600: '#af7b24'
+            honey: {
+              50: '#FAF7EE',
+              100: '#F4EED8',
+              200: '#EBDDB5',
+              400: '#D4B86A',
+              500: '#BA9A43',
+              600: '#9B7C2A'
             }
           }
         }
@@ -73,30 +74,30 @@
     }
   </script>
   <style>
-    /* Custom light pastel scrollbars */
+    /* Aesthetic smooth scrollbars */
     ::-webkit-scrollbar {
       width: 7px;
       height: 7px;
     }
     ::-webkit-scrollbar-track {
-      background: #faf6ee;
+      background: #FAF8F5;
     }
     ::-webkit-scrollbar-thumb {
-      background: #ebd9c6;
+      background: #E4D5BF;
       border-radius: 9999px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: #d8c3ad;
+      background: #D4C1A5;
     }
 
-    /* Soft pastel checkboxes */
+    /* Soft pastel custom checklist inputs */
     .custom-checkbox {
       appearance: none;
       -webkit-appearance: none;
       width: 1.15rem;
       height: 1.15rem;
-      border: 1.5px solid #dcd3c5;
-      background-color: #ffffff;
+      border: 1.5px solid #D8CFC2;
+      background-color: #FFFFFF;
       border-radius: 0.45rem;
       outline: none;
       transition: all 0.15s ease-in-out;
@@ -105,46 +106,36 @@
       place-content: center;
     }
     .custom-checkbox:hover {
-      border-color: #8ebc79;
-      background-color: #f3f7f0;
+      border-color: #8FB88F;
+      background-color: #F2F7F2;
     }
     .custom-checkbox:checked {
-      background-color: #5e8e4a;
-      border-color: #5e8e4a;
+      background-color: #5A855A;
+      border-color: #5A855A;
     }
     .custom-checkbox:checked::before {
       content: "";
       width: 0.65rem;
       height: 0.38rem;
-      border-left: 2px solid #ffffff;
-      border-bottom: 2px solid #ffffff;
+      border-left: 2px solid #FFFFFF;
+      border-bottom: 2px solid #FFFFFF;
       transform: rotate(-45deg) translate(1px, -1px);
     }
 
     .ambient-bg {
       background-size: cover;
       background-position: center;
-      transition: background-image 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .frosted-glass {
-      background: rgba(255, 255, 255, 0.72);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-    .frosted-dark {
-      background: rgba(18, 22, 28, 0.72);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      transition: background-image 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
   </style>
 </head>
-<body class="bg-[#faf8f5] text-stone-700 min-h-screen font-sans transition-colors duration-200 selection:bg-peach-100 selection:text-peach-600">
+<body class="bg-[#FAF7F2] text-stone-700 min-h-screen font-sans transition-colors duration-200 selection:bg-blush-100 selection:text-blush-600">
 
   <!-- Main Container -->
   <div class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 py-5 pb-28 sm:pb-16">
 
     <!-- Header: Soft Pastel Branding & Countdown -->
-    <header class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#ece4d6]">
+    <header class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#EFE7DA]">
       <div>
         <div class="flex items-center gap-2">
           <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wider bg-matcha-100 text-matcha-700 border border-matcha-200">
@@ -156,15 +147,15 @@
           CA Intermediate Tracker & Pastel Studio
         </h1>
         <p class="text-xs sm:text-sm text-stone-500 mt-0.5">
-          Long-session Pomodoro (hourly 5m auto-breaks), aesthetic study desk backdrops, and complete ICAI syllabus.
+          Extended focus timer with 5-minute auto breaks every hour, photo desk scenes, and comprehensive syllabus checklists.
         </p>
       </div>
 
       <!-- Action items: Countdown, Studio Toggle, Data Backups -->
       <div class="flex flex-wrap items-center gap-2.5">
         <!-- Target Exam Date Badge -->
-        <div class="flex items-center gap-2.5 bg-white/90 px-3.5 py-2 rounded-2xl border border-[#ece4d6] shadow-sm">
-          <div class="w-8 h-8 rounded-xl bg-peach-50 text-peach-500 flex items-center justify-center">
+        <div class="flex items-center gap-2.5 bg-white/90 px-3.5 py-2 rounded-2xl border border-[#EFE7DA] shadow-sm">
+          <div class="w-8 h-8 rounded-xl bg-blush-50 text-blush-500 flex items-center justify-center">
             <i data-lucide="calendar" class="w-4 h-4"></i>
           </div>
           <div>
@@ -179,7 +170,7 @@
         </div>
 
         <!-- Data Backups & Tools -->
-        <div class="flex items-center gap-1.5 bg-white/90 p-1 rounded-2xl border border-[#ece4d6] shadow-sm">
+        <div class="flex items-center gap-1.5 bg-white/90 p-1 rounded-2xl border border-[#EFE7DA] shadow-sm">
           <button id="toggle-focus-suite-btn" title="Toggle Pomodoro & Music Suite" class="p-2 text-peach-500 rounded-xl hover:bg-peach-50 transition">
             <i data-lucide="headphones" class="w-4 h-4"></i>
           </button>
@@ -200,44 +191,53 @@
     <!-- STUDY STUDIO: DEEP WORK POMODORO & SPOTIFY SECTION -->
     <section id="focus-studio-section" class="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-5">
       
-      <!-- Deep Work Timer Card with Matched Image Wallpapers (7 cols) -->
-      <div id="pomo-card-container" class="lg:col-span-7 rounded-3xl border border-[#e8dfd1] shadow-xl overflow-hidden relative ambient-bg flex flex-col justify-between min-h-[460px]" style="background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=80');">
+      <!-- Deep Work Timer Card with Matched Aesthetic Photo Wallpapers (7 cols) -->
+      <div id="pomo-card-container" class="lg:col-span-7 rounded-3xl border border-[#E4D5BF] shadow-xl overflow-hidden relative ambient-bg flex flex-col justify-between min-h-[490px]">
         
-        <!-- Frosted Dark Overlay for Contrast -->
+        <!-- Ambient Glass Overlay for Readability -->
         <div id="ambient-overlay" class="absolute inset-0 bg-stone-900/50 backdrop-blur-[2px] transition-all duration-700 pointer-events-none"></div>
 
         <div class="relative z-10 p-5 sm:p-6 flex flex-col justify-between h-full text-white">
           <div>
-            <!-- Header, Ambient Preset Selector & Custom URL -->
+            <!-- Header, Ambient Preset Selector & Image Uploader -->
             <div class="flex flex-wrap items-center justify-between gap-2 pb-3.5 border-b border-white/20">
               <div class="flex items-center gap-2">
-                <span id="timer-live-dot" class="w-2.5 h-2.5 rounded-full bg-peach-400 shadow-[0_0_10px_#fba586]"></span>
+                <span id="timer-live-dot" class="w-2.5 h-2.5 rounded-full bg-peach-400 shadow-[0_0_10px_#F5A97D]"></span>
                 <span class="text-xs uppercase font-bold text-white tracking-wider flex items-center gap-1.5">
                   <i data-lucide="coffee" class="w-3.5 h-3.5 text-peach-300"></i> Study Session Studio
                 </span>
               </div>
               
-              <!-- Aesthetic Wallpaper Dropdown (Matched to user uploads) -->
-              <div class="flex items-center gap-1 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-2xl text-[11px] border border-white/15">
-                <i data-lucide="image" class="w-3.5 h-3.5 text-amber-200"></i>
-                <select id="ambient-theme-select" class="bg-transparent text-white font-medium focus:outline-none cursor-pointer">
-                  <option value="mountain_lake" class="bg-stone-900 text-white">🏔️ Mountain Lake Balcony</option>
-                  <option value="minimal_library" class="bg-stone-900 text-white">📚 Minimalist University Library</option>
-                  <option value="sunny_garden" class="bg-stone-900 text-white">🌿 Sunny Tree Garden Desk</option>
-                  <option value="fairy_lights" class="bg-stone-900 text-white">✨ Sunset Desk & Fairy Lights</option>
-                  <option value="rainy_window" class="bg-stone-900 text-white">🌧️ Rainy Window & City Dusk</option>
-                  <option value="golden_hour" class="bg-stone-900 text-white">🕯️ Golden Hour Book & Candle</option>
-                  <option value="rain_candles" class="bg-stone-900 text-white">☕ Rainy Window Tea & Candles</option>
-                  <option value="custom" class="bg-stone-900 text-white">🔗 Custom Image URL</option>
-                </select>
+              <!-- Aesthetic Wallpaper Dropdown & Direct Photo Uploader -->
+              <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1.5 bg-black/45 backdrop-blur-md px-3 py-1.5 rounded-2xl text-[11px] border border-white/20 shadow-sm">
+                  <i data-lucide="image" class="w-3.5 h-3.5 text-amber-200"></i>
+                  <select id="ambient-theme-select" class="bg-transparent text-white font-medium focus:outline-none cursor-pointer">
+                    <option value="mountain_lake" class="bg-stone-900 text-white">🏔️ 1. Alpine Mountain Lake Balcony</option>
+                    <option value="minimal_library" class="bg-stone-900 text-white">📚 2. University Library Desk</option>
+                    <option value="sunny_garden" class="bg-stone-900 text-white">🌿 3. Sunlit Campus Tree Table</option>
+                    <option value="fairy_lights" class="bg-stone-900 text-white">✨ 4. Sunset Desk & Fairy Lights</option>
+                    <option value="rainy_window" class="bg-stone-900 text-white">🌧️ 5. Rainy Dusk Window & Tablet</option>
+                    <option value="golden_hour" class="bg-stone-900 text-white">🕯️ 6. Morning Light, Flowers & Mug</option>
+                    <option value="rain_candles" class="bg-stone-900 text-white">☕ 7. Open Window, Rain & Candle</option>
+                    <option value="custom" class="bg-stone-900 text-white">🔗 Enter Custom Image URL</option>
+                  </select>
+                </div>
+
+                <!-- Direct Upload Button to select your exact saved files -->
+                <label for="local-photo-upload" title="Upload your saved photo directly from your device" class="cursor-pointer bg-white/20 hover:bg-white/30 text-white p-1.5 rounded-2xl backdrop-blur-md border border-white/20 transition flex items-center gap-1 text-[11px] px-2.5 font-medium">
+                  <i data-lucide="upload-cloud" class="w-3.5 h-3.5"></i>
+                  <span class="hidden sm:inline">Upload Pic</span>
+                </label>
+                <input type="file" id="local-photo-upload" accept="image/*" class="hidden">
               </div>
             </div>
 
             <!-- Deep Work Session Duration Presets -->
             <div class="mt-3.5">
-              <div class="text-[11px] font-semibold text-white/80 uppercase tracking-wider mb-2 flex items-center gap-1">
+              <div class="text-[11px] font-semibold text-white/90 uppercase tracking-wider mb-2 flex items-center justify-between">
                 <span>Select Total Study Duration:</span>
-                <span class="text-peach-200 font-normal capitalize">(5 min break auto-inserted every 1 hr)</span>
+                <span class="text-peach-200 font-normal lowercase">(5m break auto-scheduled every 1 hr)</span>
               </div>
               <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs font-medium scrollbar-none">
                 <button data-duration="60" data-label="1 Hour Block (60m)" class="pomo-mode-btn px-3 py-1.5 rounded-xl bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition whitespace-nowrap">1 hr</button>
@@ -250,12 +250,12 @@
             </div>
 
             <!-- Cycle & Stage Indicator Badge -->
-            <div class="mt-4 flex flex-wrap items-center justify-between gap-2 bg-black/35 backdrop-blur-md px-3.5 py-2 rounded-2xl border border-white/10 text-xs">
+            <div class="mt-4 flex flex-wrap items-center justify-between gap-2 bg-black/40 backdrop-blur-md px-3.5 py-2 rounded-2xl border border-white/15 text-xs">
               <div class="flex items-center gap-2">
-                <span id="current-phase-pill" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-matcha-100 text-matcha-700 shadow-sm">
+                <span id="current-phase-pill" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-matcha-100 text-matcha-800 shadow-sm">
                   📚 Study Cycle 1 of 3
                 </span>
-                <span id="current-cycle-info" class="text-white/80 font-medium">Focus for 60 mins</span>
+                <span id="current-cycle-info" class="text-white/90 font-medium">Focus for 60 mins</span>
               </div>
               <div class="text-[11px] text-amber-200 font-medium flex items-center gap-1">
                 <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
@@ -265,7 +265,7 @@
 
             <!-- Timer Central Display -->
             <div class="py-6 flex flex-col items-center justify-center">
-              <div id="timer-display" class="font-display text-5xl sm:text-7xl font-extrabold tracking-tight text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
+              <div id="timer-display" class="font-display text-5xl sm:text-7xl font-extrabold tracking-tight text-white drop-shadow-[0_4px_22px_rgba(0,0,0,0.7)]">
                 01:00:00
               </div>
               <div class="flex items-center gap-2 mt-2 text-xs text-amber-100/90 font-medium">
@@ -284,25 +284,25 @@
             
             <div class="flex items-center justify-center flex-wrap gap-2.5">
               <!-- Start Button -->
-              <button id="pomo-start" class="px-5 py-2.5 rounded-2xl bg-peach-500 hover:bg-peach-600 text-white font-semibold text-xs tracking-wide shadow-lg shadow-black/25 flex items-center gap-1.5 transition active:scale-95">
+              <button id="pomo-start" class="px-5 py-2.5 rounded-2xl bg-peach-500 hover:bg-peach-600 text-white font-semibold text-xs tracking-wide shadow-lg shadow-black/30 flex items-center gap-1.5 transition active:scale-95">
                 <i data-lucide="play" class="w-4 h-4 fill-current"></i>
                 <span>Start</span>
               </button>
 
               <!-- Pause Button -->
-              <button id="pomo-pause" class="px-5 py-2.5 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-semibold text-xs tracking-wide shadow-lg shadow-black/25 flex items-center gap-1.5 transition active:scale-95">
+              <button id="pomo-pause" class="px-5 py-2.5 rounded-2xl bg-honey-500 hover:bg-honey-600 text-white font-semibold text-xs tracking-wide shadow-lg shadow-black/30 flex items-center gap-1.5 transition active:scale-95">
                 <i data-lucide="pause" class="w-4 h-4 fill-current"></i>
                 <span>Pause</span>
               </button>
 
               <!-- Resume Button -->
-              <button id="pomo-resume" class="px-5 py-2.5 rounded-2xl bg-matcha-600 hover:bg-matcha-700 text-white font-semibold text-xs tracking-wide shadow-lg shadow-black/25 flex items-center gap-1.5 transition active:scale-95">
+              <button id="pomo-resume" class="px-5 py-2.5 rounded-2xl bg-matcha-600 hover:bg-matcha-700 text-white font-semibold text-xs tracking-wide shadow-lg shadow-black/30 flex items-center gap-1.5 transition active:scale-95">
                 <i data-lucide="play-circle" class="w-4 h-4"></i>
                 <span>Resume</span>
               </button>
 
               <!-- Stop / End Session Button -->
-              <button id="pomo-stop" class="px-5 py-2.5 rounded-2xl bg-rose-500 hover:bg-rose-600 text-white font-semibold text-xs tracking-wide shadow-lg shadow-black/25 flex items-center gap-1.5 transition active:scale-95">
+              <button id="pomo-stop" class="px-5 py-2.5 rounded-2xl bg-rose-500 hover:bg-rose-600 text-white font-semibold text-xs tracking-wide shadow-lg shadow-black/30 flex items-center gap-1.5 transition active:scale-95">
                 <i data-lucide="square" class="w-3.5 h-3.5 fill-current"></i>
                 <span>Stop</span>
               </button>
@@ -317,9 +317,9 @@
       </div>
 
       <!-- Spotify Pastel Lounge Card (5 cols) -->
-      <div class="lg:col-span-5 bg-white rounded-3xl p-5 border border-[#ece4d6] shadow-sm flex flex-col justify-between">
+      <div class="lg:col-span-5 bg-white rounded-3xl p-5 border border-[#EFE7DA] shadow-sm flex flex-col justify-between">
         <div>
-          <div class="flex items-center justify-between pb-3.5 border-b border-[#f3ece0]">
+          <div class="flex items-center justify-between pb-3.5 border-b border-[#F5EFE6]">
             <div class="flex items-center gap-2">
               <div class="w-7 h-7 rounded-xl bg-matcha-100 text-matcha-700 flex items-center justify-center">
                 <i data-lucide="music-2" class="w-4 h-4"></i>
@@ -334,19 +334,19 @@
             <button data-spotify-uri="playlist/37i9dQZF1DX8Uebhn9wzrS" class="spotify-preset px-2.5 py-1 rounded-xl bg-matcha-50 text-matcha-700 font-medium border border-matcha-200 whitespace-nowrap">
               Lo-Fi Beats
             </button>
-            <button data-spotify-uri="playlist/37i9dQZF1DX4sWSpwq3LiO" class="spotify-preset px-2.5 py-1 rounded-xl bg-[#faf6ee] text-stone-600 hover:bg-stone-100 font-medium border border-[#ebd9c6] whitespace-nowrap">
+            <button data-spotify-uri="playlist/37i9dQZF1DX4sWSpwq3LiO" class="spotify-preset px-2.5 py-1 rounded-xl bg-[#FAF8F5] text-stone-600 hover:bg-stone-100 font-medium border border-[#E4D5BF] whitespace-nowrap">
               Peaceful Piano
             </button>
-            <button data-spotify-uri="playlist/37i9dQZF1DX3PFDV95bt91" class="spotify-preset px-2.5 py-1 rounded-xl bg-[#faf6ee] text-stone-600 hover:bg-stone-100 font-medium border border-[#ebd9c6] whitespace-nowrap">
+            <button data-spotify-uri="playlist/37i9dQZF1DX3PFDV95bt91" class="spotify-preset px-2.5 py-1 rounded-xl bg-[#FAF8F5] text-stone-600 hover:bg-stone-100 font-medium border border-[#E4D5BF] whitespace-nowrap">
               Deep Study
             </button>
-            <button data-spotify-uri="playlist/37i9dQZF1DX692WJFiQIWV" class="spotify-preset px-2.5 py-1 rounded-xl bg-[#faf6ee] text-stone-600 hover:bg-stone-100 font-medium border border-[#ebd9c6] whitespace-nowrap">
+            <button data-spotify-uri="playlist/37i9dQZF1DX692WJFiQIWV" class="spotify-preset px-2.5 py-1 rounded-xl bg-[#FAF8F5] text-stone-600 hover:bg-stone-100 font-medium border border-[#E4D5BF] whitespace-nowrap">
               Cafe Lofi
             </button>
           </div>
 
           <!-- Spotify Embed Iframe Container -->
-          <div class="mt-3.5 rounded-2xl overflow-hidden bg-stone-100 border border-[#ece4d6] h-[162px]">
+          <div class="mt-3.5 rounded-2xl overflow-hidden bg-stone-100 border border-[#EFE7DA] h-[162px]">
             <iframe id="spotify-iframe" class="w-full h-full border-0" 
                     src="https://open.spotify.com/embed/playlist/37i9dQZF1DX8Uebhn9wzrS?utm_source=generator&theme=0" 
                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
@@ -355,8 +355,8 @@
         </div>
 
         <!-- Custom URL Input -->
-        <div class="mt-3.5 pt-3 border-t border-[#f3ece0] flex gap-1.5">
-          <input type="text" id="custom-spotify-url" placeholder="Paste Spotify album or playlist link..." class="flex-1 bg-[#faf6ee] border border-[#ebd9c6] rounded-xl px-3 py-1.5 text-xs text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-peach-400/40">
+        <div class="mt-3.5 pt-3 border-t border-[#F5EFE6] flex gap-1.5">
+          <input type="text" id="custom-spotify-url" placeholder="Paste Spotify album or playlist link..." class="flex-1 bg-[#FAF8F5] border border-[#E4D5BF] rounded-xl px-3 py-1.5 text-xs text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-peach-400/40">
           <button id="apply-custom-spotify" class="px-3.5 py-1.5 bg-stone-800 hover:bg-stone-900 text-white rounded-xl text-xs font-semibold transition">
             Load
           </button>
@@ -367,29 +367,28 @@
 
     <!-- Global Progress & Metric Cards in Soft Pastel -->
     <section class="mt-6 grid grid-cols-2 lg:grid-cols-5 gap-3.5 sm:gap-4">
-      <!-- Total Progress Card (Warm Pastel Peach / Honey) -->
-      <div class="col-span-2 bg-gradient-to-br from-peach-500 to-amberwarm-500 text-white rounded-3xl p-5 shadow-lg shadow-peach-500/15 flex flex-col justify-between relative overflow-hidden">
+      <!-- Total Progress Card (Warm Pastel Peach / Blush) -->
+      <div class="col-span-2 bg-gradient-to-br from-blush-400 to-honey-400 text-stone-900 rounded-3xl p-5 shadow-sm border border-blush-200/60 flex flex-col justify-between relative overflow-hidden">
         <div class="relative z-10">
           <div class="flex justify-between items-start">
-            <span class="text-xs uppercase font-bold tracking-wider text-peach-100">Overall Syllabus Readiness</span>
-            <span id="overall-percentage" class="text-3xl font-display font-extrabold">0%</span>
+            <span class="text-xs uppercase font-bold tracking-wider text-stone-800">Overall Syllabus Readiness</span>
+            <span id="overall-percentage" class="text-3xl font-display font-extrabold text-stone-900">0%</span>
           </div>
-          <div class="mt-3.5 w-full bg-black/15 rounded-full h-2.5 overflow-hidden">
-            <div id="overall-bar" class="bg-white h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+          <div class="mt-3.5 w-full bg-white/40 rounded-full h-2.5 overflow-hidden">
+            <div id="overall-bar" class="bg-stone-900 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
           </div>
-          <div class="mt-2 text-xs text-peach-50 flex justify-between font-medium">
+          <div class="mt-2 text-xs text-stone-700 flex justify-between font-medium">
             <span id="overall-tasks-count">0 / 0 steps done</span>
             <span id="total-chapters-count">88 Topics</span>
           </div>
         </div>
-        <div class="absolute -right-5 -bottom-5 w-32 h-32 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
       </div>
 
-      <!-- Lectures Watched Card (Soft Sky Blue) -->
+      <!-- Lectures Watched Card (Pastel Lavender) -->
       <div class="bg-white rounded-3xl p-4.5 border border-[#ece4d6] shadow-sm flex flex-col justify-between">
         <div class="flex items-center justify-between">
           <span class="text-xs font-semibold text-stone-500">Lectures</span>
-          <div class="w-8 h-8 rounded-xl bg-skysoft-100 text-skysoft-600 flex items-center justify-center">
+          <div class="w-8 h-8 rounded-xl bg-lavender-100 text-lavender-600 flex items-center justify-center">
             <i data-lucide="video" class="w-4 h-4"></i>
           </div>
         </div>
@@ -398,8 +397,8 @@
             <span id="lectures-stat-pct" class="text-2xl font-bold font-display text-stone-800">0%</span>
             <span id="lectures-stat-ratio" class="text-[11px] text-stone-400">0/0</span>
           </div>
-          <div class="mt-2 w-full bg-skysoft-50 rounded-full h-1.5 overflow-hidden">
-            <div id="lectures-bar" class="bg-skysoft-400 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+          <div class="mt-2 w-full bg-lavender-50 rounded-full h-1.5 overflow-hidden">
+            <div id="lectures-bar" class="bg-lavender-500 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
           </div>
         </div>
       </div>
@@ -418,16 +417,16 @@
             <span id="sm-stat-ratio" class="text-[11px] text-stone-400">0/0</span>
           </div>
           <div class="mt-2 w-full bg-matcha-50 rounded-full h-1.5 overflow-hidden">
-            <div id="sm-bar" class="bg-matcha-400 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+            <div id="sm-bar" class="bg-matcha-600 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
           </div>
         </div>
       </div>
 
-      <!-- Revision 1-3 Completed Card (Pastel Lavender) -->
+      <!-- Revision 1-3 Completed Card (Warm Honey) -->
       <div class="col-span-2 lg:col-span-1 bg-white rounded-3xl p-4.5 border border-[#ece4d6] shadow-sm flex flex-col justify-between">
         <div class="flex items-center justify-between">
           <span class="text-xs font-semibold text-stone-500">Revisions (R1-R3)</span>
-          <div class="w-8 h-8 rounded-xl bg-lavender-100 text-lavender-600 flex items-center justify-center">
+          <div class="w-8 h-8 rounded-xl bg-honey-100 text-honey-600 flex items-center justify-center">
             <i data-lucide="refresh-cw" class="w-4 h-4"></i>
           </div>
         </div>
@@ -436,8 +435,8 @@
             <span id="rev-stat-pct" class="text-2xl font-bold font-display text-stone-800">0%</span>
             <span id="rev-stat-ratio" class="text-[11px] text-stone-400">0 done</span>
           </div>
-          <div class="mt-2 w-full bg-lavender-50 rounded-full h-1.5 overflow-hidden">
-            <div id="rev-bar" class="bg-lavender-400 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+          <div class="mt-2 w-full bg-honey-50 rounded-full h-1.5 overflow-hidden">
+            <div id="rev-bar" class="bg-honey-400 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
           </div>
         </div>
       </div>
@@ -447,7 +446,7 @@
     <div class="mt-6 flex flex-col md:flex-row md:items-center justify-between gap-3">
       <!-- Group & Paper Filter Tabs -->
       <div class="flex items-center gap-2 overflow-x-auto pb-1 max-w-full text-xs font-medium scrollbar-none" id="group-tabs">
-        <button data-group="all" class="filter-tab active px-4 py-2 rounded-2xl transition whitespace-nowrap bg-peach-500 text-white shadow-sm font-semibold">
+        <button data-group="all" class="filter-tab active px-4 py-2 rounded-2xl transition whitespace-nowrap bg-blush-500 text-white shadow-sm font-semibold">
           All Papers
         </button>
         <button data-group="g1" class="filter-tab px-4 py-2 rounded-2xl transition whitespace-nowrap bg-white border border-[#ece4d6] text-stone-600 hover:bg-[#faf6ee]">
@@ -462,9 +461,9 @@
       <div class="flex items-center gap-2">
         <div class="relative flex-1 sm:w-64">
           <i data-lucide="search" class="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
-          <input type="text" id="search-input" placeholder="Search standard, act, chapter..." class="w-full bg-white border border-[#ece4d6] rounded-2xl pl-9 pr-3 py-2 text-xs text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-peach-400/40">
+          <input type="text" id="search-input" placeholder="Search AS, standard, section..." class="w-full bg-white border border-[#ece4d6] rounded-2xl pl-9 pr-3 py-2 text-xs text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-blush-400/40">
         </div>
-        <select id="confidence-filter" class="bg-white border border-[#ece4d6] rounded-2xl px-3 py-2 text-xs text-stone-700 focus:outline-none focus:ring-2 focus:ring-peach-400/40">
+        <select id="confidence-filter" class="bg-white border border-[#ece4d6] rounded-2xl px-3 py-2 text-xs text-stone-700 focus:outline-none focus:ring-2 focus:ring-blush-400/40">
           <option value="all">All Priorities</option>
           <option value="High">🔴 High Priority</option>
           <option value="Medium">🟡 Medium Priority</option>
@@ -489,7 +488,7 @@
     <div class="bg-white rounded-3xl max-w-lg w-full p-6 border border-[#ece4d6] shadow-2xl">
       <div class="flex items-center justify-between pb-3.5 border-b border-[#f3ece0]">
         <div>
-          <span class="text-[10px] uppercase font-bold text-peach-600 tracking-wider">Chapter Notes & Doubts</span>
+          <span class="text-[10px] uppercase font-bold text-blush-600 tracking-wider">Topic Doubts & Notes</span>
           <h3 id="modal-chapter-title" class="font-display font-semibold text-stone-800 text-base">Topic Title</h3>
         </div>
         <button id="close-modal-btn" class="p-1 rounded-xl text-stone-400 hover:text-stone-700 hover:bg-stone-100">
@@ -497,10 +496,10 @@
         </button>
       </div>
       <div class="mt-4">
-        <textarea id="modal-note-text" rows="5" placeholder="Write exam adjustments, weak concepts, RTP question numbers, or revision reminders here..." class="w-full bg-[#faf6ee] border border-[#ebd9c6] rounded-2xl p-3.5 text-sm text-stone-800 focus:outline-none focus:ring-2 focus:ring-peach-400/40"></textarea>
+        <textarea id="modal-note-text" rows="5" placeholder="Write exam adjustments, key sections, RTP problem notes, or doubts here..." class="w-full bg-[#faf6ee] border border-[#ebd9c6] rounded-2xl p-3.5 text-sm text-stone-800 focus:outline-none focus:ring-2 focus:ring-blush-400/40"></textarea>
       </div>
       <div class="mt-4 flex justify-end gap-2">
-        <button id="save-note-btn" class="px-5 py-2 bg-peach-500 hover:bg-peach-600 text-white rounded-2xl text-xs font-semibold shadow-md shadow-peach-500/20 transition">
+        <button id="save-note-btn" class="px-5 py-2 bg-blush-500 hover:bg-blush-600 text-white rounded-2xl text-xs font-semibold shadow-md shadow-blush-500/20 transition">
           Save Note
         </button>
       </div>
@@ -510,7 +509,7 @@
   <!-- Mobile Floating Summary Bar with Mini-Pomo -->
   <div class="sm:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-[#ece4d6] px-4 py-2.5 flex items-center justify-between shadow-lg z-30">
     <div class="flex items-center gap-2.5">
-      <div class="w-8 h-8 rounded-full bg-peach-500 text-white font-display font-bold text-xs flex items-center justify-center">
+      <div class="w-8 h-8 rounded-full bg-blush-500 text-white font-display font-bold text-xs flex items-center justify-center">
         <span id="mobile-progress-badge">0%</span>
       </div>
       <div>
@@ -520,7 +519,7 @@
     </div>
     <div class="flex items-center gap-2">
       <div class="text-right">
-        <span id="mobile-mini-timer" class="font-display font-bold text-xs text-peach-600">01:00:00</span>
+        <span id="mobile-mini-timer" class="font-display font-bold text-xs text-blush-600">01:00:00</span>
       </div>
       <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="p-1.5 rounded-xl text-stone-500 hover:text-stone-900 hover:bg-stone-100">
         <i data-lucide="arrow-up" class="w-4 h-4"></i>
@@ -530,7 +529,7 @@
 
   <!-- Notification Toast in Soft Pastel -->
   <div id="toast" class="fixed bottom-6 right-6 z-50 bg-stone-800 text-white text-xs font-medium px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2.5 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none border border-stone-700">
-    <i data-lucide="check-circle" class="w-4 h-4 text-matcha-400"></i>
+    <i data-lucide="check-circle" class="w-4 h-4 text-matcha-300"></i>
     <span id="toast-message">Action successful</span>
   </div>
 
@@ -770,8 +769,8 @@
     /* ==========================================================================
        2. STATE MANAGEMENT & STORAGE INITIALIZATION
        ========================================================================== */
-    const STORAGE_KEY = 'ca_inter_pastel_data_v2';
-    const SETTINGS_KEY = 'ca_inter_pastel_settings_v2';
+    const STORAGE_KEY = 'ca_inter_pastel_data_v3';
+    const SETTINGS_KEY = 'ca_inter_pastel_settings_v3';
 
     let userState = {};
     let appSettings = {
@@ -823,23 +822,23 @@
     }
 
     /* ==========================================================================
-       3. AESTHETIC BACKGROUND PRESETS MATCHED TO UPLOADED IMAGES
+       3. AESTHETIC BACKGROUND PRESETS MATCHED TO UPLOADED SCENES
        ========================================================================== */
     const AMBIENT_WALLPAPERS = {
-      // 1. Mountain Lake Balcony with books
-      mountain_lake: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=80",
-      // 2. Minimalist University Library Study Hall
-      minimal_library: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1400&q=80",
-      // 3. Sunny Tree Garden Outdoor Wooden Desk
-      sunny_garden: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1400&q=80",
-      // 4. Sunset Desk with Fairy Lights, books & notes
-      fairy_lights: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&w=1400&q=80",
-      // 5. Rainy Window & City Dusk Overlook with Tablet
-      rainy_window: "https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?auto=format&fit=crop&w=1400&q=80",
-      // 6. Golden Hour Book, Plants & Scented Candle
-      golden_hour: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&w=1400&q=80",
-      // 7. Rainy Window with Open Book, Coffee Mug & Candles
-      rain_candles: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1400&q=80"
+      // 1. Alpine Mountain Lake Balcony with notebooks
+      mountain_lake: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80",
+      // 2. University Library Desk with laptop & highlighters
+      minimal_library: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1600&q=80",
+      // 3. Sunlit Campus Tree Table & outdoor notebook
+      sunny_garden: "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=1600&q=80",
+      // 4. Sunset Desk with Lamp, Notes & Fairy Lights
+      fairy_lights: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&w=1600&q=80",
+      // 5. Rainy Dusk Window & Tablet
+      rainy_window: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1600&q=80",
+      // 6. Morning Soft Light with Flowers & Coffee Mug
+      golden_hour: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&w=1600&q=80",
+      // 7. Open Window, Rain & Lit Candles
+      rain_candles: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1600&q=80"
     };
 
     function applyAmbientBackground(themeKey) {
@@ -847,7 +846,7 @@
       let url = AMBIENT_WALLPAPERS[themeKey];
 
       if (themeKey === 'custom') {
-        const customUrl = prompt("Enter custom image URL for study wallpaper:", appSettings.customWallpaperUrl || '');
+        const customUrl = prompt("Enter image URL for study wallpaper:", appSettings.customWallpaperUrl || '');
         if (customUrl && customUrl.trim().length > 5) {
           appSettings.customWallpaperUrl = customUrl.trim();
           url = appSettings.customWallpaperUrl;
@@ -865,10 +864,28 @@
       saveState();
     }
 
+    // Direct local photo uploader from computer or phone storage
+    document.getElementById('local-photo-upload').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const imgUrl = event.target.result;
+          const container = document.getElementById('pomo-card-container');
+          container.style.backgroundImage = `url('${imgUrl}')`;
+          appSettings.customWallpaperUrl = imgUrl;
+          appSettings.ambientTheme = 'custom';
+          document.getElementById('ambient-theme-select').value = 'custom';
+          saveState();
+          showToast("Custom photo applied as background!");
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
     /* ==========================================================================
-       4. LONG STUDY POMODORO ENGINE WITH HOURLY 5-MIN BREAKS
+       4. EXTENDED POMODORO ENGINE WITH 5-MIN HOURLY BREAKS
        ========================================================================== */
-    // Queue structure of study intervals & breaks
     let sessionQueue = []; 
     let currentStepIndex = 0;
     let stepTimeRemaining = 0;
@@ -882,7 +899,6 @@
       let cycle = 1;
 
       if (totalTargetMinutes <= 55) {
-        // Short session
         plan.push({ type: 'study', durationMins: totalTargetMinutes, label: `Focus Session (${totalTargetMinutes}m)`, cycleNum: 1, totalCycles: 1 });
         return plan;
       }
@@ -945,7 +961,7 @@
         info.textContent = `Deep work (${step.durationMins}m)`;
         breakRule.textContent = step.cycleNum < step.totalCycles ? "5m break follows" : "Final sprint";
       } else {
-        pill.className = "px-3 py-1 rounded-full text-xs font-bold bg-lavender-100 text-lavender-800 border border-lavender-300 shadow-sm";
+        pill.className = "px-3 py-1 rounded-full text-xs font-bold bg-blush-100 text-blush-800 border border-blush-300 shadow-sm";
         pill.innerHTML = `☕ 5-Min Refresh Break`;
         info.textContent = "Stand up, stretch & drink water";
         breakRule.textContent = `Next: Block ${step.cycleNum + 1}`;
@@ -988,7 +1004,7 @@
 
       timerState = 'RUNNING';
       document.getElementById('timer-live-dot').classList.add('animate-ping');
-      document.getElementById('ambient-overlay').classList.replace('bg-stone-900/50', 'bg-stone-900/70');
+      document.getElementById('ambient-overlay').classList.replace('bg-stone-900/50', 'bg-stone-900/65');
 
       clearInterval(timerInterval);
       timerInterval = setInterval(() => {
@@ -996,7 +1012,6 @@
           stepTimeRemaining--;
           updateTimerUI();
         } else {
-          // Current step is done!
           playChime();
           const completedStep = sessionQueue[currentStepIndex];
 
@@ -1009,12 +1024,11 @@
               showToast("Break over! Let's resume the next focus block.");
             }
           } else {
-            // Entire multi-hour study session completed
             stopTimer();
             appSettings.pomoCount = (appSettings.pomoCount || 0) + 1;
             saveState();
             document.getElementById('completed-pomo-count').textContent = appSettings.pomoCount;
-            showToast("Congratulations! Full deep work session completed!");
+            showToast("Deep work session successfully completed!");
           }
         }
       }, 1000);
@@ -1025,7 +1039,7 @@
       clearInterval(timerInterval);
       timerState = 'PAUSED';
       document.getElementById('timer-live-dot').classList.remove('animate-ping');
-      document.getElementById('ambient-overlay').classList.replace('bg-stone-900/70', 'bg-stone-900/50');
+      document.getElementById('ambient-overlay').classList.replace('bg-stone-900/65', 'bg-stone-900/50');
       showToast("Timer paused.");
     }
 
@@ -1040,7 +1054,7 @@
       clearInterval(timerInterval);
       timerState = 'STOPPED';
       document.getElementById('timer-live-dot').classList.remove('animate-ping');
-      document.getElementById('ambient-overlay').classList.replace('bg-stone-900/70', 'bg-stone-900/50');
+      document.getElementById('ambient-overlay').classList.replace('bg-stone-900/65', 'bg-stone-900/50');
 
       if (sessionQueue && sessionQueue.length > 0) {
         currentStepIndex = 0;
@@ -1057,7 +1071,6 @@
         if (!AudioContext) return;
         const ctx = new AudioContext();
 
-        // Harmonious pastel double bell
         [523.25, 659.25].forEach((freq, idx) => {
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
@@ -1153,7 +1166,7 @@
         paperCard.innerHTML = `
           <div class="paper-header cursor-pointer px-5 sm:px-6 py-4.5 flex items-center justify-between bg-[#fbf9f5] hover:bg-[#f6f0e4] transition select-none" data-target="content-${paper.id}">
             <div class="flex items-center gap-3.5">
-              <span class="w-9 h-9 rounded-2xl bg-peach-50 text-peach-600 font-bold text-xs flex items-center justify-center border border-peach-200/60">
+              <span class="w-9 h-9 rounded-2xl bg-blush-50 text-blush-600 font-bold text-xs flex items-center justify-center border border-blush-200/60">
                 ${paper.code.replace('Paper ', 'P')}
               </span>
               <div>
@@ -1175,7 +1188,7 @@
               <div class="text-right">
                 <span class="text-xs sm:text-sm font-bold font-display text-stone-800">${paperPct}%</span>
                 <div class="w-16 sm:w-28 bg-[#ebd9c6] h-2 rounded-full mt-1 overflow-hidden">
-                  <div class="bg-peach-500 h-full rounded-full transition-all duration-300" style="width: ${paperPct}%"></div>
+                  <div class="bg-blush-500 h-full rounded-full transition-all duration-300" style="width: ${paperPct}%"></div>
                 </div>
               </div>
               <div class="text-stone-400 transition-transform duration-200 chevron-icon">
@@ -1188,7 +1201,7 @@
             ${filteredSections.map(sec => `
               <div class="p-4 sm:p-6">
                 <h3 class="text-xs uppercase font-bold tracking-wider text-matcha-700 mb-3.5 flex items-center gap-2">
-                  <span class="w-2 h-2 rounded-full bg-matcha-400"></span>
+                  <span class="w-2 h-2 rounded-full bg-matcha-600"></span>
                   ${sec.sectionTitle}
                 </h3>
                 
@@ -1224,8 +1237,8 @@
       const st = getItemState(item.id);
       
       const priorityColors = {
-        'High': 'bg-peach-50 text-peach-600 border-peach-200',
-        'Medium': 'bg-amberwarm-50 text-amberwarm-600 border-amberwarm-200',
+        'High': 'bg-blush-50 text-blush-600 border-blush-200',
+        'Medium': 'bg-honey-100 text-honey-600 border-honey-200',
         'Low': 'bg-matcha-50 text-matcha-700 border-matcha-200',
         'Unset': 'bg-[#faf6ee] text-stone-400 border-[#ebd9c6]'
       };
@@ -1274,9 +1287,9 @@
               </label>
             </div>
 
-            <button class="open-note-btn p-1.5 rounded-xl border border-[#ebd9c6] text-stone-400 hover:text-peach-500 hover:border-peach-300 transition relative" data-id="${item.id}" data-title="${item.title}" title="Add Notes">
+            <button class="open-note-btn p-1.5 rounded-xl border border-[#ebd9c6] text-stone-400 hover:text-blush-500 hover:border-blush-300 transition relative" data-id="${item.id}" data-title="${item.title}" title="Add Notes">
               <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
-              ${hasNote ? '<span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-peach-500 rounded-full"></span>' : ''}
+              ${hasNote ? '<span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-blush-500 rounded-full"></span>' : ''}
             </button>
           </div>
         </div>
@@ -1541,26 +1554,24 @@
     /* ==========================================================================
        10. EVENT BINDINGS
        ========================================================================== */
-    // Focus Studio toggle
     const studioSection = document.getElementById('focus-studio-section');
     document.getElementById('toggle-focus-suite-btn').addEventListener('click', () => {
       studioSection.classList.toggle('hidden');
     });
 
-    // Ambient wallpaper selector
     const ambientSelect = document.getElementById('ambient-theme-select');
     ambientSelect.addEventListener('change', (e) => {
       applyAmbientBackground(e.target.value);
     });
 
-    // Timer control buttons: Start, Pause, Resume, Stop
+    // Dedicated timer controls: Start, Pause, Resume, Stop
     document.getElementById('pomo-start').addEventListener('click', startTimer);
     document.getElementById('pomo-pause').addEventListener('click', pauseTimer);
     document.getElementById('pomo-resume').addEventListener('click', resumeTimer);
     document.getElementById('pomo-stop').addEventListener('click', stopTimer);
     document.getElementById('test-chime').addEventListener('click', () => {
       playChime();
-      showToast("Chime tested.");
+      showToast("Chime sound tested.");
     });
 
     // Preset duration buttons
@@ -1601,14 +1612,14 @@
       showToast("Custom audio loaded!");
     });
 
-    // Group tabs
+    // Group filter tabs
     document.querySelectorAll('.filter-tab').forEach(tab => {
       tab.addEventListener('click', () => {
         document.querySelectorAll('.filter-tab').forEach(t => {
-          t.classList.remove('bg-peach-500', 'text-white', 'font-semibold', 'shadow-sm');
+          t.classList.remove('bg-blush-500', 'text-white', 'font-semibold', 'shadow-sm');
           t.classList.add('bg-white', 'text-stone-600');
         });
-        tab.classList.add('bg-peach-500', 'text-white', 'font-semibold', 'shadow-sm');
+        tab.classList.add('bg-blush-500', 'text-white', 'font-semibold', 'shadow-sm');
         tab.classList.remove('bg-white', 'text-stone-600');
 
         activeGroupFilter = tab.getAttribute('data-group');
@@ -1654,13 +1665,11 @@
       updateAnalytics();
       updateCountdown();
 
-      // Set up ambient backdrop
       if (appSettings.ambientTheme) {
         applyAmbientBackground(appSettings.ambientTheme);
         ambientSelect.value = appSettings.ambientTheme;
       }
 
-      // Initialize Pomodoro cycle queue
       const initialMins = appSettings.targetTotalMinutes || 180;
       sessionQueue = buildSessionPlan(initialMins);
       currentStepIndex = 0;
