@@ -6,10 +6,10 @@
   <title>CA Intermediate Exam Tracker & Study Studio</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts: Inter & Outfit -->
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <script>
@@ -18,21 +18,54 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
             display: ['Outfit', 'sans-serif'],
           },
           colors: {
-            brand: {
-              50: '#fbf7ee',
-              100: '#f5ebd3',
-              200: '#edd8aa',
-              300: '#e1be76',
-              400: '#d5a347',
-              500: '#c58728',
-              600: '#a8681f',
-              700: '#834b1c',
-              800: '#6d3d1d',
-              900: '#5c331c',
+            // Pastel aesthetic palette
+            cream: {
+              50: '#fdfbf7',
+              100: '#faf6ee',
+              200: '#f3ece0',
+              300: '#ebd9c6',
+            },
+            matcha: {
+              50: '#f3f7f0',
+              100: '#e4eedd',
+              200: '#c8ddba',
+              400: '#8ebc79',
+              600: '#5e8e4a',
+              700: '#486e37'
+            },
+            peach: {
+              50: '#fff6f2',
+              100: '#ffede5',
+              200: '#ffd7c7',
+              400: '#fba586',
+              500: '#f37f59',
+              600: '#dd5b33'
+            },
+            lavender: {
+              50: '#f7f6fd',
+              100: '#edeafd',
+              200: '#dad5fa',
+              400: '#ab9ff4',
+              600: '#7d6ce3'
+            },
+            skysoft: {
+              50: '#f1f8fc',
+              100: '#e1f0f8',
+              200: '#bfe1f1',
+              400: '#75bfe0',
+              600: '#3e95bf'
+            },
+            amberwarm: {
+              50: '#fdf9f1',
+              100: '#fbf1de',
+              200: '#f6e1ba',
+              400: '#e5b865',
+              500: '#cf9c3b',
+              600: '#af7b24'
             }
           }
         }
@@ -40,239 +73,280 @@
     }
   </script>
   <style>
-    /* Custom scrollbars */
+    /* Custom light pastel scrollbars */
     ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
+      width: 7px;
+      height: 7px;
     }
     ::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 0.05);
+      background: #faf6ee;
     }
     ::-webkit-scrollbar-thumb {
-      background: rgba(150, 150, 150, 0.3);
+      background: #ebd9c6;
       border-radius: 9999px;
     }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #d8c3ad;
+    }
+
+    /* Soft pastel checkboxes */
     .custom-checkbox {
       appearance: none;
       -webkit-appearance: none;
       width: 1.15rem;
       height: 1.15rem;
-      border: 1.5px solid #cbd5e1;
-      border-radius: 0.375rem;
+      border: 1.5px solid #dcd3c5;
+      background-color: #ffffff;
+      border-radius: 0.45rem;
       outline: none;
       transition: all 0.15s ease-in-out;
       cursor: pointer;
       display: inline-grid;
       place-content: center;
     }
-    .dark .custom-checkbox {
-      border-color: #475569;
-      background-color: #1e293b;
+    .custom-checkbox:hover {
+      border-color: #8ebc79;
+      background-color: #f3f7f0;
     }
     .custom-checkbox:checked {
-      background-color: #c58728;
-      border-color: #c58728;
+      background-color: #5e8e4a;
+      border-color: #5e8e4a;
     }
     .custom-checkbox:checked::before {
       content: "";
       width: 0.65rem;
-      height: 0.4rem;
+      height: 0.38rem;
       border-left: 2px solid #ffffff;
       border-bottom: 2px solid #ffffff;
       transform: rotate(-45deg) translate(1px, -1px);
     }
-    /* Ambient backdrop styling */
+
     .ambient-bg {
       background-size: cover;
       background-position: center;
-      transition: background-image 0.8s ease-in-out, filter 0.8s ease;
+      transition: background-image 0.7s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .rain-overlay {
-      background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.03) 75%, rgba(255,255,255,0.1) 100%),
-                  radial-gradient(circle at 50% 50%, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.85) 100%);
+    .frosted-glass {
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
-    @keyframes rain-fall {
-      0% { background-position: 0% 0%; }
-      100% { background-position: 20% 100%; }
-    }
-    .rain-active {
-      animation: rain-fall 1.2s linear infinite;
+    .frosted-dark {
+      background: rgba(18, 22, 28, 0.72);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 dark:bg-[#0b0f19] dark:text-slate-200 min-h-screen font-sans transition-colors duration-200">
+<body class="bg-[#faf8f5] text-stone-700 min-h-screen font-sans transition-colors duration-200 selection:bg-peach-100 selection:text-peach-600">
 
   <!-- Main Container -->
-  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-5 pb-28 sm:pb-14">
+  <div class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 py-5 pb-28 sm:pb-16">
 
-    <!-- Top Bar: Title, Exam Countdown, Quick Actions -->
-    <header class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-200 dark:border-slate-800/80">
+    <!-- Header: Soft Pastel Branding & Countdown -->
+    <header class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#ece4d6]">
       <div>
         <div class="flex items-center gap-2">
-          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border border-amber-300 dark:border-amber-700/50">
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wider bg-matcha-100 text-matcha-700 border border-matcha-200">
             ICAI New Scheme
           </span>
-          <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Attempt Preparation</span>
+          <span class="text-xs text-stone-400 font-medium">Student Desk & Study Station</span>
         </div>
-        <h1 class="font-display text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mt-1">
-          CA Intermediate Tracker & Studio
+        <h1 class="font-display text-2xl sm:text-3xl font-bold tracking-tight text-stone-800 mt-1">
+          CA Intermediate Tracker & Pastel Studio
         </h1>
-        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
-          Deep-work Pomodoro timer, ambient lofi cafe backdrops, Spotify study lounge, and chapter checklist.
+        <p class="text-xs sm:text-sm text-stone-500 mt-0.5">
+          Long-session Pomodoro (hourly 5m auto-breaks), aesthetic study desk backdrops, and complete ICAI syllabus.
         </p>
       </div>
 
-      <!-- Action items: Countdown, Studio Toggles & Theme -->
+      <!-- Action items: Countdown, Studio Toggle, Data Backups -->
       <div class="flex flex-wrap items-center gap-2.5">
         <!-- Target Exam Date Badge -->
-        <div class="flex items-center gap-2.5 bg-white dark:bg-slate-900/80 px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-          <i data-lucide="calendar" class="w-4 h-4 text-brand-500"></i>
+        <div class="flex items-center gap-2.5 bg-white/90 px-3.5 py-2 rounded-2xl border border-[#ece4d6] shadow-sm">
+          <div class="w-8 h-8 rounded-xl bg-peach-50 text-peach-500 flex items-center justify-center">
+            <i data-lucide="calendar" class="w-4 h-4"></i>
+          </div>
           <div>
-            <div class="text-[10px] uppercase font-semibold text-slate-400">Days to Exam</div>
-            <div id="countdown-display" class="font-display font-bold text-sm text-slate-900 dark:text-white leading-none mt-0.5">
+            <div class="text-[10px] uppercase font-semibold text-stone-400">Target Attempt</div>
+            <div id="countdown-display" class="font-display font-bold text-sm text-stone-800 leading-none mt-0.5">
               Calculating...
             </div>
           </div>
-          <button id="edit-exam-date-btn" title="Change Target Exam Date" class="ml-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1 rounded">
+          <button id="edit-exam-date-btn" title="Change Target Exam Date" class="ml-1 text-stone-400 hover:text-stone-700 p-1 rounded-lg hover:bg-stone-100 transition">
             <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
           </button>
         </div>
 
         <!-- Data Backups & Tools -->
-        <div class="flex items-center gap-1.5 bg-white dark:bg-slate-900/80 p-1 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-          <button id="toggle-focus-suite-btn" title="Toggle Pomodoro & Music Suite" class="p-2 text-brand-600 dark:text-brand-400 rounded-lg hover:bg-amber-50 dark:hover:bg-amber-950/40 transition">
+        <div class="flex items-center gap-1.5 bg-white/90 p-1 rounded-2xl border border-[#ece4d6] shadow-sm">
+          <button id="toggle-focus-suite-btn" title="Toggle Pomodoro & Music Suite" class="p-2 text-peach-500 rounded-xl hover:bg-peach-50 transition">
             <i data-lucide="headphones" class="w-4 h-4"></i>
           </button>
-          <button id="export-btn" title="Backup / Export JSON" class="p-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+          <button id="export-btn" title="Backup / Export JSON" class="p-2 text-stone-500 hover:text-stone-800 rounded-xl hover:bg-stone-100 transition">
             <i data-lucide="download" class="w-4 h-4"></i>
           </button>
-          <label for="import-input" title="Import JSON Backup" class="p-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer">
+          <label for="import-input" title="Import JSON Backup" class="p-2 text-stone-500 hover:text-stone-800 rounded-xl hover:bg-stone-100 transition cursor-pointer">
             <i data-lucide="upload" class="w-4 h-4"></i>
           </label>
           <input type="file" id="import-input" accept=".json" class="hidden" />
-          <button id="reset-all-btn" title="Reset All Progress" class="p-2 text-red-500 hover:text-red-600 dark:text-red-400 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/40 transition">
+          <button id="reset-all-btn" title="Reset All Progress" class="p-2 text-rose-400 hover:text-rose-600 rounded-xl hover:bg-rose-50 transition">
             <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
-          </button>
-          <button id="theme-toggle" title="Toggle Dark/Light Mode" class="p-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition">
-            <i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i>
-            <i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i>
           </button>
         </div>
       </div>
     </header>
 
     <!-- STUDY STUDIO: DEEP WORK POMODORO & SPOTIFY SECTION -->
-    <section id="focus-studio-section" class="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-4">
+    <section id="focus-studio-section" class="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-5">
       
-      <!-- Deep Work Timer Card with Ambient Backdrop (7 cols) -->
-      <div id="pomo-card-container" class="lg:col-span-7 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden relative ambient-bg flex flex-col justify-between transition-all duration-500 min-h-[420px]" style="background-image: url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1200&q=80');">
-        <!-- Aesthetic Ambient Tint & Frosted Mask -->
-        <div id="ambient-overlay" class="absolute inset-0 bg-slate-900/60 backdrop-blur-[2px] transition-all duration-700 pointer-events-none"></div>
+      <!-- Deep Work Timer Card with Matched Image Wallpapers (7 cols) -->
+      <div id="pomo-card-container" class="lg:col-span-7 rounded-3xl border border-[#e8dfd1] shadow-xl overflow-hidden relative ambient-bg flex flex-col justify-between min-h-[460px]" style="background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=80');">
+        
+        <!-- Frosted Dark Overlay for Contrast -->
+        <div id="ambient-overlay" class="absolute inset-0 bg-stone-900/50 backdrop-blur-[2px] transition-all duration-700 pointer-events-none"></div>
 
-        <div class="relative z-10 p-5 flex flex-col justify-between h-full text-white">
+        <div class="relative z-10 p-5 sm:p-6 flex flex-col justify-between h-full text-white">
           <div>
-            <!-- Header, Ambient Theme Switcher & Long-Session Presets -->
-            <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-white/15">
+            <!-- Header, Ambient Preset Selector & Custom URL -->
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-3.5 border-b border-white/20">
               <div class="flex items-center gap-2">
-                <span id="timer-live-dot" class="w-2.5 h-2.5 rounded-full bg-brand-400 shadow-[0_0_8px_#e1be76]"></span>
+                <span id="timer-live-dot" class="w-2.5 h-2.5 rounded-full bg-peach-400 shadow-[0_0_10px_#fba586]"></span>
                 <span class="text-xs uppercase font-bold text-white tracking-wider flex items-center gap-1.5">
-                  <i data-lucide="timer" class="w-3.5 h-3.5"></i> Deep-Work Pomodoro
+                  <i data-lucide="coffee" class="w-3.5 h-3.5 text-peach-300"></i> Study Session Studio
                 </span>
               </div>
               
-              <!-- Ambient Theme Selector -->
-              <div class="flex items-center gap-1 bg-black/40 backdrop-blur-md px-2 py-1 rounded-xl text-[11px] border border-white/10">
-                <i data-lucide="image" class="w-3 h-3 text-brand-300"></i>
+              <!-- Aesthetic Wallpaper Dropdown (Matched to user uploads) -->
+              <div class="flex items-center gap-1 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-2xl text-[11px] border border-white/15">
+                <i data-lucide="image" class="w-3.5 h-3.5 text-amber-200"></i>
                 <select id="ambient-theme-select" class="bg-transparent text-white font-medium focus:outline-none cursor-pointer">
-                  <option value="rainy" class="bg-slate-900 text-white">Rainy Cafe Window</option>
-                  <option value="lofi" class="bg-slate-900 text-white">Cozy Lofi Study</option>
-                  <option value="library" class="bg-slate-900 text-white">Midnight Library</option>
-                  <option value="kyoto" class="bg-slate-900 text-white">Kyoto Coffee House</option>
+                  <option value="mountain_lake" class="bg-stone-900 text-white">🏔️ Mountain Lake Balcony</option>
+                  <option value="minimal_library" class="bg-stone-900 text-white">📚 Minimalist University Library</option>
+                  <option value="sunny_garden" class="bg-stone-900 text-white">🌿 Sunny Tree Garden Desk</option>
+                  <option value="fairy_lights" class="bg-stone-900 text-white">✨ Sunset Desk & Fairy Lights</option>
+                  <option value="rainy_window" class="bg-stone-900 text-white">🌧️ Rainy Window & City Dusk</option>
+                  <option value="golden_hour" class="bg-stone-900 text-white">🕯️ Golden Hour Book & Candle</option>
+                  <option value="rain_candles" class="bg-stone-900 text-white">☕ Rainy Window Tea & Candles</option>
+                  <option value="custom" class="bg-stone-900 text-white">🔗 Custom Image URL</option>
                 </select>
               </div>
             </div>
 
-            <!-- Deep Work Session Presets (Extended 1hr to 5hr Modes) -->
-            <div class="mt-3 flex items-center gap-1.5 overflow-x-auto pb-1 text-xs font-medium scrollbar-none">
-              <button data-duration="25" data-label="Focus (25m)" class="pomo-mode-btn px-2.5 py-1 rounded-xl bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition whitespace-nowrap">25m</button>
-              <button data-duration="60" data-label="1 Hour Block" class="pomo-mode-btn px-2.5 py-1 rounded-xl bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition whitespace-nowrap">1 hr</button>
-              <button data-duration="90" data-label="90m Deep Work" class="pomo-mode-btn px-2.5 py-1 rounded-xl bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition whitespace-nowrap">90m</button>
-              <button data-duration="120" data-label="2 Hours Study" class="pomo-mode-btn px-2.5 py-1 rounded-xl bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition whitespace-nowrap">2 hrs</button>
-              <button data-duration="180" data-label="3 Hours Deep Session" class="pomo-mode-btn px-2.5 py-1 rounded-xl bg-brand-500 text-white font-semibold shadow-md whitespace-nowrap">3 hrs</button>
-              <button data-duration="240" data-label="4 Hours Marathon" class="pomo-mode-btn px-2.5 py-1 rounded-xl bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition whitespace-nowrap">4 hrs</button>
-              <button data-duration="300" data-label="5 Hours ICAI Sprint" class="pomo-mode-btn px-2.5 py-1 rounded-xl bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition whitespace-nowrap">5 hrs</button>
-              <button data-duration="15" data-label="Break (15m)" class="pomo-mode-btn px-2.5 py-1 rounded-xl bg-emerald-500/40 text-emerald-200 hover:bg-emerald-500/60 transition whitespace-nowrap">15m Break</button>
-            </div>
-
-            <!-- Custom Duration Input Form -->
-            <div class="mt-2.5 flex items-center gap-2 text-[11px] bg-black/30 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10 w-fit">
-              <span class="text-white/70">Custom Hours:</span>
-              <input type="number" id="custom-hours-input" min="0" max="12" step="0.5" placeholder="e.g. 3.5" class="w-16 bg-white/10 border border-white/20 rounded-lg px-2 py-0.5 text-center text-white focus:outline-none focus:ring-1 focus:ring-brand-400">
-              <button id="apply-custom-hours" class="px-2.5 py-0.5 bg-brand-500 hover:bg-brand-600 font-semibold rounded-lg text-white transition">Set</button>
-            </div>
-
-            <!-- Timer Central Display with Hours : Mins : Secs -->
-            <div class="py-7 flex flex-col items-center justify-center">
-              <div id="timer-display" class="font-display text-5xl sm:text-7xl font-extrabold tracking-tight text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)]">
-                03:00:00
+            <!-- Deep Work Session Duration Presets -->
+            <div class="mt-3.5">
+              <div class="text-[11px] font-semibold text-white/80 uppercase tracking-wider mb-2 flex items-center gap-1">
+                <span>Select Total Study Duration:</span>
+                <span class="text-peach-200 font-normal capitalize">(5 min break auto-inserted every 1 hr)</span>
               </div>
-              <div class="flex items-center gap-2 mt-2 text-xs text-amber-200/90 font-medium">
-                <i data-lucide="flame" class="w-4 h-4 text-amber-400 animate-bounce"></i>
-                <span id="pomo-cycle-text">Completed Sessions: <strong class="text-white" id="completed-pomo-count">0</strong></span>
+              <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs font-medium scrollbar-none">
+                <button data-duration="60" data-label="1 Hour Block (60m)" class="pomo-mode-btn px-3 py-1.5 rounded-xl bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition whitespace-nowrap">1 hr</button>
+                <button data-duration="120" data-label="2 Hours (2 Cycles + Break)" class="pomo-mode-btn px-3 py-1.5 rounded-xl bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition whitespace-nowrap">2 hrs</button>
+                <button data-duration="180" data-label="3 Hours Deep Session" class="pomo-mode-btn px-3 py-1.5 rounded-xl bg-peach-500 text-white font-semibold shadow-lg whitespace-nowrap">3 hrs</button>
+                <button data-duration="240" data-label="4 Hours Marathon" class="pomo-mode-btn px-3 py-1.5 rounded-xl bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition whitespace-nowrap">4 hrs</button>
+                <button data-duration="300" data-label="5 Hours ICAI Sprint" class="pomo-mode-btn px-3 py-1.5 rounded-xl bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition whitespace-nowrap">5 hrs</button>
+                <button data-duration="25" data-label="Quick Focus (25m)" class="pomo-mode-btn px-3 py-1.5 rounded-xl bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition whitespace-nowrap">25m Quick</button>
+              </div>
+            </div>
+
+            <!-- Cycle & Stage Indicator Badge -->
+            <div class="mt-4 flex flex-wrap items-center justify-between gap-2 bg-black/35 backdrop-blur-md px-3.5 py-2 rounded-2xl border border-white/10 text-xs">
+              <div class="flex items-center gap-2">
+                <span id="current-phase-pill" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-matcha-100 text-matcha-700 shadow-sm">
+                  📚 Study Cycle 1 of 3
+                </span>
+                <span id="current-cycle-info" class="text-white/80 font-medium">Focus for 60 mins</span>
+              </div>
+              <div class="text-[11px] text-amber-200 font-medium flex items-center gap-1">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                <span id="hourly-break-rule">Break in: Next interval</span>
+              </div>
+            </div>
+
+            <!-- Timer Central Display -->
+            <div class="py-6 flex flex-col items-center justify-center">
+              <div id="timer-display" class="font-display text-5xl sm:text-7xl font-extrabold tracking-tight text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
+                01:00:00
+              </div>
+              <div class="flex items-center gap-2 mt-2 text-xs text-amber-100/90 font-medium">
+                <span id="current-mode-label">3 Hours Deep Session</span>
                 <span class="text-white/40">•</span>
-                <span id="current-mode-label" class="text-white/80">3 Hours Deep Session</span>
+                <span>Completed Rounds: <strong class="text-white font-bold" id="completed-pomo-count">0</strong></span>
               </div>
             </div>
           </div>
 
-          <!-- Controls & Progress bar -->
+          <!-- Controls: Dedicated Start, Pause, Resume, and Stop Buttons -->
           <div>
-            <div class="w-full bg-white/15 rounded-full h-2 mb-4 overflow-hidden backdrop-blur-sm">
-              <div id="timer-bar" class="bg-gradient-to-r from-amber-400 to-brand-400 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+            <div class="w-full bg-white/20 rounded-full h-2 mb-4 overflow-hidden backdrop-blur-sm">
+              <div id="timer-bar" class="bg-gradient-to-r from-amber-300 via-peach-400 to-matcha-400 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
             </div>
-            <div class="flex items-center justify-center gap-3">
-              <button id="pomo-start-pause" class="px-7 py-2.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-semibold text-xs tracking-wide shadow-lg shadow-black/40 flex items-center gap-2 transition hover:scale-105 active:scale-95">
+            
+            <div class="flex items-center justify-center flex-wrap gap-2.5">
+              <!-- Start Button -->
+              <button id="pomo-start" class="px-5 py-2.5 rounded-2xl bg-peach-500 hover:bg-peach-600 text-white font-semibold text-xs tracking-wide shadow-lg shadow-black/25 flex items-center gap-1.5 transition active:scale-95">
                 <i data-lucide="play" class="w-4 h-4 fill-current"></i>
-                <span id="start-btn-label">Start Focus Session</span>
+                <span>Start</span>
               </button>
-              <button id="pomo-reset" class="px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white font-medium text-xs flex items-center gap-1.5 transition backdrop-blur-md">
-                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
-                <span>Reset</span>
+
+              <!-- Pause Button -->
+              <button id="pomo-pause" class="px-5 py-2.5 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-semibold text-xs tracking-wide shadow-lg shadow-black/25 flex items-center gap-1.5 transition active:scale-95">
+                <i data-lucide="pause" class="w-4 h-4 fill-current"></i>
+                <span>Pause</span>
               </button>
-              <button id="test-chime" title="Test Bell Sound" class="p-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white text-xs transition backdrop-blur-md">
-                <i data-lucide="bell" class="w-3.5 h-3.5"></i>
+
+              <!-- Resume Button -->
+              <button id="pomo-resume" class="px-5 py-2.5 rounded-2xl bg-matcha-600 hover:bg-matcha-700 text-white font-semibold text-xs tracking-wide shadow-lg shadow-black/25 flex items-center gap-1.5 transition active:scale-95">
+                <i data-lucide="play-circle" class="w-4 h-4"></i>
+                <span>Resume</span>
+              </button>
+
+              <!-- Stop / End Session Button -->
+              <button id="pomo-stop" class="px-5 py-2.5 rounded-2xl bg-rose-500 hover:bg-rose-600 text-white font-semibold text-xs tracking-wide shadow-lg shadow-black/25 flex items-center gap-1.5 transition active:scale-95">
+                <i data-lucide="square" class="w-3.5 h-3.5 fill-current"></i>
+                <span>Stop</span>
+              </button>
+
+              <!-- Test Bell Chime -->
+              <button id="test-chime" title="Test Soft Alert Bell" class="p-2.5 rounded-2xl bg-white/20 hover:bg-white/30 text-white text-xs transition backdrop-blur-md">
+                <i data-lucide="bell" class="w-4 h-4"></i>
               </button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Spotify Study Lounge Card (5 cols) -->
-      <div class="lg:col-span-5 bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+      <!-- Spotify Pastel Lounge Card (5 cols) -->
+      <div class="lg:col-span-5 bg-white rounded-3xl p-5 border border-[#ece4d6] shadow-sm flex flex-col justify-between">
         <div>
-          <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+          <div class="flex items-center justify-between pb-3.5 border-b border-[#f3ece0]">
             <div class="flex items-center gap-2">
-              <i data-lucide="music" class="w-4 h-4 text-emerald-500"></i>
-              <span class="text-xs uppercase font-bold text-slate-700 dark:text-slate-300 tracking-wider">Spotify Study Lounge</span>
+              <div class="w-7 h-7 rounded-xl bg-matcha-100 text-matcha-700 flex items-center justify-center">
+                <i data-lucide="music-2" class="w-4 h-4"></i>
+              </div>
+              <span class="text-xs uppercase font-bold text-stone-700 tracking-wider">Spotify Study Lounge</span>
             </div>
-            <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">Direct Embed</span>
+            <span class="text-[10px] text-matcha-700 font-semibold bg-matcha-50 px-2.5 py-0.5 rounded-full border border-matcha-200">Embedded</span>
           </div>
 
-          <!-- Quick Presets -->
-          <div class="mt-3 flex items-center gap-1.5 overflow-x-auto pb-1 text-[11px] scrollbar-none">
-            <button data-spotify-uri="playlist/37i9dQZF1DX8Uebhn9wzrS" class="spotify-preset px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 font-medium border border-emerald-200 dark:border-emerald-800/80 whitespace-nowrap">
+          <!-- Quick Curated Pastel Study Playlists -->
+          <div class="mt-3.5 flex items-center gap-1.5 overflow-x-auto pb-1 text-[11px] scrollbar-none">
+            <button data-spotify-uri="playlist/37i9dQZF1DX8Uebhn9wzrS" class="spotify-preset px-2.5 py-1 rounded-xl bg-matcha-50 text-matcha-700 font-medium border border-matcha-200 whitespace-nowrap">
               Lo-Fi Beats
             </button>
-            <button data-spotify-uri="playlist/37i9dQZF1DX4sWSpwq3LiO" class="spotify-preset px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300 hover:bg-slate-200 whitespace-nowrap">
+            <button data-spotify-uri="playlist/37i9dQZF1DX4sWSpwq3LiO" class="spotify-preset px-2.5 py-1 rounded-xl bg-[#faf6ee] text-stone-600 hover:bg-stone-100 font-medium border border-[#ebd9c6] whitespace-nowrap">
               Peaceful Piano
             </button>
-            <button data-spotify-uri="playlist/37i9dQZF1DX3PFDV95bt91" class="spotify-preset px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300 hover:bg-slate-200 whitespace-nowrap">
-              Deep Focus
+            <button data-spotify-uri="playlist/37i9dQZF1DX3PFDV95bt91" class="spotify-preset px-2.5 py-1 rounded-xl bg-[#faf6ee] text-stone-600 hover:bg-stone-100 font-medium border border-[#ebd9c6] whitespace-nowrap">
+              Deep Study
+            </button>
+            <button data-spotify-uri="playlist/37i9dQZF1DX692WJFiQIWV" class="spotify-preset px-2.5 py-1 rounded-xl bg-[#faf6ee] text-stone-600 hover:bg-stone-100 font-medium border border-[#ebd9c6] whitespace-nowrap">
+              Cafe Lofi
             </button>
           </div>
 
           <!-- Spotify Embed Iframe Container -->
-          <div class="mt-3 rounded-xl overflow-hidden bg-black/5 dark:bg-black/30 border border-slate-200 dark:border-slate-800 h-[152px]">
+          <div class="mt-3.5 rounded-2xl overflow-hidden bg-stone-100 border border-[#ece4d6] h-[162px]">
             <iframe id="spotify-iframe" class="w-full h-full border-0" 
                     src="https://open.spotify.com/embed/playlist/37i9dQZF1DX8Uebhn9wzrS?utm_source=generator&theme=0" 
                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
@@ -281,9 +355,9 @@
         </div>
 
         <!-- Custom URL Input -->
-        <div class="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 flex gap-1.5">
-          <input type="text" id="custom-spotify-url" placeholder="Paste custom playlist / album link..." class="flex-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 rounded-xl px-2.5 py-1.5 text-[11px] text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-brand-500">
-          <button id="apply-custom-spotify" class="px-3 py-1.5 bg-slate-900 hover:bg-black dark:bg-slate-700 dark:hover:bg-slate-600 text-white rounded-xl text-[11px] font-semibold transition">
+        <div class="mt-3.5 pt-3 border-t border-[#f3ece0] flex gap-1.5">
+          <input type="text" id="custom-spotify-url" placeholder="Paste Spotify album or playlist link..." class="flex-1 bg-[#faf6ee] border border-[#ebd9c6] rounded-xl px-3 py-1.5 text-xs text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-peach-400/40">
+          <button id="apply-custom-spotify" class="px-3.5 py-1.5 bg-stone-800 hover:bg-stone-900 text-white rounded-xl text-xs font-semibold transition">
             Load
           </button>
         </div>
@@ -291,79 +365,79 @@
 
     </section>
 
-    <!-- Global Progress & Metric Cards -->
+    <!-- Global Progress & Metric Cards in Soft Pastel -->
     <section class="mt-6 grid grid-cols-2 lg:grid-cols-5 gap-3.5 sm:gap-4">
-      <!-- Total Progress Card -->
-      <div class="col-span-2 bg-gradient-to-br from-amber-600 to-amber-700 text-white rounded-2xl p-4 sm:p-5 shadow-lg shadow-amber-600/10 flex flex-col justify-between relative overflow-hidden">
+      <!-- Total Progress Card (Warm Pastel Peach / Honey) -->
+      <div class="col-span-2 bg-gradient-to-br from-peach-500 to-amberwarm-500 text-white rounded-3xl p-5 shadow-lg shadow-peach-500/15 flex flex-col justify-between relative overflow-hidden">
         <div class="relative z-10">
           <div class="flex justify-between items-start">
-            <span class="text-xs uppercase font-bold tracking-wider text-amber-200">Overall Readiness</span>
-            <span id="overall-percentage" class="text-2xl sm:text-3xl font-display font-extrabold">0%</span>
+            <span class="text-xs uppercase font-bold tracking-wider text-peach-100">Overall Syllabus Readiness</span>
+            <span id="overall-percentage" class="text-3xl font-display font-extrabold">0%</span>
           </div>
-          <div class="mt-3 w-full bg-black/20 rounded-full h-2.5 overflow-hidden">
+          <div class="mt-3.5 w-full bg-black/15 rounded-full h-2.5 overflow-hidden">
             <div id="overall-bar" class="bg-white h-full rounded-full transition-all duration-300" style="width: 0%"></div>
           </div>
-          <div class="mt-2 text-xs text-amber-100/90 flex justify-between font-medium">
+          <div class="mt-2 text-xs text-peach-50 flex justify-between font-medium">
             <span id="overall-tasks-count">0 / 0 steps done</span>
             <span id="total-chapters-count">88 Topics</span>
           </div>
         </div>
-        <div class="absolute -right-4 -bottom-4 w-28 h-28 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+        <div class="absolute -right-5 -bottom-5 w-32 h-32 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
       </div>
 
-      <!-- Lectures Watched Card -->
-      <div class="bg-white dark:bg-slate-900/90 rounded-2xl p-4 border border-slate-200 dark:border-slate-800/80 shadow-sm flex flex-col justify-between">
+      <!-- Lectures Watched Card (Soft Sky Blue) -->
+      <div class="bg-white rounded-3xl p-4.5 border border-[#ece4d6] shadow-sm flex flex-col justify-between">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Lectures</span>
-          <div class="w-7 h-7 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 text-indigo-500 flex items-center justify-center">
-            <i data-lucide="video" class="w-3.5 h-3.5"></i>
+          <span class="text-xs font-semibold text-stone-500">Lectures</span>
+          <div class="w-8 h-8 rounded-xl bg-skysoft-100 text-skysoft-600 flex items-center justify-center">
+            <i data-lucide="video" class="w-4 h-4"></i>
           </div>
         </div>
-        <div class="mt-2">
+        <div class="mt-2.5">
           <div class="flex items-baseline gap-1.5">
-            <span id="lectures-stat-pct" class="text-xl sm:text-2xl font-bold font-display text-slate-900 dark:text-white">0%</span>
-            <span id="lectures-stat-ratio" class="text-[11px] text-slate-400">0/0</span>
+            <span id="lectures-stat-pct" class="text-2xl font-bold font-display text-stone-800">0%</span>
+            <span id="lectures-stat-ratio" class="text-[11px] text-stone-400">0/0</span>
           </div>
-          <div class="mt-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
-            <div id="lectures-bar" class="bg-indigo-500 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ICAI Study Material Solved Card -->
-      <div class="bg-white dark:bg-slate-900/90 rounded-2xl p-4 border border-slate-200 dark:border-slate-800/80 shadow-sm flex flex-col justify-between">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">ICAI Module</span>
-          <div class="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 text-emerald-500 flex items-center justify-center">
-            <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
-          </div>
-        </div>
-        <div class="mt-2">
-          <div class="flex items-baseline gap-1.5">
-            <span id="sm-stat-pct" class="text-xl sm:text-2xl font-bold font-display text-slate-900 dark:text-white">0%</span>
-            <span id="sm-stat-ratio" class="text-[11px] text-slate-400">0/0</span>
-          </div>
-          <div class="mt-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
-            <div id="sm-bar" class="bg-emerald-500 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+          <div class="mt-2 w-full bg-skysoft-50 rounded-full h-1.5 overflow-hidden">
+            <div id="lectures-bar" class="bg-skysoft-400 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
           </div>
         </div>
       </div>
 
-      <!-- Revision 1+ Completed Card -->
-      <div class="col-span-2 lg:col-span-1 bg-white dark:bg-slate-900/90 rounded-2xl p-4 border border-slate-200 dark:border-slate-800/80 shadow-sm flex flex-col justify-between">
+      <!-- ICAI Study Material Solved Card (Matcha Green) -->
+      <div class="bg-white rounded-3xl p-4.5 border border-[#ece4d6] shadow-sm flex flex-col justify-between">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Revisions (R1-R3)</span>
-          <div class="w-7 h-7 rounded-lg bg-amber-50 dark:bg-amber-950/50 text-amber-500 flex items-center justify-center">
-            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+          <span class="text-xs font-semibold text-stone-500">ICAI Module</span>
+          <div class="w-8 h-8 rounded-xl bg-matcha-100 text-matcha-700 flex items-center justify-center">
+            <i data-lucide="book-open" class="w-4 h-4"></i>
           </div>
         </div>
-        <div class="mt-2">
+        <div class="mt-2.5">
           <div class="flex items-baseline gap-1.5">
-            <span id="rev-stat-pct" class="text-xl sm:text-2xl font-bold font-display text-slate-900 dark:text-white">0%</span>
-            <span id="rev-stat-ratio" class="text-[11px] text-slate-400">0 done</span>
+            <span id="sm-stat-pct" class="text-2xl font-bold font-display text-stone-800">0%</span>
+            <span id="sm-stat-ratio" class="text-[11px] text-stone-400">0/0</span>
           </div>
-          <div class="mt-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
-            <div id="rev-bar" class="bg-amber-500 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+          <div class="mt-2 w-full bg-matcha-50 rounded-full h-1.5 overflow-hidden">
+            <div id="sm-bar" class="bg-matcha-400 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Revision 1-3 Completed Card (Pastel Lavender) -->
+      <div class="col-span-2 lg:col-span-1 bg-white rounded-3xl p-4.5 border border-[#ece4d6] shadow-sm flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold text-stone-500">Revisions (R1-R3)</span>
+          <div class="w-8 h-8 rounded-xl bg-lavender-100 text-lavender-600 flex items-center justify-center">
+            <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+          </div>
+        </div>
+        <div class="mt-2.5">
+          <div class="flex items-baseline gap-1.5">
+            <span id="rev-stat-pct" class="text-2xl font-bold font-display text-stone-800">0%</span>
+            <span id="rev-stat-ratio" class="text-[11px] text-stone-400">0 done</span>
+          </div>
+          <div class="mt-2 w-full bg-lavender-50 rounded-full h-1.5 overflow-hidden">
+            <div id="rev-bar" class="bg-lavender-400 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
           </div>
         </div>
       </div>
@@ -372,14 +446,14 @@
     <!-- Filters, Search & View Controls -->
     <div class="mt-6 flex flex-col md:flex-row md:items-center justify-between gap-3">
       <!-- Group & Paper Filter Tabs -->
-      <div class="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full text-xs font-medium scrollbar-none" id="group-tabs">
-        <button data-group="all" class="filter-tab active px-3.5 py-2 rounded-xl transition whitespace-nowrap bg-brand-500 text-white shadow-sm font-semibold">
+      <div class="flex items-center gap-2 overflow-x-auto pb-1 max-w-full text-xs font-medium scrollbar-none" id="group-tabs">
+        <button data-group="all" class="filter-tab active px-4 py-2 rounded-2xl transition whitespace-nowrap bg-peach-500 text-white shadow-sm font-semibold">
           All Papers
         </button>
-        <button data-group="g1" class="filter-tab px-3.5 py-2 rounded-xl transition whitespace-nowrap bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+        <button data-group="g1" class="filter-tab px-4 py-2 rounded-2xl transition whitespace-nowrap bg-white border border-[#ece4d6] text-stone-600 hover:bg-[#faf6ee]">
           Group 1 (P1, P2, P3)
         </button>
-        <button data-group="g2" class="filter-tab px-3.5 py-2 rounded-xl transition whitespace-nowrap bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+        <button data-group="g2" class="filter-tab px-4 py-2 rounded-2xl transition whitespace-nowrap bg-white border border-[#ece4d6] text-stone-600 hover:bg-[#faf6ee]">
           Group 2 (P4, P5, P6)
         </button>
       </div>
@@ -387,17 +461,17 @@
       <!-- Search & Confidence Filter -->
       <div class="flex items-center gap-2">
         <div class="relative flex-1 sm:w-64">
-          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
-          <input type="text" id="search-input" placeholder="Search standard, act, chapter..." class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/40">
+          <i data-lucide="search" class="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+          <input type="text" id="search-input" placeholder="Search standard, act, chapter..." class="w-full bg-white border border-[#ece4d6] rounded-2xl pl-9 pr-3 py-2 text-xs text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-peach-400/40">
         </div>
-        <select id="confidence-filter" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-2.5 py-2 text-xs text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500/40">
+        <select id="confidence-filter" class="bg-white border border-[#ece4d6] rounded-2xl px-3 py-2 text-xs text-stone-700 focus:outline-none focus:ring-2 focus:ring-peach-400/40">
           <option value="all">All Priorities</option>
           <option value="High">🔴 High Priority</option>
           <option value="Medium">🟡 Medium Priority</option>
           <option value="Low">🟢 Low Priority</option>
           <option value="Unset">⚪ Not Rated</option>
         </select>
-        <button id="toggle-expand-all" title="Expand / Collapse All" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+        <button id="toggle-expand-all" title="Expand / Collapse All" class="bg-white border border-[#ece4d6] p-2 rounded-2xl text-stone-600 hover:bg-[#faf6ee] transition">
           <i data-lucide="chevrons-up-down" class="w-4 h-4"></i>
         </button>
       </div>
@@ -411,22 +485,22 @@
   </div>
 
   <!-- Note Drawer Modal -->
-  <div id="note-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4">
-    <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-5 border border-slate-200 dark:border-slate-800 shadow-2xl">
-      <div class="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
+  <div id="note-modal" class="fixed inset-0 z-50 bg-stone-900/40 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 border border-[#ece4d6] shadow-2xl">
+      <div class="flex items-center justify-between pb-3.5 border-b border-[#f3ece0]">
         <div>
-          <span class="text-[10px] uppercase font-bold text-brand-600 dark:text-brand-400 tracking-wider">Chapter Notes & Doubts</span>
-          <h3 id="modal-chapter-title" class="font-display font-semibold text-slate-900 dark:text-white text-base">Topic Title</h3>
+          <span class="text-[10px] uppercase font-bold text-peach-600 tracking-wider">Chapter Notes & Doubts</span>
+          <h3 id="modal-chapter-title" class="font-display font-semibold text-stone-800 text-base">Topic Title</h3>
         </div>
-        <button id="close-modal-btn" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white">
+        <button id="close-modal-btn" class="p-1 rounded-xl text-stone-400 hover:text-stone-700 hover:bg-stone-100">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
       <div class="mt-4">
-        <textarea id="modal-note-text" rows="5" placeholder="Write exam points, weak concepts, RTP question numbers, or reminder notes here..." class="w-full bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80 rounded-xl p-3 text-sm text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40"></textarea>
+        <textarea id="modal-note-text" rows="5" placeholder="Write exam adjustments, weak concepts, RTP question numbers, or revision reminders here..." class="w-full bg-[#faf6ee] border border-[#ebd9c6] rounded-2xl p-3.5 text-sm text-stone-800 focus:outline-none focus:ring-2 focus:ring-peach-400/40"></textarea>
       </div>
       <div class="mt-4 flex justify-end gap-2">
-        <button id="save-note-btn" class="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white rounded-xl text-xs font-semibold shadow transition">
+        <button id="save-note-btn" class="px-5 py-2 bg-peach-500 hover:bg-peach-600 text-white rounded-2xl text-xs font-semibold shadow-md shadow-peach-500/20 transition">
           Save Note
         </button>
       </div>
@@ -434,29 +508,29 @@
   </div>
 
   <!-- Mobile Floating Summary Bar with Mini-Pomo -->
-  <div class="sm:hidden fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 px-4 py-2.5 flex items-center justify-between shadow-lg z-30">
+  <div class="sm:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-[#ece4d6] px-4 py-2.5 flex items-center justify-between shadow-lg z-30">
     <div class="flex items-center gap-2.5">
-      <div class="w-8 h-8 rounded-full bg-brand-500 text-white font-display font-bold text-xs flex items-center justify-center">
+      <div class="w-8 h-8 rounded-full bg-peach-500 text-white font-display font-bold text-xs flex items-center justify-center">
         <span id="mobile-progress-badge">0%</span>
       </div>
       <div>
-        <div class="text-[11px] font-semibold text-slate-900 dark:text-white">CA Inter Progress</div>
-        <div id="mobile-progress-details" class="text-[10px] text-slate-400">0 tasks done</div>
+        <div class="text-[11px] font-semibold text-stone-800">CA Inter Progress</div>
+        <div id="mobile-progress-details" class="text-[10px] text-stone-400">0 tasks done</div>
       </div>
     </div>
     <div class="flex items-center gap-2">
       <div class="text-right">
-        <span id="mobile-mini-timer" class="font-display font-bold text-xs text-brand-600 dark:text-brand-400">03:00:00</span>
+        <span id="mobile-mini-timer" class="font-display font-bold text-xs text-peach-600">01:00:00</span>
       </div>
-      <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="p-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900">
+      <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="p-1.5 rounded-xl text-stone-500 hover:text-stone-900 hover:bg-stone-100">
         <i data-lucide="arrow-up" class="w-4 h-4"></i>
       </button>
     </div>
   </div>
 
-  <!-- Notification Toast -->
-  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white dark:bg-white dark:text-slate-900 text-xs font-medium px-4 py-2.5 rounded-xl shadow-xl flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
-    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+  <!-- Notification Toast in Soft Pastel -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-stone-800 text-white text-xs font-medium px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2.5 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none border border-stone-700">
+    <i data-lucide="check-circle" class="w-4 h-4 text-matcha-400"></i>
     <span id="toast-message">Action successful</span>
   </div>
 
@@ -696,35 +770,30 @@
     /* ==========================================================================
        2. STATE MANAGEMENT & STORAGE INITIALIZATION
        ========================================================================== */
-    const STORAGE_KEY = 'ca_inter_tracker_data_v1';
-    const SETTINGS_KEY = 'ca_inter_tracker_settings_v1';
+    const STORAGE_KEY = 'ca_inter_pastel_data_v2';
+    const SETTINGS_KEY = 'ca_inter_pastel_settings_v2';
 
     let userState = {};
     let appSettings = {
       examDate: '2026-11-03',
-      theme: 'dark',
       pomoCount: 0,
       spotifyEmbedUri: 'playlist/37i9dQZF1DX8Uebhn9wzrS',
-      ambientTheme: 'rainy',
-      timerDurationMinutes: 180
+      ambientTheme: 'mountain_lake',
+      customWallpaperUrl: '',
+      targetTotalMinutes: 180
     };
 
     function loadState() {
       try {
         const savedData = localStorage.getItem(STORAGE_KEY);
-        if (savedData) {
-          userState = JSON.parse(savedData);
-        } else {
-          userState = {};
-        }
+        if (savedData) userState = JSON.parse(savedData);
 
         const savedSettings = localStorage.getItem(SETTINGS_KEY);
         if (savedSettings) {
           appSettings = { ...appSettings, ...JSON.parse(savedSettings) };
         }
       } catch (e) {
-        console.error("Failed to load local storage", e);
-        userState = {};
+        console.error("Storage load error", e);
       }
     }
 
@@ -733,7 +802,7 @@
         localStorage.setItem(STORAGE_KEY, JSON.stringify(userState));
         localStorage.setItem(SETTINGS_KEY, JSON.stringify(appSettings));
       } catch (e) {
-        console.error("Failed to persist data", e);
+        console.error("Storage save error", e);
       }
       updateAnalytics();
     }
@@ -754,52 +823,144 @@
     }
 
     /* ==========================================================================
-       3. AMBIENT BACKGROUNDS & DEEP WORK TIMER ENGINE
+       3. AESTHETIC BACKGROUND PRESETS MATCHED TO UPLOADED IMAGES
        ========================================================================== */
     const AMBIENT_WALLPAPERS = {
-      rainy: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1200&q=80",
-      lofi: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&w=1200&q=80",
-      library: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1200&q=80",
-      kyoto: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=80"
+      // 1. Mountain Lake Balcony with books
+      mountain_lake: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=80",
+      // 2. Minimalist University Library Study Hall
+      minimal_library: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1400&q=80",
+      // 3. Sunny Tree Garden Outdoor Wooden Desk
+      sunny_garden: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1400&q=80",
+      // 4. Sunset Desk with Fairy Lights, books & notes
+      fairy_lights: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&w=1400&q=80",
+      // 5. Rainy Window & City Dusk Overlook with Tablet
+      rainy_window: "https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?auto=format&fit=crop&w=1400&q=80",
+      // 6. Golden Hour Book, Plants & Scented Candle
+      golden_hour: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&w=1400&q=80",
+      // 7. Rainy Window with Open Book, Coffee Mug & Candles
+      rain_candles: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1400&q=80"
     };
-
-    let totalDurationSeconds = 180 * 60; // Default 3 hours
-    let timeLeft = totalDurationSeconds;
-    let timerInterval = null;
-    let isRunning = false;
 
     function applyAmbientBackground(themeKey) {
       const container = document.getElementById('pomo-card-container');
-      const url = AMBIENT_WALLPAPERS[themeKey] || AMBIENT_WALLPAPERS.rainy;
+      let url = AMBIENT_WALLPAPERS[themeKey];
+
+      if (themeKey === 'custom') {
+        const customUrl = prompt("Enter custom image URL for study wallpaper:", appSettings.customWallpaperUrl || '');
+        if (customUrl && customUrl.trim().length > 5) {
+          appSettings.customWallpaperUrl = customUrl.trim();
+          url = appSettings.customWallpaperUrl;
+        } else {
+          url = AMBIENT_WALLPAPERS.mountain_lake;
+          themeKey = 'mountain_lake';
+          document.getElementById('ambient-theme-select').value = 'mountain_lake';
+        }
+      }
+
+      if (!url) url = AMBIENT_WALLPAPERS.mountain_lake;
+
       container.style.backgroundImage = `url('${url}')`;
       appSettings.ambientTheme = themeKey;
       saveState();
     }
 
-    function playChime() {
-      try {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        if (!AudioContext) return;
-        const ctx = new AudioContext();
+    /* ==========================================================================
+       4. LONG STUDY POMODORO ENGINE WITH HOURLY 5-MIN BREAKS
+       ========================================================================== */
+    // Queue structure of study intervals & breaks
+    let sessionQueue = []; 
+    let currentStepIndex = 0;
+    let stepTimeRemaining = 0;
+    let stepInitialDuration = 0;
+    let timerState = 'STOPPED'; // 'STOPPED', 'RUNNING', 'PAUSED'
+    let timerInterval = null;
 
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
+    function buildSessionPlan(totalTargetMinutes) {
+      const plan = [];
+      let remaining = totalTargetMinutes;
+      let cycle = 1;
 
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(520, ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 1.2);
-
-        gain.gain.setValueAtTime(0.35, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.6);
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-
-        osc.start();
-        osc.stop(ctx.currentTime + 1.6);
-      } catch (e) {
-        console.log("Audio play prevented", e);
+      if (totalTargetMinutes <= 55) {
+        // Short session
+        plan.push({ type: 'study', durationMins: totalTargetMinutes, label: `Focus Session (${totalTargetMinutes}m)`, cycleNum: 1, totalCycles: 1 });
+        return plan;
       }
+
+      const totalCycles = Math.ceil(totalTargetMinutes / 60);
+
+      while (remaining > 0) {
+        const studyBlock = Math.min(60, remaining);
+        plan.push({
+          type: 'study',
+          durationMins: studyBlock,
+          label: `Study Block ${cycle} of ${totalCycles}`,
+          cycleNum: cycle,
+          totalCycles: totalCycles
+        });
+        remaining -= studyBlock;
+
+        // Auto insert 5-minute break if there is another study block ahead
+        if (remaining > 0) {
+          plan.push({
+            type: 'break',
+            durationMins: 5,
+            label: `5-Min Refresh Break (Cycle ${cycle})`,
+            cycleNum: cycle,
+            totalCycles: totalCycles
+          });
+        }
+        cycle++;
+      }
+      return plan;
+    }
+
+    function initTimerFromDuration(minutes, customLabel) {
+      stopTimer();
+      appSettings.targetTotalMinutes = minutes;
+      saveState();
+
+      sessionQueue = buildSessionPlan(minutes);
+      currentStepIndex = 0;
+      loadCurrentStep();
+
+      if (customLabel) {
+        document.getElementById('current-mode-label').textContent = customLabel;
+      }
+    }
+
+    function loadCurrentStep() {
+      if (!sessionQueue || sessionQueue.length === 0) return;
+      const step = sessionQueue[currentStepIndex];
+      stepInitialDuration = step.durationMins * 60;
+      stepTimeRemaining = stepInitialDuration;
+
+      const pill = document.getElementById('current-phase-pill');
+      const info = document.getElementById('current-cycle-info');
+      const breakRule = document.getElementById('hourly-break-rule');
+
+      if (step.type === 'study') {
+        pill.className = "px-3 py-1 rounded-full text-xs font-bold bg-matcha-100 text-matcha-800 border border-matcha-300 shadow-sm";
+        pill.innerHTML = `📚 Focus Block ${step.cycleNum} of ${step.totalCycles}`;
+        info.textContent = `Deep work (${step.durationMins}m)`;
+        breakRule.textContent = step.cycleNum < step.totalCycles ? "5m break follows" : "Final sprint";
+      } else {
+        pill.className = "px-3 py-1 rounded-full text-xs font-bold bg-lavender-100 text-lavender-800 border border-lavender-300 shadow-sm";
+        pill.innerHTML = `☕ 5-Min Refresh Break`;
+        info.textContent = "Stand up, stretch & drink water";
+        breakRule.textContent = `Next: Block ${step.cycleNum + 1}`;
+      }
+
+      updateTimerUI();
+    }
+
+    function updateTimerUI() {
+      const formatted = formatTime(stepTimeRemaining);
+      document.getElementById('timer-display').textContent = formatted;
+      document.getElementById('mobile-mini-timer').textContent = formatted;
+
+      const progress = stepInitialDuration > 0 ? ((stepInitialDuration - stepTimeRemaining) / stepInitialDuration) * 100 : 0;
+      document.getElementById('timer-bar').style.width = `${progress}%`;
     }
 
     function formatTime(totalSecs) {
@@ -814,74 +975,112 @@
       }
     }
 
-    function updateTimerDisplay() {
-      const formatted = formatTime(timeLeft);
-      document.getElementById('timer-display').textContent = formatted;
-      document.getElementById('mobile-mini-timer').textContent = formatted;
-
-      const progress = totalDurationSeconds > 0 ? ((totalDurationSeconds - timeLeft) / totalDurationSeconds) * 100 : 0;
-      document.getElementById('timer-bar').style.width = `${progress}%`;
-    }
-
-    function setSessionDuration(minutes, label) {
-      pauseTimer();
-      totalDurationSeconds = minutes * 60;
-      timeLeft = totalDurationSeconds;
-      appSettings.timerDurationMinutes = minutes;
-      saveState();
-
-      if (label) {
-        document.getElementById('current-mode-label').textContent = label;
-      }
-      updateTimerDisplay();
-    }
-
     function startTimer() {
-      if (isRunning) return;
-      isRunning = true;
-      document.getElementById('start-btn-label').textContent = "Pause Session";
+      if (timerState === 'RUNNING') return;
+
+      if (timerState === 'STOPPED') {
+        if (!sessionQueue || sessionQueue.length === 0) {
+          sessionQueue = buildSessionPlan(appSettings.targetTotalMinutes || 180);
+          currentStepIndex = 0;
+          loadCurrentStep();
+        }
+      }
+
+      timerState = 'RUNNING';
       document.getElementById('timer-live-dot').classList.add('animate-ping');
-      
-      // Dynamic ambient mood: deepen backdrop slightly while running
-      document.getElementById('ambient-overlay').classList.replace('bg-slate-900/60', 'bg-slate-900/75');
+      document.getElementById('ambient-overlay').classList.replace('bg-stone-900/50', 'bg-stone-900/70');
 
+      clearInterval(timerInterval);
       timerInterval = setInterval(() => {
-        if (timeLeft > 0) {
-          timeLeft--;
-          updateTimerDisplay();
+        if (stepTimeRemaining > 0) {
+          stepTimeRemaining--;
+          updateTimerUI();
         } else {
-          clearInterval(timerInterval);
-          isRunning = false;
-          document.getElementById('start-btn-label').textContent = "Start Focus Session";
-          document.getElementById('timer-live-dot').classList.remove('animate-ping');
-          document.getElementById('ambient-overlay').classList.replace('bg-slate-900/75', 'bg-slate-900/60');
+          // Current step is done!
           playChime();
+          const completedStep = sessionQueue[currentStepIndex];
 
-          appSettings.pomoCount = (appSettings.pomoCount || 0) + 1;
-          saveState();
-          document.getElementById('completed-pomo-count').textContent = appSettings.pomoCount;
-          showToast("Study block completed! Outstanding work. Take a break.");
+          if (currentStepIndex < sessionQueue.length - 1) {
+            currentStepIndex++;
+            loadCurrentStep();
+            if (completedStep.type === 'study') {
+              showToast("1 hour study block finished! Take a 5-minute breather.");
+            } else {
+              showToast("Break over! Let's resume the next focus block.");
+            }
+          } else {
+            // Entire multi-hour study session completed
+            stopTimer();
+            appSettings.pomoCount = (appSettings.pomoCount || 0) + 1;
+            saveState();
+            document.getElementById('completed-pomo-count').textContent = appSettings.pomoCount;
+            showToast("Congratulations! Full deep work session completed!");
+          }
         }
       }, 1000);
     }
 
     function pauseTimer() {
+      if (timerState !== 'RUNNING') return;
       clearInterval(timerInterval);
-      isRunning = false;
-      document.getElementById('start-btn-label').textContent = "Resume Session";
+      timerState = 'PAUSED';
       document.getElementById('timer-live-dot').classList.remove('animate-ping');
-      document.getElementById('ambient-overlay').classList.replace('bg-slate-900/75', 'bg-slate-900/60');
+      document.getElementById('ambient-overlay').classList.replace('bg-stone-900/70', 'bg-stone-900/50');
+      showToast("Timer paused.");
     }
 
-    function resetTimer() {
-      pauseTimer();
-      timeLeft = totalDurationSeconds;
-      document.getElementById('start-btn-label').textContent = "Start Focus Session";
-      updateTimerDisplay();
+    function resumeTimer() {
+      if (timerState === 'PAUSED') {
+        startTimer();
+        showToast("Session resumed!");
+      }
+    }
+
+    function stopTimer() {
+      clearInterval(timerInterval);
+      timerState = 'STOPPED';
+      document.getElementById('timer-live-dot').classList.remove('animate-ping');
+      document.getElementById('ambient-overlay').classList.replace('bg-stone-900/70', 'bg-stone-900/50');
+
+      if (sessionQueue && sessionQueue.length > 0) {
+        currentStepIndex = 0;
+        const step = sessionQueue[0];
+        stepInitialDuration = step.durationMins * 60;
+        stepTimeRemaining = stepInitialDuration;
+        loadCurrentStep();
+      }
+    }
+
+    function playChime() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        const ctx = new AudioContext();
+
+        // Harmonious pastel double bell
+        [523.25, 659.25].forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, ctx.currentTime + (idx * 0.15));
+
+          gain.gain.setValueAtTime(0.3, ctx.currentTime + (idx * 0.15));
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (idx * 0.15) + 1.4);
+
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+
+          osc.start(ctx.currentTime + (idx * 0.15));
+          osc.stop(ctx.currentTime + (idx * 0.15) + 1.4);
+        });
+      } catch (e) {
+        console.log("Audio play blocked", e);
+      }
     }
 
     /* ==========================================================================
-       4. SPOTIFY INTEGRATION LOGIC
+       5. SPOTIFY EMBED HANDLER
        ========================================================================== */
     function loadSpotifyUri(uriPart) {
       const cleanUri = uriPart.replace(/^https:\/\/open\.spotify\.com\//, '').replace(/^\/+/, '');
@@ -892,7 +1091,7 @@
     }
 
     /* ==========================================================================
-       5. TRACKER RENDERING ENGINE
+       6. TRACKER RENDERING ENGINE
        ========================================================================== */
     let activeGroupFilter = 'all';
     let searchQuery = '';
@@ -914,13 +1113,10 @@
         paper.sections.forEach(section => {
           const matchingItems = section.items.filter(item => {
             const state = getItemState(item.id);
-
             const matchesSearch = searchQuery === '' || 
               item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
               item.sub.toLowerCase().includes(searchQuery.toLowerCase());
-
             const matchesPriority = priorityFilter === 'all' || state.priority === priorityFilter;
-
             return matchesSearch && matchesPriority;
           });
 
@@ -951,48 +1147,48 @@
         const paperPct = paperTotalTasks > 0 ? Math.round((paperDoneTasks / paperTotalTasks) * 100) : 0;
 
         const paperCard = document.createElement('div');
-        paperCard.className = "bg-white dark:bg-slate-900/90 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden transition-all duration-200";
+        paperCard.className = "bg-white rounded-3xl border border-[#ece4d6] shadow-sm overflow-hidden transition-all duration-200";
         paperCard.id = `paper-card-${paper.id}`;
 
         paperCard.innerHTML = `
-          <div class="paper-header cursor-pointer px-4 sm:px-6 py-4 flex items-center justify-between bg-slate-50/70 dark:bg-slate-800/40 hover:bg-slate-100/70 dark:hover:bg-slate-800/60 transition select-none" data-target="content-${paper.id}">
-            <div class="flex items-center gap-3">
-              <span class="w-8 h-8 rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 font-bold text-xs flex items-center justify-center border border-brand-500/20">
+          <div class="paper-header cursor-pointer px-5 sm:px-6 py-4.5 flex items-center justify-between bg-[#fbf9f5] hover:bg-[#f6f0e4] transition select-none" data-target="content-${paper.id}">
+            <div class="flex items-center gap-3.5">
+              <span class="w-9 h-9 rounded-2xl bg-peach-50 text-peach-600 font-bold text-xs flex items-center justify-center border border-peach-200/60">
                 ${paper.code.replace('Paper ', 'P')}
               </span>
               <div>
                 <div class="flex items-center gap-2">
-                  <h2 class="font-display font-bold text-base sm:text-lg text-slate-900 dark:text-white">
+                  <h2 class="font-display font-bold text-base sm:text-lg text-stone-800">
                     ${paper.code}: ${paper.title}
                   </h2>
-                  <span class="hidden sm:inline-block text-[11px] font-semibold text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">
+                  <span class="hidden sm:inline-block text-[11px] font-semibold text-stone-500 bg-[#f3ece0] px-2.5 py-0.5 rounded-full">
                     ${paper.badge}
                   </span>
                 </div>
-                <div class="text-xs text-slate-400 font-medium">
-                  ${filteredSections.reduce((acc, s) => acc + s.items.length, 0)} Topics Listed
+                <div class="text-xs text-stone-400 font-medium">
+                  ${filteredSections.reduce((acc, s) => acc + s.items.length, 0)} Topics
                 </div>
               </div>
             </div>
 
-            <div class="flex items-center gap-3 sm:gap-4">
+            <div class="flex items-center gap-4">
               <div class="text-right">
-                <span class="text-xs sm:text-sm font-bold font-display text-slate-800 dark:text-slate-200">${paperPct}%</span>
-                <div class="w-16 sm:w-24 bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full mt-1 overflow-hidden">
-                  <div class="bg-brand-500 h-full rounded-full transition-all duration-300" style="width: ${paperPct}%"></div>
+                <span class="text-xs sm:text-sm font-bold font-display text-stone-800">${paperPct}%</span>
+                <div class="w-16 sm:w-28 bg-[#ebd9c6] h-2 rounded-full mt-1 overflow-hidden">
+                  <div class="bg-peach-500 h-full rounded-full transition-all duration-300" style="width: ${paperPct}%"></div>
                 </div>
               </div>
-              <div class="text-slate-400 transition-transform duration-200 chevron-icon">
+              <div class="text-stone-400 transition-transform duration-200 chevron-icon">
                 <i data-lucide="chevron-down" class="w-5 h-5"></i>
               </div>
             </div>
           </div>
 
-          <div id="content-${paper.id}" class="divide-y divide-slate-100 dark:divide-slate-800/60">
+          <div id="content-${paper.id}" class="divide-y divide-[#f3ece0]">
             ${filteredSections.map(sec => `
-              <div class="p-3 sm:p-5">
-                <h3 class="text-xs uppercase font-bold tracking-wider text-brand-600 dark:text-brand-400/90 mb-3 flex items-center gap-2">
-                  <span class="w-1.5 h-1.5 rounded-full bg-brand-500"></span>
+              <div class="p-4 sm:p-6">
+                <h3 class="text-xs uppercase font-bold tracking-wider text-matcha-700 mb-3.5 flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-matcha-400"></span>
                   ${sec.sectionTitle}
                 </h3>
                 
@@ -1009,12 +1205,12 @@
 
       if (totalVisiblePapers === 0) {
         container.innerHTML = `
-          <div class="bg-white dark:bg-slate-900 rounded-2xl p-12 text-center border border-slate-200 dark:border-slate-800">
-            <div class="w-12 h-12 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto text-slate-400">
+          <div class="bg-white rounded-3xl p-12 text-center border border-[#ece4d6]">
+            <div class="w-12 h-12 bg-cream-100 rounded-full flex items-center justify-center mx-auto text-stone-400">
               <i data-lucide="search-x" class="w-6 h-6"></i>
             </div>
-            <h4 class="mt-3 font-semibold text-slate-800 dark:text-white">No topics match your filters</h4>
-            <p class="text-xs text-slate-400 mt-1">Try resetting the search keyword or priority filter.</p>
+            <h4 class="mt-3 font-semibold text-stone-800">No topics match your filters</h4>
+            <p class="text-xs text-stone-400 mt-1">Try resetting search keywords or priority filter.</p>
           </div>
         `;
       }
@@ -1028,59 +1224,59 @@
       const st = getItemState(item.id);
       
       const priorityColors = {
-        'High': 'bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-400 border-rose-200 dark:border-rose-900/60',
-        'Medium': 'bg-amber-100 text-amber-700 dark:bg-amber-950/60 dark:text-amber-400 border-amber-200 dark:border-amber-900/60',
-        'Low': 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400 border-emerald-200 dark:border-emerald-900/60',
-        'Unset': 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400 border-slate-200 dark:border-slate-700'
+        'High': 'bg-peach-50 text-peach-600 border-peach-200',
+        'Medium': 'bg-amberwarm-50 text-amberwarm-600 border-amberwarm-200',
+        'Low': 'bg-matcha-50 text-matcha-700 border-matcha-200',
+        'Unset': 'bg-[#faf6ee] text-stone-400 border-[#ebd9c6]'
       };
 
       const hasNote = st.note && st.note.trim().length > 0;
 
       return `
-        <div class="item-row p-3 rounded-xl border border-slate-100 dark:border-slate-800/80 bg-slate-50/40 dark:bg-slate-900/40 hover:bg-white dark:hover:bg-slate-800/40 transition flex flex-col md:flex-row md:items-center justify-between gap-3" data-id="${item.id}">
+        <div class="item-row p-3.5 rounded-2xl border border-[#ece4d6] bg-[#fdfbf7] hover:bg-white transition flex flex-col md:flex-row md:items-center justify-between gap-3" data-id="${item.id}">
           <div class="flex-1 min-w-0">
             <div class="flex items-center gap-2">
-              <span class="font-medium text-xs sm:text-sm text-slate-900 dark:text-white truncate">
+              <span class="font-medium text-xs sm:text-sm text-stone-800 truncate">
                 ${item.title}
               </span>
-              <button class="priority-badge text-[10px] font-semibold px-2 py-0.5 rounded-full border transition cursor-pointer select-none ${priorityColors[st.priority] || priorityColors.Unset}" data-id="${item.id}" title="Click to cycle priority (High / Med / Low)">
+              <button class="priority-badge text-[10px] font-semibold px-2.5 py-0.5 rounded-full border transition cursor-pointer select-none ${priorityColors[st.priority] || priorityColors.Unset}" data-id="${item.id}" title="Tap to cycle Priority (High / Med / Low)">
                 ${st.priority === 'Unset' ? 'Priority' : st.priority}
               </button>
             </div>
-            <div class="text-[11px] text-slate-400 truncate mt-0.5">
+            <div class="text-[11px] text-stone-400 truncate mt-0.5">
               ${item.sub}
             </div>
           </div>
 
           <div class="flex items-center flex-wrap gap-2.5 sm:gap-3.5 text-xs">
-            <label class="flex items-center gap-1.5 cursor-pointer select-none text-slate-600 dark:text-slate-300">
+            <label class="flex items-center gap-1.5 cursor-pointer select-none text-stone-600">
               <input type="checkbox" class="custom-checkbox task-check" data-id="${item.id}" data-task="lecture" ${st.lecture ? 'checked' : ''}>
               <span class="text-[11px] font-medium">Lectures</span>
             </label>
 
-            <label class="flex items-center gap-1.5 cursor-pointer select-none text-slate-600 dark:text-slate-300">
+            <label class="flex items-center gap-1.5 cursor-pointer select-none text-stone-600">
               <input type="checkbox" class="custom-checkbox task-check" data-id="${item.id}" data-task="sm" ${st.sm ? 'checked' : ''}>
               <span class="text-[11px] font-medium">ICAI SM</span>
             </label>
 
-            <div class="flex items-center gap-1 bg-white dark:bg-slate-800 px-2 py-1 rounded-lg border border-slate-200/80 dark:border-slate-700/60">
+            <div class="flex items-center gap-1.5 bg-[#faf6ee] px-2.5 py-1 rounded-xl border border-[#ebd9c6]">
               <label class="flex items-center gap-1 cursor-pointer select-none" title="Revision 1">
                 <input type="checkbox" class="custom-checkbox task-check" data-id="${item.id}" data-task="r1" ${st.r1 ? 'checked' : ''}>
-                <span class="text-[10px] font-bold text-slate-500">R1</span>
+                <span class="text-[10px] font-bold text-stone-500">R1</span>
               </label>
               <label class="flex items-center gap-1 cursor-pointer select-none" title="Revision 2">
                 <input type="checkbox" class="custom-checkbox task-check" data-id="${item.id}" data-task="r2" ${st.r2 ? 'checked' : ''}>
-                <span class="text-[10px] font-bold text-slate-500">R2</span>
+                <span class="text-[10px] font-bold text-stone-500">R2</span>
               </label>
               <label class="flex items-center gap-1 cursor-pointer select-none" title="Revision 3">
                 <input type="checkbox" class="custom-checkbox task-check" data-id="${item.id}" data-task="r3" ${st.r3 ? 'checked' : ''}>
-                <span class="text-[10px] font-bold text-slate-500">R3</span>
+                <span class="text-[10px] font-bold text-stone-500">R3</span>
               </label>
             </div>
 
-            <button class="open-note-btn p-1.5 rounded-lg border border-slate-200 dark:border-slate-700/80 text-slate-400 hover:text-brand-500 hover:border-brand-500 transition relative" data-id="${item.id}" data-title="${item.title}" title="Add Notes / Doubts">
+            <button class="open-note-btn p-1.5 rounded-xl border border-[#ebd9c6] text-stone-400 hover:text-peach-500 hover:border-peach-300 transition relative" data-id="${item.id}" data-title="${item.title}" title="Add Notes">
               <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
-              ${hasNote ? '<span class="absolute -top-1 -right-1 w-2 h-2 bg-brand-500 rounded-full"></span>' : ''}
+              ${hasNote ? '<span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-peach-500 rounded-full"></span>' : ''}
             </button>
           </div>
         </div>
@@ -1140,7 +1336,7 @@
     }
 
     /* ==========================================================================
-       6. NOTE DRAWER MODAL LOGIC
+       7. NOTE DRAWER MODAL
        ========================================================================== */
     let currentModalItemId = null;
     const modal = document.getElementById('note-modal');
@@ -1170,7 +1366,7 @@
         st.note = modalText.value;
         saveState();
         renderTracker();
-        showToast("Note saved successfully!");
+        showToast("Note saved!");
       }
       closeNoteModal();
     });
@@ -1180,7 +1376,7 @@
     });
 
     /* ==========================================================================
-       7. ANALYTICS & STATS ENGINE
+       8. ANALYTICS & STATS ENGINE
        ========================================================================== */
     function updateAnalytics() {
       let totalItems = 0;
@@ -1231,7 +1427,7 @@
 
       document.getElementById('overall-percentage').textContent = `${overallPct}%`;
       document.getElementById('overall-bar').style.width = `${overallPct}%`;
-      document.getElementById('overall-tasks-count').textContent = `${doneTasks} of ${totalTasks} steps completed`;
+      document.getElementById('overall-tasks-count').textContent = `${doneTasks} of ${totalTasks} steps finished`;
       document.getElementById('total-chapters-count').textContent = `${totalItems} Total Topics`;
 
       document.getElementById('lectures-stat-pct').textContent = `${lecPct}%`;
@@ -1247,11 +1443,11 @@
       document.getElementById('rev-bar').style.width = `${revPct}%`;
 
       document.getElementById('mobile-progress-badge').textContent = `${overallPct}%`;
-      document.getElementById('mobile-progress-details').textContent = `${doneTasks} / ${totalTasks} tasks done`;
+      document.getElementById('mobile-progress-details').textContent = `${doneTasks} / ${totalTasks} done`;
     }
 
     /* ==========================================================================
-       8. COUNTDOWN, BACKUPS & THEME
+       9. COUNTDOWN, EXPORT/IMPORT & TOAST
        ========================================================================== */
     function updateCountdown() {
       const targetDate = new Date(appSettings.examDate);
@@ -1265,7 +1461,7 @@
       } else if (diffDays === 0) {
         display.textContent = `Exam Today!`;
       } else {
-        display.textContent = `Attempt Finished`;
+        display.textContent = `Target Completed`;
       }
     }
 
@@ -1287,11 +1483,11 @@
       }, null, 2));
       const dlAnchor = document.createElement('a');
       dlAnchor.setAttribute("href", dataStr);
-      dlAnchor.setAttribute("download", `CA_Intermediate_Tracker_${new Date().toISOString().slice(0,10)}.json`);
+      dlAnchor.setAttribute("download", `CA_Intermediate_Pastel_${new Date().toISOString().slice(0,10)}.json`);
       document.body.appendChild(dlAnchor);
       dlAnchor.click();
       dlAnchor.remove();
-      showToast("Data exported successfully!");
+      showToast("Data backup downloaded!");
     });
 
     document.getElementById('import-input').addEventListener('change', (e) => {
@@ -1308,10 +1504,11 @@
             renderTracker();
             updateCountdown();
             if (appSettings.spotifyEmbedUri) loadSpotifyUri(appSettings.spotifyEmbedUri);
+            if (appSettings.ambientTheme) applyAmbientBackground(appSettings.ambientTheme);
             document.getElementById('completed-pomo-count').textContent = appSettings.pomoCount || 0;
             showToast("Backup imported successfully!");
           } else {
-            showToast("Invalid JSON file structure.");
+            showToast("Invalid JSON file.");
           }
         } catch (err) {
           showToast("Failed to parse JSON file.");
@@ -1321,28 +1518,14 @@
     });
 
     document.getElementById('reset-all-btn').addEventListener('click', () => {
-      if (window.confirm("Are you sure you want to reset all checklist marks and notes? This action cannot be undone.")) {
+      if (window.confirm("Are you sure you want to reset all checklist marks and notes?")) {
         userState = {};
         appSettings.pomoCount = 0;
         saveState();
         renderTracker();
         document.getElementById('completed-pomo-count').textContent = 0;
-        showToast("Progress has been reset.");
+        showToast("Tracker has been reset.");
       }
-    });
-
-    function applyTheme() {
-      if (appSettings.theme === 'dark') {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-    }
-
-    document.getElementById('theme-toggle').addEventListener('click', () => {
-      appSettings.theme = appSettings.theme === 'dark' ? 'light' : 'dark';
-      applyTheme();
-      saveState();
     });
 
     function showToast(message) {
@@ -1356,7 +1539,7 @@
     }
 
     /* ==========================================================================
-       9. EVENT BINDINGS FOR POMODORO, MUSIC & FILTERS
+       10. EVENT BINDINGS
        ========================================================================== */
     // Focus Studio toggle
     const studioSection = document.getElementById('focus-studio-section');
@@ -1370,52 +1553,33 @@
       applyAmbientBackground(e.target.value);
     });
 
-    // Pomodoro controls
-    document.getElementById('pomo-start-pause').addEventListener('click', () => {
-      if (isRunning) {
-        pauseTimer();
-      } else {
-        startTimer();
-      }
+    // Timer control buttons: Start, Pause, Resume, Stop
+    document.getElementById('pomo-start').addEventListener('click', startTimer);
+    document.getElementById('pomo-pause').addEventListener('click', pauseTimer);
+    document.getElementById('pomo-resume').addEventListener('click', resumeTimer);
+    document.getElementById('pomo-stop').addEventListener('click', stopTimer);
+    document.getElementById('test-chime').addEventListener('click', () => {
+      playChime();
+      showToast("Chime tested.");
     });
 
-    document.getElementById('pomo-reset').addEventListener('click', resetTimer);
-
-    // Extended session preset buttons
+    // Preset duration buttons
     document.querySelectorAll('.pomo-mode-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.pomo-mode-btn').forEach(b => {
-          b.classList.remove('bg-brand-500', 'font-semibold', 'shadow-md');
+          b.classList.remove('bg-peach-500', 'font-semibold', 'shadow-lg');
           b.classList.add('bg-white/20');
         });
-        btn.classList.add('bg-brand-500', 'font-semibold', 'shadow-md');
+        btn.classList.add('bg-peach-500', 'font-semibold', 'shadow-lg');
         btn.classList.remove('bg-white/20');
 
-        const durationMinutes = parseFloat(btn.getAttribute('data-duration'));
+        const mins = parseInt(btn.getAttribute('data-duration'), 10);
         const label = btn.getAttribute('data-label');
-        setSessionDuration(durationMinutes, label);
+        initTimerFromDuration(mins, label);
       });
     });
 
-    // Custom Hours Button
-    document.getElementById('apply-custom-hours').addEventListener('click', () => {
-      const input = document.getElementById('custom-hours-input');
-      const val = parseFloat(input.value);
-      if (val && val > 0 && val <= 16) {
-        const mins = Math.round(val * 60);
-        setSessionDuration(mins, `${val} Hours Custom Session`);
-        showToast(`Timer set to ${val} hours.`);
-      } else {
-        showToast("Please enter valid hours (e.g., 3.5)");
-      }
-    });
-
-    document.getElementById('test-chime').addEventListener('click', () => {
-      playChime();
-      showToast("Bell chime tested.");
-    });
-
-    // Spotify quick presets
+    // Spotify presets
     document.querySelectorAll('.spotify-preset').forEach(btn => {
       btn.addEventListener('click', () => {
         const uri = btn.getAttribute('data-spotify-uri');
@@ -1434,18 +1598,18 @@
         clean = clean.split('open.spotify.com/')[1].split('?')[0];
       }
       loadSpotifyUri(clean);
-      showToast("Custom audio source loaded!");
+      showToast("Custom audio loaded!");
     });
 
-    // Filter by group tabs
+    // Group tabs
     document.querySelectorAll('.filter-tab').forEach(tab => {
       tab.addEventListener('click', () => {
         document.querySelectorAll('.filter-tab').forEach(t => {
-          t.classList.remove('bg-brand-500', 'text-white', 'font-semibold', 'shadow-sm');
-          t.classList.add('bg-white', 'dark:bg-slate-900', 'text-slate-600', 'dark:text-slate-300');
+          t.classList.remove('bg-peach-500', 'text-white', 'font-semibold', 'shadow-sm');
+          t.classList.add('bg-white', 'text-stone-600');
         });
-        tab.classList.add('bg-brand-500', 'text-white', 'font-semibold', 'shadow-sm');
-        tab.classList.remove('bg-white', 'dark:bg-slate-900', 'text-slate-600', 'dark:text-slate-300');
+        tab.classList.add('bg-peach-500', 'text-white', 'font-semibold', 'shadow-sm');
+        tab.classList.remove('bg-white', 'text-stone-600');
 
         activeGroupFilter = tab.getAttribute('data-group');
         renderTracker();
@@ -1482,25 +1646,25 @@
     });
 
     /* ==========================================================================
-       10. APPLICATION INITIALIZATION
+       11. INITIALIZATION ON LOAD
        ========================================================================== */
     window.addEventListener('DOMContentLoaded', () => {
       loadState();
-      applyTheme();
       renderTracker();
       updateAnalytics();
       updateCountdown();
 
-      // Initialize Ambient Theme & Session
+      // Set up ambient backdrop
       if (appSettings.ambientTheme) {
         applyAmbientBackground(appSettings.ambientTheme);
         ambientSelect.value = appSettings.ambientTheme;
       }
-      if (appSettings.timerDurationMinutes) {
-        totalDurationSeconds = appSettings.timerDurationMinutes * 60;
-        timeLeft = totalDurationSeconds;
-      }
-      updateTimerDisplay();
+
+      // Initialize Pomodoro cycle queue
+      const initialMins = appSettings.targetTotalMinutes || 180;
+      sessionQueue = buildSessionPlan(initialMins);
+      currentStepIndex = 0;
+      loadCurrentStep();
 
       document.getElementById('completed-pomo-count').textContent = appSettings.pomoCount || 0;
       if (appSettings.spotifyEmbedUri) {
