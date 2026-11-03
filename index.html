@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CA Intermediate Exam Tracker & Pastel Studio</title>
-  <!-- Tailwind CSS CDN -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CA Intermediate Tracker & Study Studio</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Lucide Icons CDN -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <!-- YouTube IFrame Player API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -19,1964 +17,1214 @@
         extend: {
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            display: ['Outfit', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
           },
           colors: {
-            // Dark theme deep blue / indigo colors
-            midnight: {
-              950: '#070B19',
-              900: '#0B132B',
-              850: '#0F1A36',
-              800: '#1C2541',
-              700: '#2A3656',
-              600: '#3A4B75',
-              400: '#48CAE4',
-              300: '#90E0EF',
-            },
-            // Calm, soft pastel color palette
-            cream: {
-              50: '#FAF8F5',
-              100: '#F5EFE6',
-              200: '#EFE7DA',
-              300: '#E4D5BF',
-            },
-            matcha: {
-              50: '#F2F7F2',
-              100: '#E3EDE3',
-              200: '#C7DBC7',
-              400: '#8FB88F',
-              600: '#5A855A',
-              700: '#436B43'
-            },
-            blush: {
-              50: '#FCF5F5',
-              100: '#F9EBEA',
-              200: '#F3D5D7',
-              400: '#E49B9F',
-              500: '#D9777D',
-              600: '#C2575E'
-            },
-            peach: {
-              50: '#FFF7F2',
-              100: '#FDECE0',
-              200: '#FBDAC5',
-              400: '#F5A97D',
-              500: '#EB844F',
-              600: '#D4632B'
-            },
-            lavender: {
-              50: '#F8F6FC',
-              100: '#EFEBF7',
-              200: '#DDD5F0',
-              400: '#AF9EE0',
-              600: '#7E66C4'
-            },
-            honey: {
-              50: '#FAF7EE',
-              100: '#F4EED8',
-              200: '#EBDDB5',
-              400: '#D4B86A',
-              500: '#BA9A43',
-              600: '#9B7C2A'
-            }
+            pastelBg: '#F8F5EF',
+            pastelCard: '#FFFFFF',
+            pastelBorder: '#E9E2D5',
+            pastelAccent: '#C97A63',
+            pastelMuted: '#78716C',
+            darkBase: '#070d19',
+            darkCard: '#101c36',
+            darkCardHover: '#152445',
+            darkBorder: '#1e335e',
+            darkAccent: '#38bdf8',
+            darkGreen: '#10b981',
+            darkAmber: '#f59e0b',
+            darkDay: '#0284c7'
           }
         }
       }
-    }
+    };
   </script>
   <style>
-    /* Aesthetic smooth scrollbars */
-    ::-webkit-scrollbar {
-      width: 7px;
-      height: 7px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #FAF8F5;
-    }
-    .dark ::-webkit-scrollbar-track {
-      background: #0B132B;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #E4D5BF;
-      border-radius: 9999px;
-    }
-    .dark ::-webkit-scrollbar-thumb {
-      background: #2A3656;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #D4C1A5;
-    }
-    .dark ::-webkit-scrollbar-thumb:hover {
-      background: #3A4B75;
-    }
-
-    /* Soft pastel & dark custom checklist inputs */
-    .custom-checkbox {
-      appearance: none;
-      -webkit-appearance: none;
-      width: 1.15rem;
-      height: 1.15rem;
-      border: 1.5px solid #D8CFC2;
-      background-color: #FFFFFF;
-      border-radius: 0.45rem;
-      outline: none;
-      transition: all 0.15s ease-in-out;
-      cursor: pointer;
-      display: inline-grid;
-      place-content: center;
-    }
-    .dark .custom-checkbox {
-      border-color: #3A4B75;
-      background-color: #0F1A36;
-    }
-    .custom-checkbox:hover {
-      border-color: #8FB88F;
-      background-color: #F2F7F2;
-    }
-    .dark .custom-checkbox:hover {
-      border-color: #48CAE4;
-      background-color: #1C2541;
-    }
-    .custom-checkbox:checked {
-      background-color: #5A855A;
-      border-color: #5A855A;
-    }
-    .dark .custom-checkbox:checked {
-      background-color: #0077B6;
-      border-color: #0077B6;
-    }
-    .custom-checkbox:checked::before {
-      content: "";
-      width: 0.65rem;
-      height: 0.38rem;
-      border-left: 2px solid #FFFFFF;
-      border-bottom: 2px solid #FFFFFF;
-      transform: rotate(-45deg) translate(1px, -1px);
-    }
-
-    .ambient-bg {
-      background-size: cover;
-      background-position: center;
-      transition: background-image 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* Dedicated Fullscreen Pomodoro overlay styles */
-    .pomo-fullscreen {
-      position: fixed !important;
-      inset: 0 !important;
-      z-index: 9999 !important;
-      width: 100vw !important;
-      height: 100vh !important;
-      max-width: 100vw !important;
-      max-height: 100vh !important;
-      border-radius: 0 !important;
-      margin: 0 !important;
-      border: none !important;
-    }
+    body { transition: background-color 0.2s ease, color 0.2s ease; }
+    .custom-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: rgba(140, 130, 115, 0.25); border-radius: 9999px; }
+    .dark .custom-scroll::-webkit-scrollbar-thumb { background: rgba(56, 189, 248, 0.2); }
+    .glass-card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    .dark .glass-card { background: rgba(16, 28, 54, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    .priority-none { background-color: #f3f4f6; color: #6b7280; border: 1px solid #e5e7eb; }
+    .priority-high { background-color: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+    .priority-medium { background-color: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+    .priority-low { background-color: #e0e7ff; color: #4338ca; border: 1px solid #c7d2fe; }
+    .dark .priority-none { background-color: #1e293b; color: #94a3b8; border: 1px solid #334155; }
+    .dark .priority-high { background-color: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .dark .priority-medium { background-color: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .dark .priority-low { background-color: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
   </style>
 </head>
-<body class="bg-[#FAF7F2] dark:bg-[#070B19] text-stone-700 dark:text-stone-200 min-h-screen font-sans transition-colors duration-300 selection:bg-blush-100 selection:text-blush-600 dark:selection:bg-cyan-900 dark:selection:text-cyan-200">
+<body class="bg-pastelBg text-stone-800 min-h-screen antialiased selection:bg-rose-200 selection:text-rose-900 custom-scroll">
+  <input type="file" id="local-file-input" accept="image/*" class="hidden" />
 
-  <!-- Main Container -->
-  <div class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 py-5 pb-28 sm:pb-16">
+  <!-- Fullscreen Ambient Overlay -->
+  <div id="fullscreen-overlay" class="fixed inset-0 z-50 hidden bg-cover bg-center flex flex-col justify-between p-6 md:p-12 transition-all duration-300">
+    <div class="flex items-center justify-between">
+      <span class="px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase glass-card text-white border border-white/20 shadow-lg">
+        Focus Studio • Fullscreen
+      </span>
+      <button id="exit-fullscreen-btn" class="px-4 py-2 rounded-xl text-xs font-bold tracking-wide glass-card text-white border border-white/20 hover:bg-white/20 transition-all flex items-center gap-2 shadow-lg">
+        ✕ Exit Fullscreen (Esc)
+      </button>
+    </div>
 
-    <!-- Header: Soft Pastel / Dark Blue Branding & Controls -->
-    <header class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#EFE7DA] dark:border-midnight-800 transition-colors">
-      <div>
-        <div class="flex items-center gap-2">
-          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wider bg-matcha-100 dark:bg-cyan-950 text-matcha-700 dark:text-cyan-300 border border-matcha-200 dark:border-cyan-800">
-            ICAI New Scheme
-          </span>
-          <span class="text-xs text-stone-400 dark:text-slate-400 font-medium">Student Desk & Study Station</span>
-        </div>
-        <h1 class="font-display text-2xl sm:text-3xl font-bold tracking-tight text-stone-800 dark:text-white mt-1">
-          CA Intermediate Tracker & Study Studio
-        </h1>
-        <p class="text-xs sm:text-sm text-stone-500 dark:text-slate-400 mt-0.5">
-          Extended focus timer with 5-minute auto breaks every hour, full-screen study scenes, and comprehensive syllabus checklists.
-        </p>
+    <div class="max-w-xl mx-auto w-full text-center glass-card border border-white/20 rounded-3xl p-8 md:p-12 shadow-2xl">
+      <div id="fs-session-phase" class="text-xs uppercase tracking-widest font-bold text-sky-400 mb-2">Deep Work (60m)</div>
+      
+      <!-- Live Track Status Pill -->
+      <div id="fs-track-banner" class="hidden my-2">
+        <span class="px-3.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-xs font-semibold animate-pulse">
+          🎵 YouTube Break Track: <span id="fs-track-name">Track</span>
+        </span>
       </div>
 
-      <!-- Action items: Countdown, Theme Toggle, Studio Toggle, Data Backups -->
-      <div class="flex flex-wrap items-center gap-2.5">
-        <!-- Target Exam Date Badge -->
-        <div class="flex items-center gap-2.5 bg-white/90 dark:bg-midnight-850 px-3.5 py-2 rounded-2xl border border-[#EFE7DA] dark:border-midnight-700 shadow-sm transition-colors">
-          <div class="w-8 h-8 rounded-xl bg-blush-50 dark:bg-cyan-950/80 text-blush-500 dark:text-cyan-400 flex items-center justify-center">
-            <i data-lucide="calendar" class="w-4 h-4"></i>
-          </div>
+      <div id="fs-timer-display" class="font-mono text-7xl md:text-8xl font-bold tracking-tight text-white mb-6 drop-shadow-md">01:00:00</div>
+      
+      <div class="flex items-center justify-center gap-3 mb-6">
+        <button id="fs-start-btn" class="px-6 py-3 rounded-2xl bg-[#E07A5F] hover:bg-[#c9684f] text-white font-bold text-sm shadow-md transition-all flex items-center gap-2">▶ Start</button>
+        <button id="fs-pause-btn" class="px-6 py-3 rounded-2xl bg-[#D4A373] hover:bg-[#be8c5c] text-white font-bold text-sm shadow-md transition-all hidden flex items-center gap-2">⏸ Pause</button>
+        <button id="fs-resume-btn" class="px-6 py-3 rounded-2xl bg-[#81B29A] hover:bg-[#6e9d86] text-white font-bold text-sm shadow-md transition-all hidden flex items-center gap-2">▶ Resume</button>
+        <button id="fs-stop-btn" class="px-6 py-3 rounded-2xl bg-white/20 hover:bg-white/30 text-white font-bold text-sm border border-white/30 transition-all flex items-center gap-2">⏹ Stop</button>
+      </div>
+      <div class="text-xs text-white/80 font-medium">Automatic 5m break YouTube audio • Exact resume</div>
+    </div>
+    <div class="text-center text-xs text-white/70">Press Esc anytime to return to syllabus</div>
+  </div>
+
+  <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-5 space-y-5">
+    <!-- Header -->
+    <header class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-pastelBorder dark:border-darkBorder pb-4">
+      <div>
+        <div class="text-[11px] font-bold tracking-wider uppercase text-pastelAccent dark:text-darkAccent">ICAI New Scheme • Student Desk & Study Station</div>
+        <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-900 dark:text-white">CA Intermediate Tracker & Study Studio</h1>
+        <p class="text-xs sm:text-sm text-pastelMuted dark:text-slate-400 mt-0.5">Extended focus timer with 5-minute auto breaks every hour, full-screen study scenes, and comprehensive syllabus checklists.</p>
+      </div>
+      <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+        <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-pastelCard dark:bg-darkCard border border-pastelBorder dark:border-darkBorder shadow-sm">
+          <span class="text-rose-500 text-sm">📅</span>
           <div>
-            <div class="text-[10px] uppercase font-semibold text-stone-400 dark:text-slate-400">Target Attempt</div>
-            <div id="countdown-display" class="font-display font-bold text-sm text-stone-800 dark:text-slate-100 leading-none mt-0.5">
-              Calculating...
-            </div>
+            <div class="text-[9px] uppercase font-bold text-pastelMuted dark:text-slate-400 tracking-wider">Target Attempt</div>
+            <div id="target-countdown" class="text-xs font-bold text-stone-800 dark:text-white cursor-pointer hover:underline" title="Click to edit days">60 Days Left</div>
           </div>
-          <button id="edit-exam-date-btn" title="Change Target Exam Date" class="ml-1 text-stone-400 hover:text-stone-700 dark:hover:text-slate-200 p-1 rounded-lg hover:bg-stone-100 dark:hover:bg-midnight-800 transition">
-            <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
-          </button>
         </div>
-
-        <!-- Light / Dark Theme Toggle Button -->
-        <button id="theme-toggle-btn" title="Switch between Pastel Light and Indigo Dark Mode" class="flex items-center gap-1.5 bg-white/90 dark:bg-midnight-850 px-3 py-2 rounded-2xl border border-[#EFE7DA] dark:border-midnight-700 shadow-sm text-xs font-semibold text-stone-700 dark:text-cyan-300 hover:bg-[#FAF7F2] dark:hover:bg-midnight-800 transition">
-          <i id="theme-icon" data-lucide="moon" class="w-4 h-4 text-indigo-500 dark:text-cyan-400"></i>
-          <span id="theme-label" class="hidden sm:inline">Dark Blue</span>
+        <button id="theme-toggle-btn" class="px-3.5 py-2 rounded-xl bg-pastelCard dark:bg-darkCard border border-pastelBorder dark:border-darkBorder text-xs font-bold text-stone-700 dark:text-slate-200 hover:bg-stone-50 dark:hover:bg-darkCardHover flex items-center gap-2 shadow-sm transition-all">
+          <span id="theme-icon">🌙</span>
+          <span id="theme-text">Dark Blue</span>
         </button>
-
-        <!-- Data Backups & Tools -->
-        <div class="flex items-center gap-1.5 bg-white/90 dark:bg-midnight-850 p-1 rounded-2xl border border-[#EFE7DA] dark:border-midnight-700 shadow-sm transition-colors">
-          <button id="toggle-focus-suite-btn" title="Toggle Pomodoro & Music Suite" class="p-2 text-peach-500 dark:text-cyan-400 rounded-xl hover:bg-peach-50 dark:hover:bg-midnight-800 transition">
-            <i data-lucide="headphones" class="w-4 h-4"></i>
-          </button>
-          <button id="export-btn" title="Backup / Export JSON" class="p-2 text-stone-500 dark:text-slate-400 hover:text-stone-800 dark:hover:text-white rounded-xl hover:bg-stone-100 dark:hover:bg-midnight-800 transition">
-            <i data-lucide="download" class="w-4 h-4"></i>
-          </button>
-          <label for="import-input" title="Import JSON Backup" class="p-2 text-stone-500 dark:text-slate-400 hover:text-stone-800 dark:hover:text-white rounded-xl hover:bg-stone-100 dark:hover:bg-midnight-800 transition cursor-pointer">
-            <i data-lucide="upload" class="w-4 h-4"></i>
-          </label>
-          <input type="file" id="import-input" accept=".json" class="hidden" />
-          <button id="reset-all-btn" title="Reset All Progress" class="p-2 text-rose-400 hover:text-rose-600 rounded-xl hover:bg-rose-50 dark:hover:bg-midnight-800 transition">
-            <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
-          </button>
+        <div class="flex items-center gap-1 bg-pastelCard dark:bg-darkCard border border-pastelBorder dark:border-darkBorder rounded-xl p-1 shadow-sm">
+          <button id="export-btn" class="p-1.5 rounded-lg text-stone-500 dark:text-slate-400 hover:text-stone-900 dark:hover:text-white text-xs" title="Export Backup JSON">💾</button>
+          <label for="import-file" class="p-1.5 rounded-lg text-stone-500 dark:text-slate-400 hover:text-stone-900 dark:hover:text-white text-xs cursor-pointer" title="Import Backup JSON">📥</label>
+          <input type="file" id="import-file" accept=".json" class="hidden" />
+          <button id="reset-all-btn" class="p-1.5 rounded-lg text-stone-500 dark:text-slate-400 hover:text-rose-600 text-xs" title="Reset Syllabus Progress">🔄</button>
         </div>
       </div>
     </header>
 
-    <!-- STUDY STUDIO: DEEP WORK POMODORO & SPOTIFY SECTION -->
-    <section id="focus-studio-section" class="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-5">
-      
-      <!-- Deep Work Timer Card with Matched Aesthetic Photo Wallpapers (7 cols) -->
-      <div id="pomo-card-container" class="lg:col-span-7 rounded-3xl border border-[#E4D5BF] dark:border-midnight-700 shadow-xl overflow-hidden relative ambient-bg flex flex-col justify-between min-h-[490px] transition-all duration-300">
-        
-        <!-- Ambient Glass Overlay for Readability -->
-        <div id="ambient-overlay" class="absolute inset-0 bg-stone-900/50 backdrop-blur-[2px] transition-all duration-700 pointer-events-none"></div>
-
-        <div class="relative z-10 p-5 sm:p-6 flex flex-col justify-between h-full text-white">
-          <div>
-            <!-- Header, Ambient Preset Selector, Image Uploader & Fullscreen Button -->
-            <div class="flex flex-wrap items-center justify-between gap-2 pb-3.5 border-b border-white/20">
-              <div class="flex items-center gap-2">
-                <span id="timer-live-dot" class="w-2.5 h-2.5 rounded-full bg-peach-400 shadow-[0_0_10px_#F5A97D]"></span>
-                <span class="text-xs uppercase font-bold text-white tracking-wider flex items-center gap-1.5">
-                  <i data-lucide="coffee" class="w-3.5 h-3.5 text-peach-300"></i> Study Session Studio
-                </span>
-              </div>
-              
-              <!-- Aesthetic Wallpaper Dropdown, Direct Photo Uploader & Fullscreen Trigger -->
-              <div class="flex items-center gap-2">
-                <div class="flex items-center gap-1.5 bg-black/45 backdrop-blur-md px-3 py-1.5 rounded-2xl text-[11px] border border-white/20 shadow-sm">
-                  <i data-lucide="image" class="w-3.5 h-3.5 text-amber-200"></i>
-                  <select id="ambient-theme-select" class="bg-transparent text-white font-medium focus:outline-none cursor-pointer">
-                    <option value="mountain_lake" class="bg-stone-900 text-white">🏔️ 1. Alpine Mountain Lake Balcony</option>
-                    <option value="minimal_library" class="bg-stone-900 text-white">📚 2. University Library Desk</option>
-                    <option value="sunny_garden" class="bg-stone-900 text-white">🌿 3. Sunlit Campus Tree Table</option>
-                    <option value="fairy_lights" class="bg-stone-900 text-white">✨ 4. Sunset Desk & Fairy Lights</option>
-                    <option value="rainy_window" class="bg-stone-900 text-white">🌧️ 5. Rainy Dusk Window & Tablet</option>
-                    <option value="golden_hour" class="bg-stone-900 text-white">🕯️ 6. Morning Light, Flowers & Mug</option>
-                    <option value="rain_candles" class="bg-stone-900 text-white">☕ 7. Open Window, Rain & Candle</option>
-                    <option value="custom" class="bg-stone-900 text-white">🔗 Enter Custom Image URL</option>
-                  </select>
-                </div>
-
-                <!-- Direct Upload Button to select your exact saved files -->
-                <label for="local-photo-upload" title="Upload your saved photo directly from your device" class="cursor-pointer bg-white/20 hover:bg-white/30 text-white p-1.5 rounded-2xl backdrop-blur-md border border-white/20 transition flex items-center gap-1 text-[11px] px-2.5 font-medium">
-                  <i data-lucide="upload-cloud" class="w-3.5 h-3.5"></i>
-                  <span class="hidden sm:inline">Upload Pic</span>
-                </label>
-                <input type="file" id="local-photo-upload" accept="image/*" class="hidden">
-
-                <!-- Expand / Fullscreen Toggle Button -->
-                <button id="pomo-fullscreen-btn" title="Toggle Fullscreen Focus Mode" class="bg-white/20 hover:bg-white/30 text-white p-1.5 rounded-2xl backdrop-blur-md border border-white/20 transition flex items-center gap-1 text-[11px] px-2.5 font-medium">
-                  <i id="fullscreen-icon" data-lucide="maximize" class="w-3.5 h-3.5"></i>
-                  <span id="fullscreen-text" class="hidden sm:inline">Full Screen</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Deep Work Session Duration Presets -->
-            <div class="mt-3.5">
-              <div class="text-[11px] font-semibold text-white/90 uppercase tracking-wider mb-2 flex items-center justify-between">
-                <span>Select Total Study Duration:</span>
-                <span class="text-peach-200 dark:text-cyan-200 font-normal lowercase">(5m break auto-scheduled every 1 hr)</span>
-              </div>
-              <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs font-medium scrollbar-none">
-                <button data-duration="60" data-label="1 Hour Block (60m)" class="pomo-mode-btn px-3 py-1.5 rounded-xl bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition whitespace-nowrap">1 hr</button>
-                <button data-duration="120" data-label="2 Hours (2 Cycles + Break)" class="pomo-mode-btn px-3 py-1.5 rounded-xl bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition whitespace-nowrap">2 hrs</button>
-                <button data-duration="180" data-label="3 Hours Deep Session" class="pomo-mode-btn px-3 py-1.5 rounded-xl bg-peach-500 dark:bg-cyan-600 text-white font-semibold shadow-lg whitespace-nowrap">3 hrs</button>
-                <button data-duration="240" data-label="4 Hours Marathon" class="pomo-mode-btn px-3 py-1.5 rounded-xl bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition whitespace-nowrap">4 hrs</button>
-                <button data-duration="300" data-label="5 Hours ICAI Sprint" class="pomo-mode-btn px-3 py-1.5 rounded-xl bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition whitespace-nowrap">5 hrs</button>
-                <button data-duration="25" data-label="Quick Focus (25m)" class="pomo-mode-btn px-3 py-1.5 rounded-xl bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition whitespace-nowrap">25m Quick</button>
-              </div>
-            </div>
-
-            <!-- Cycle & Stage Indicator Badge -->
-            <div class="mt-4 flex flex-wrap items-center justify-between gap-2 bg-black/40 backdrop-blur-md px-3.5 py-2 rounded-2xl border border-white/15 text-xs">
-              <div class="flex items-center gap-2">
-                <span id="current-phase-pill" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-matcha-100 text-matcha-800 shadow-sm">
-                  📚 Study Cycle 1 of 3
-                </span>
-                <span id="current-cycle-info" class="text-white/90 font-medium">Focus for 60 mins</span>
-              </div>
-              <div class="text-[11px] text-amber-200 dark:text-cyan-200 font-medium flex items-center gap-1">
-                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-                <span id="hourly-break-rule">Break in: Next interval</span>
-              </div>
-            </div>
-
-            <!-- Timer Central Display -->
-            <div class="py-6 flex flex-col items-center justify-center">
-              <div id="timer-display" class="font-display text-5xl sm:text-7xl font-extrabold tracking-tight text-white drop-shadow-[0_4px_22px_rgba(0,0,0,0.7)]">
-                01:00:00
-              </div>
-              <div class="flex items-center gap-2 mt-2 text-xs text-amber-100/90 dark:text-cyan-100/90 font-medium">
-                <span id="current-mode-label">3 Hours Deep Session</span>
-                <span class="text-white/40">•</span>
-                <span>Completed Rounds: <strong class="text-white font-bold" id="completed-pomo-count">0</strong></span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Controls: Dedicated Start, Pause, Resume, and Stop Buttons -->
-          <div>
-            <div class="w-full bg-white/20 rounded-full h-2 mb-4 overflow-hidden backdrop-blur-sm">
-              <div id="timer-bar" class="bg-gradient-to-r from-amber-300 via-peach-400 to-matcha-400 dark:from-cyan-400 dark:via-sky-400 dark:to-indigo-400 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
-            </div>
-            
-            <div class="flex items-center justify-center flex-wrap gap-2.5">
-              <!-- Start Button -->
-              <button id="pomo-start" class="px-5 py-2.5 rounded-2xl bg-peach-500 hover:bg-peach-600 dark:bg-cyan-600 dark:hover:bg-cyan-700 text-white font-semibold text-xs tracking-wide shadow-lg shadow-black/30 flex items-center gap-1.5 transition active:scale-95">
-                <i data-lucide="play" class="w-4 h-4 fill-current"></i>
-                <span>Start</span>
-              </button>
-
-              <!-- Pause Button -->
-              <button id="pomo-pause" class="px-5 py-2.5 rounded-2xl bg-honey-500 hover:bg-honey-600 dark:bg-amber-600 dark:hover:bg-amber-700 text-white font-semibold text-xs tracking-wide shadow-lg shadow-black/30 flex items-center gap-1.5 transition active:scale-95">
-                <i data-lucide="pause" class="w-4 h-4 fill-current"></i>
-                <span>Pause</span>
-              </button>
-
-              <!-- Resume Button -->
-              <button id="pomo-resume" class="px-5 py-2.5 rounded-2xl bg-matcha-600 hover:bg-matcha-700 dark:bg-emerald-600 dark:hover:bg-emerald-700 text-white font-semibold text-xs tracking-wide shadow-lg shadow-black/30 flex items-center gap-1.5 transition active:scale-95">
-                <i data-lucide="play-circle" class="w-4 h-4"></i>
-                <span>Resume</span>
-              </button>
-
-              <!-- Stop / End Session Button -->
-              <button id="pomo-stop" class="px-5 py-2.5 rounded-2xl bg-rose-500 hover:bg-rose-600 dark:bg-rose-700 dark:hover:bg-rose-800 text-white font-semibold text-xs tracking-wide shadow-lg shadow-black/30 flex items-center gap-1.5 transition active:scale-95">
-                <i data-lucide="square" class="w-3.5 h-3.5 fill-current"></i>
-                <span>Stop</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Spotify Pastel Lounge Card (5 cols) -->
-      <div class="lg:col-span-5 bg-white dark:bg-midnight-850 rounded-3xl p-5 border border-[#EFE7DA] dark:border-midnight-700 shadow-sm flex flex-col justify-between transition-colors">
-        <div>
-          <div class="flex items-center justify-between pb-3.5 border-b border-[#F5EFE6] dark:border-midnight-750">
+    <!-- Top Grid Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+      <!-- Study Session Studio -->
+      <div id="timer-card" class="lg:col-span-7 rounded-2xl p-5 sm:p-6 border border-pastelBorder dark:border-darkBorder bg-pastelCard dark:bg-darkCard shadow-sm relative overflow-hidden flex flex-col justify-between">
+        <div id="timer-ambient-bg" class="absolute inset-0 bg-cover bg-center opacity-15 pointer-events-none transition-all duration-500"></div>
+        <div class="relative z-10 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
             <div class="flex items-center gap-2">
-              <div class="w-7 h-7 rounded-xl bg-matcha-100 dark:bg-cyan-950 text-matcha-700 dark:text-cyan-400 flex items-center justify-center">
-                <i data-lucide="music-2" class="w-4 h-4"></i>
-              </div>
-              <span class="text-xs uppercase font-bold text-stone-700 dark:text-white tracking-wider">Spotify Study Lounge</span>
+              <span class="text-rose-500">☕</span>
+              <span class="text-xs font-extrabold uppercase tracking-wider text-stone-800 dark:text-white">Study Session Studio</span>
             </div>
-            <div class="flex items-center gap-1.5">
-              <button id="toggle-queue-btn" title="View & Manage Queue" class="text-[11px] font-semibold bg-peach-50 dark:bg-midnight-800 text-peach-600 dark:text-cyan-300 hover:bg-peach-100 dark:hover:bg-midnight-700 px-2.5 py-1 rounded-xl border border-peach-200 dark:border-cyan-800 transition flex items-center gap-1">
-                <i data-lucide="list-music" class="w-3.5 h-3.5"></i>
-                <span>Queue (<span id="queue-count-badge">0</span>)</span>
-              </button>
-              <span class="text-[10px] text-matcha-700 dark:text-cyan-300 font-semibold bg-matcha-50 dark:bg-cyan-950/80 px-2.5 py-0.5 rounded-full border border-matcha-200 dark:border-cyan-800">Embedded</span>
+            <div class="flex flex-wrap items-center gap-1.5">
+              <button id="custom-url-btn" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-stone-100 dark:bg-darkBase border border-pastelBorder dark:border-darkBorder text-stone-700 dark:text-slate-300 hover:bg-stone-200 transition-all flex items-center gap-1">🔗 Enter Custom Image URL</button>
+              <button id="upload-pic-btn" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-stone-100 dark:bg-darkBase border border-pastelBorder dark:border-darkBorder text-stone-700 dark:text-slate-300 hover:bg-stone-200 transition-all flex items-center gap-1">📷 Upload Pic</button>
+              <button id="fullscreen-btn" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-stone-100 dark:bg-darkBase border border-pastelBorder dark:border-darkBorder text-stone-700 dark:text-slate-300 hover:bg-stone-200 transition-all flex items-center gap-1">⛶ Full Screen</button>
             </div>
           </div>
 
-          <!-- Quick Curated Pastel Study Playlists -->
-          <div class="mt-3.5 flex items-center gap-1.5 overflow-x-auto pb-1 text-[11px] scrollbar-none">
-            <button data-spotify-uri="playlist/37i9dQZF1DX8Uebhn9wzrS" class="spotify-preset px-2.5 py-1 rounded-xl bg-matcha-50 text-matcha-700 font-medium border border-matcha-200 whitespace-nowrap">
-              Lo-Fi Beats
-            </button>
-            <button data-spotify-uri="playlist/37i9dQZF1DX4sWSpwq3LiO" class="spotify-preset px-2.5 py-1 rounded-xl bg-[#FAF8F5] text-stone-600 hover:bg-stone-100 font-medium border border-[#E4D5BF] whitespace-nowrap">
-              Peaceful Piano
-            </button>
-            <button data-spotify-uri="playlist/37i9dQZF1DX3PFDV95bt91" class="spotify-preset px-2.5 py-1 rounded-xl bg-[#FAF8F5] text-stone-600 hover:bg-stone-100 font-medium border border-[#E4D5BF] whitespace-nowrap">
-              Deep Study
-            </button>
-            <button data-spotify-uri="playlist/37i9dQZF1DX692WJFiQIWV" class="spotify-preset px-2.5 py-1 rounded-xl bg-[#FAF8F5] text-stone-600 hover:bg-stone-100 font-medium border border-[#E4D5BF] whitespace-nowrap">
-              Cafe Lofi
-            </button>
+          <div>
+            <div class="flex items-center justify-between text-[11px] font-bold text-pastelMuted dark:text-slate-400 uppercase tracking-wider mb-2">
+              <span>Select Total Study Duration:</span>
+              <span class="text-stone-400 dark:text-slate-500 lowercase font-normal">(5m break auto-scheduled every 1 hr)</span>
+            </div>
+            <div id="duration-selector" class="flex flex-wrap gap-1.5">
+              <button data-mins="60" class="dur-btn px-3 py-1.5 rounded-xl text-xs font-bold transition-all bg-pastelAccent text-white shadow-sm">1hr</button>
+              <button data-mins="120" class="dur-btn px-3 py-1.5 rounded-xl text-xs font-medium text-stone-600 dark:text-slate-300 bg-stone-100 dark:bg-darkBase border border-pastelBorder dark:border-darkBorder hover:bg-stone-200 transition-all">2hrs</button>
+              <button data-mins="180" class="dur-btn px-3 py-1.5 rounded-xl text-xs font-medium text-stone-600 dark:text-slate-300 bg-stone-100 dark:bg-darkBase border border-pastelBorder dark:border-darkBorder hover:bg-stone-200 transition-all">3hrs</button>
+              <button data-mins="240" class="dur-btn px-3 py-1.5 rounded-xl text-xs font-medium text-stone-600 dark:text-slate-300 bg-stone-100 dark:bg-darkBase border border-pastelBorder dark:border-darkBorder hover:bg-stone-200 transition-all">4hrs</button>
+              <button data-mins="300" class="dur-btn px-3 py-1.5 rounded-xl text-xs font-medium text-stone-600 dark:text-slate-300 bg-stone-100 dark:bg-darkBase border border-pastelBorder dark:border-darkBorder hover:bg-stone-200 transition-all">5hrs</button>
+              <button data-mins="25" class="dur-btn px-3 py-1.5 rounded-xl text-xs font-medium text-stone-600 dark:text-slate-300 bg-stone-100 dark:bg-darkBase border border-pastelBorder dark:border-darkBorder hover:bg-stone-200 transition-all">25m Quick</button>
+              <button data-mins="5" class="dur-btn px-3 py-1.5 rounded-xl text-xs font-medium text-stone-600 dark:text-slate-300 bg-stone-100 dark:bg-darkBase border border-pastelBorder dark:border-darkBorder hover:bg-stone-200 transition-all">5m Quick</button>
+            </div>
           </div>
 
-          <!-- Spotify Embed Iframe Container -->
-          <div class="mt-3.5 rounded-2xl overflow-hidden bg-stone-100 border border-[#EFE7DA] h-[162px]">
-            <iframe id="spotify-iframe" class="w-full h-full border-0" 
-                    src="https://open.spotify.com/embed/playlist/37i9dQZF1DX8Uebhn9wzrS?utm_source=generator&theme=0" 
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                    loading="lazy"></iframe>
-          </div>
+          <!-- Timer Clock Box -->
+          <div class="bg-stone-50/90 dark:bg-darkBase/90 rounded-2xl p-6 border border-pastelBorder dark:border-darkBorder text-center shadow-inner relative">
+            <div class="flex items-center justify-between text-xs font-semibold px-2 mb-1">
+              <span id="session-phase-tag" class="px-2.5 py-0.5 rounded-md bg-stone-200 dark:bg-darkBorder text-stone-700 dark:text-slate-300">Deep work (60m)</span>
+              <span id="session-break-hint" class="text-stone-400 dark:text-slate-500">✨ 5m break follows</span>
+            </div>
 
-          <!-- Queue Management Panel (Collapsible) -->
-          <div id="queue-panel" class="mt-3.5 p-3 rounded-2xl bg-[#FAF8F5] border border-[#EFE7DA] hidden">
-            <div class="flex items-center justify-between pb-2 mb-2 border-b border-[#EFE7DA]">
-              <span class="text-[11px] font-bold uppercase tracking-wider text-stone-700 flex items-center gap-1.5">
-                <i data-lucide="list-ordered" class="w-3.5 h-3.5 text-peach-500"></i> Up Next in Queue
+            <!-- Active Break Indicator -->
+            <div id="break-music-banner" class="hidden my-2">
+              <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700 text-xs font-bold animate-pulse">
+                <span>🎵</span> YouTube Break Song: <span id="active-track-name">Song</span>
               </span>
-              <button id="clear-queue-btn" class="text-[10px] text-rose-500 hover:text-rose-700 font-semibold transition">
-                Clear All
-              </button>
             </div>
 
-            <!-- Add to Queue input row -->
-            <div class="space-y-1.5 mb-2.5">
-              <input type="text" id="queue-track-title" placeholder="Song / Item Name (e.g., Lofi Rain Beat)..." class="w-full bg-white border border-[#E4D5BF] rounded-xl px-2.5 py-1 text-xs text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-1 focus:ring-peach-400">
-              <div class="flex gap-1.5">
-                <input type="text" id="queue-track-url" placeholder="Paste Spotify Track / Album / Playlist URL..." class="flex-1 bg-white border border-[#E4D5BF] rounded-xl px-2.5 py-1 text-xs text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-1 focus:ring-peach-400">
-                <button id="add-to-queue-btn" class="px-3 py-1 bg-peach-500 hover:bg-peach-600 text-white rounded-xl text-xs font-semibold transition flex items-center gap-1 whitespace-nowrap">
-                  <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-                  <span>Add</span>
-                </button>
+            <div id="main-timer-display" class="font-mono text-6xl sm:text-7xl font-extrabold tracking-tight text-stone-900 dark:text-white my-3">01:00:00</div>
+            <div id="rounds-subtext" class="text-xs text-stone-500 dark:text-slate-400">1 Hour Focus Session • Completed Rounds: 0</div>
+          </div>
+
+          <!-- Pomodoro Control Buttons -->
+          <div class="flex flex-wrap items-center justify-center gap-3">
+            <button id="start-btn" class="px-6 py-2.5 rounded-xl bg-[#E07A5F] hover:bg-[#c9684f] text-white font-bold text-xs tracking-wide shadow-md transition-all flex items-center gap-1.5">▶ Start</button>
+            <button id="pause-btn" class="px-6 py-2.5 rounded-xl bg-[#D4A373] hover:bg-[#be8c5c] text-white font-bold text-xs tracking-wide shadow-md transition-all hidden flex items-center gap-1.5">⏸ Pause</button>
+            <button id="resume-btn" class="px-6 py-2.5 rounded-xl bg-[#81B29A] hover:bg-[#6e9d86] text-white font-bold text-xs tracking-wide shadow-md transition-all hidden flex items-center gap-1.5">▶ Resume</button>
+            <button id="stop-btn" class="px-6 py-2.5 rounded-xl bg-[#E63946] hover:bg-[#c92a37] text-white font-bold text-xs tracking-wide shadow-md transition-all flex items-center gap-1.5">⏹ Stop</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- YouTube Break Audio Lounge & Queue Manager -->
+      <div class="lg:col-span-5 rounded-2xl p-5 sm:p-6 border border-pastelBorder dark:border-darkBorder bg-pastelCard dark:bg-darkCard shadow-sm flex flex-col justify-between space-y-4">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <span class="text-rose-600 text-lg">▶</span>
+              <div>
+                <h2 class="text-xs font-extrabold uppercase tracking-wider text-stone-800 dark:text-white">YouTube Break Player</h2>
+                <p class="text-[10px] text-stone-400 dark:text-slate-400">Plays automatically via YouTube link on 5m breaks</p>
               </div>
             </div>
+            <span class="px-2.5 py-1 rounded-lg text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700">
+              ● Auto-Play & Resume Ready
+            </span>
+          </div>
 
-            <!-- Rendered Queue List -->
-            <div id="queue-items-container" class="space-y-1 max-h-36 overflow-y-auto pr-1 text-xs">
-              <!-- Injected by JS -->
+          <!-- YouTube Embedded Video/Audio Container -->
+          <div class="rounded-xl overflow-hidden border border-pastelBorder dark:border-darkBorder shadow-inner bg-black mb-3 aspect-video max-h-36 flex items-center justify-center">
+            <div id="yt-player-container"></div>
+          </div>
+
+          <!-- Queue List Container -->
+          <div class="space-y-1.5 p-3 rounded-xl bg-stone-50 dark:bg-darkBase border border-pastelBorder dark:border-darkBorder">
+            <div class="flex items-center justify-between text-[11px] font-bold text-pastelMuted dark:text-slate-400 uppercase tracking-wider mb-1">
+              <span>Your Song Queue (<span id="queue-count">2</span>):</span>
+              <span id="player-status-badge" class="text-[10px] text-amber-500 font-semibold lowercase">waiting for break</span>
             </div>
+            <div id="queue-items-container" class="space-y-1.5 max-h-28 overflow-y-auto custom-scroll text-xs"></div>
           </div>
         </div>
 
-        <!-- Custom URL Input -->
-        <div class="mt-3.5 pt-3 border-t border-[#F5EFE6] flex gap-1.5">
-          <input type="text" id="custom-spotify-url" placeholder="Paste Spotify album or playlist link..." class="flex-1 bg-[#FAF8F5] border border-[#E4D5BF] rounded-xl px-3 py-1.5 text-xs text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-peach-400/40">
-          <button id="apply-custom-spotify" class="px-3.5 py-1.5 bg-stone-800 hover:bg-stone-900 text-white rounded-xl text-xs font-semibold transition">
-            Load
-          </button>
+        <!-- Add YouTube Link Form -->
+        <div class="space-y-1 pt-2 border-t border-pastelBorder dark:border-darkBorder">
+          <div class="flex items-center gap-1.5">
+            <input type="text" id="yt-title-input" placeholder="Song Name" class="w-1/3 px-2.5 py-1.5 rounded-xl text-xs bg-stone-50 dark:bg-darkBase border border-pastelBorder dark:border-darkBorder focus:outline-none focus:ring-1 focus:ring-pastelAccent text-stone-800 dark:text-white" />
+            <input type="text" id="yt-url-input" placeholder="Paste YouTube link (watch or youtu.be)..." class="flex-1 px-2.5 py-1.5 rounded-xl text-xs bg-stone-50 dark:bg-darkBase border border-pastelBorder dark:border-darkBorder focus:outline-none focus:ring-1 focus:ring-pastelAccent text-stone-800 dark:text-white" />
+            <button id="add-yt-btn" class="px-3 py-1.5 rounded-xl bg-stone-800 dark:bg-darkCardHover text-white text-xs font-bold hover:bg-stone-900 transition-all">Add</button>
+          </div>
+          <p class="text-[10px] text-stone-400 dark:text-slate-500">Paste any standard YouTube video URL. It plays automatically during the break and pauses when focus returns.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Readiness Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="rounded-2xl p-4 border border-pastelBorder dark:border-darkBorder bg-pastelCard dark:bg-darkCard shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="text-[10px] uppercase font-bold tracking-wider text-pastelMuted dark:text-slate-400">Overall Syllabus Readiness</div>
+          <div id="overall-percentage" class="text-3xl font-extrabold text-stone-900 dark:text-white my-1">0%</div>
+        </div>
+        <div class="flex items-center justify-between text-xs text-pastelMuted dark:text-slate-400 pt-2 border-t border-pastelBorder/60 dark:border-darkBorder/60">
+          <span id="steps-completed-txt">0 of 585 steps finished</span>
+          <span id="total-topics-txt">117 Total Topics</span>
         </div>
       </div>
 
-    </section>
-
-    <!-- Global Progress & Metric Cards in Soft Pastel / Deep Navy -->
-    <section class="mt-6 grid grid-cols-2 lg:grid-cols-5 gap-3.5 sm:gap-4">
-      <!-- Total Progress Card (Warm Pastel Peach / Blush in Light, Glowing Indigo in Dark) -->
-      <div class="col-span-2 bg-gradient-to-br from-blush-400 to-honey-400 dark:from-midnight-800 dark:to-indigo-900 text-stone-900 dark:text-white rounded-3xl p-5 shadow-sm border border-blush-200/60 dark:border-cyan-800/40 flex flex-col justify-between relative overflow-hidden transition-colors">
-        <div class="relative z-10">
-          <div class="flex justify-between items-start">
-            <span class="text-xs uppercase font-bold tracking-wider text-stone-800 dark:text-cyan-300">Overall Syllabus Readiness</span>
-            <span id="overall-percentage" class="text-3xl font-display font-extrabold text-stone-900 dark:text-white">0%</span>
-          </div>
-          <div class="mt-3.5 w-full bg-white/40 dark:bg-midnight-950/60 rounded-full h-2.5 overflow-hidden">
-            <div id="overall-bar" class="bg-stone-900 dark:bg-cyan-400 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
-          </div>
-          <div class="mt-2 text-xs text-stone-700 dark:text-slate-300 flex justify-between font-medium">
-            <span id="overall-tasks-count">0 / 0 steps done</span>
-            <span id="total-chapters-count">88 Topics</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Lectures Watched Card (Pastel Lavender in Light, Midnight Card in Dark) -->
-      <div class="bg-white dark:bg-midnight-850 rounded-3xl p-4.5 border border-[#ece4d6] dark:border-midnight-700 shadow-sm flex flex-col justify-between transition-colors">
+      <div class="rounded-2xl p-4 border border-pastelBorder dark:border-darkBorder bg-pastelCard dark:bg-darkCard shadow-sm flex flex-col justify-between">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-semibold text-stone-500 dark:text-slate-400">Lectures</span>
-          <div class="w-8 h-8 rounded-xl bg-lavender-100 dark:bg-indigo-950 text-lavender-600 dark:text-indigo-400 flex items-center justify-center">
-            <i data-lucide="video" class="w-4 h-4"></i>
-          </div>
+          <span class="text-[10px] uppercase font-bold tracking-wider text-pastelMuted dark:text-slate-400">Lectures</span>
+          <span class="text-base">📺</span>
         </div>
-        <div class="mt-2.5">
-          <div class="flex items-baseline gap-1.5">
-            <span id="lectures-stat-pct" class="text-2xl font-bold font-display text-stone-800 dark:text-slate-100">0%</span>
-            <span id="lectures-stat-ratio" class="text-[11px] text-stone-400 dark:text-slate-500">0/0</span>
-          </div>
-          <div class="mt-2 w-full bg-lavender-50 dark:bg-midnight-950 rounded-full h-1.5 overflow-hidden">
-            <div id="lectures-bar" class="bg-lavender-500 dark:bg-indigo-400 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
-          </div>
+        <div class="my-1 flex items-baseline gap-2">
+          <span id="lectures-pct" class="text-2xl font-extrabold text-stone-900 dark:text-white">0%</span>
+          <span id="lectures-count" class="text-xs text-pastelMuted dark:text-slate-400">0/117</span>
+        </div>
+        <div class="w-full bg-stone-100 dark:bg-darkBase h-1.5 rounded-full overflow-hidden">
+          <div id="lectures-bar" class="bg-sky-500 h-1.5 transition-all" style="width: 0%"></div>
         </div>
       </div>
 
-      <!-- ICAI Study Material Solved Card (Matcha Green in Light, Cyan in Dark) -->
-      <div class="bg-white dark:bg-midnight-850 rounded-3xl p-4.5 border border-[#ece4d6] dark:border-midnight-700 shadow-sm flex flex-col justify-between transition-colors">
+      <div class="rounded-2xl p-4 border border-pastelBorder dark:border-darkBorder bg-pastelCard dark:bg-darkCard shadow-sm flex flex-col justify-between">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-semibold text-stone-500 dark:text-slate-400">ICAI Module</span>
-          <div class="w-8 h-8 rounded-xl bg-matcha-100 dark:bg-cyan-950 text-matcha-700 dark:text-cyan-400 flex items-center justify-center">
-            <i data-lucide="book-open" class="w-4 h-4"></i>
-          </div>
+          <span class="text-[10px] uppercase font-bold tracking-wider text-pastelMuted dark:text-slate-400">ICAI Module</span>
+          <span class="text-base">📖</span>
         </div>
-        <div class="mt-2.5">
-          <div class="flex items-baseline gap-1.5">
-            <span id="sm-stat-pct" class="text-2xl font-bold font-display text-stone-800 dark:text-slate-100">0%</span>
-            <span id="sm-stat-ratio" class="text-[11px] text-stone-400 dark:text-slate-500">0/0</span>
-          </div>
-          <div class="mt-2 w-full bg-matcha-50 dark:bg-midnight-950 rounded-full h-1.5 overflow-hidden">
-            <div id="sm-bar" class="bg-matcha-600 dark:bg-cyan-400 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
-          </div>
+        <div class="my-1 flex items-baseline gap-2">
+          <span id="sm-pct" class="text-2xl font-extrabold text-stone-900 dark:text-white">0%</span>
+          <span id="sm-count" class="text-xs text-pastelMuted dark:text-slate-400">0/117</span>
+        </div>
+        <div class="w-full bg-stone-100 dark:bg-darkBase h-1.5 rounded-full overflow-hidden">
+          <div id="sm-bar" class="bg-amber-500 h-1.5 transition-all" style="width: 0%"></div>
         </div>
       </div>
 
-      <!-- Revision 1-3 Completed Card (Warm Honey in Light, Sky Blue in Dark) -->
-      <div class="col-span-2 lg:col-span-1 bg-white dark:bg-midnight-850 rounded-3xl p-4.5 border border-[#ece4d6] dark:border-midnight-700 shadow-sm flex flex-col justify-between transition-colors">
+      <div class="rounded-2xl p-4 border border-pastelBorder dark:border-darkBorder bg-pastelCard dark:bg-darkCard shadow-sm flex flex-col justify-between">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-semibold text-stone-500 dark:text-slate-400">Revisions (R1-R3)</span>
-          <div class="w-8 h-8 rounded-xl bg-honey-100 dark:bg-sky-950 text-honey-600 dark:text-sky-400 flex items-center justify-center">
-            <i data-lucide="refresh-cw" class="w-4 h-4"></i>
-          </div>
+          <span class="text-[10px] uppercase font-bold tracking-wider text-pastelMuted dark:text-slate-400">Revisions (R1–R3)</span>
+          <span class="text-base">🔁</span>
         </div>
-        <div class="mt-2.5">
-          <div class="flex items-baseline gap-1.5">
-            <span id="rev-stat-pct" class="text-2xl font-bold font-display text-stone-800 dark:text-slate-100">0%</span>
-            <span id="rev-stat-ratio" class="text-[11px] text-stone-400 dark:text-slate-500">0 done</span>
-          </div>
-          <div class="mt-2 w-full bg-honey-50 dark:bg-midnight-950 rounded-full h-1.5 overflow-hidden">
-            <div id="rev-bar" class="bg-honey-400 dark:bg-sky-400 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
-          </div>
+        <div class="my-1 flex items-baseline gap-2">
+          <span id="rev-pct" class="text-2xl font-extrabold text-stone-900 dark:text-white">0%</span>
+          <span id="rev-count" class="text-xs text-pastelMuted dark:text-slate-400">0 of 351</span>
+        </div>
+        <div class="w-full bg-stone-100 dark:bg-darkBase h-1.5 rounded-full overflow-hidden">
+          <div id="rev-bar" class="bg-emerald-500 h-1.5 transition-all" style="width: 0%"></div>
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- Filters, Search & View Controls -->
-    <div class="mt-6 flex flex-col md:flex-row md:items-center justify-between gap-3">
-      <!-- Group & Paper Filter Tabs -->
-      <div class="flex items-center gap-2 overflow-x-auto pb-1 max-w-full text-xs font-medium scrollbar-none" id="group-tabs">
-        <button data-group="all" class="filter-tab active px-4 py-2 rounded-2xl transition whitespace-nowrap bg-blush-500 dark:bg-cyan-600 text-white shadow-sm font-semibold">
-          All Papers
-        </button>
-        <button data-group="g1" class="filter-tab px-4 py-2 rounded-2xl transition whitespace-nowrap bg-white dark:bg-midnight-850 border border-[#ece4d6] dark:border-midnight-700 text-stone-600 dark:text-slate-300 hover:bg-[#faf6ee] dark:hover:bg-midnight-800">
-          Group 1 (P1, P2, P3)
-        </button>
-        <button data-group="g2" class="filter-tab px-4 py-2 rounded-2xl transition whitespace-nowrap bg-white dark:bg-midnight-850 border border-[#ece4d6] dark:border-midnight-700 text-stone-600 dark:text-slate-300 hover:bg-[#faf6ee] dark:hover:bg-midnight-800">
-          Group 2 (P4, P5, P6)
-        </button>
+    <!-- Group & Search Filters -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pt-2">
+      <div class="flex items-center gap-1.5 overflow-x-auto pb-1 custom-scroll" id="group-filter-tabs">
+        <button data-group="all" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-pastelAccent text-white shadow-sm whitespace-nowrap">All Papers</button>
+        <button data-group="g1" class="px-3.5 py-1.5 rounded-xl text-xs font-medium bg-pastelCard dark:bg-darkCard border border-pastelBorder dark:border-darkBorder text-stone-600 dark:text-slate-300 hover:bg-stone-50 dark:hover:bg-darkCardHover whitespace-nowrap">Group 1 (P1, P2, P3)</button>
+        <button data-group="g2" class="px-3.5 py-1.5 rounded-xl text-xs font-medium bg-pastelCard dark:bg-darkCard border border-pastelBorder dark:border-darkBorder text-stone-600 dark:text-slate-300 hover:bg-stone-50 dark:hover:bg-darkCardHover whitespace-nowrap">Group 2 (P4, P5, P6)</button>
       </div>
 
-      <!-- Search & Confidence Filter -->
       <div class="flex items-center gap-2">
         <div class="relative flex-1 sm:w-64">
-          <i data-lucide="search" class="w-4 h-4 text-stone-400 dark:text-slate-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
-          <input type="text" id="search-input" placeholder="Search AS, standard, section..." class="w-full bg-white dark:bg-midnight-850 border border-[#ece4d6] dark:border-midnight-700 rounded-2xl pl-9 pr-3 py-2 text-xs text-stone-800 dark:text-slate-200 placeholder-stone-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blush-400/40 dark:focus:ring-cyan-500/40 transition">
+          <input type="text" id="search-input" placeholder="Search AS standard, section..." class="w-full pl-8 pr-3 py-1.5 rounded-xl text-xs bg-pastelCard dark:bg-darkCard border border-pastelBorder dark:border-darkBorder text-stone-800 dark:text-white focus:outline-none focus:ring-1 focus:ring-pastelAccent" />
+          <span class="absolute left-2.5 top-2 text-xs text-stone-400">🔍</span>
         </div>
-        <select id="confidence-filter" class="bg-white dark:bg-midnight-850 border border-[#ece4d6] dark:border-midnight-700 rounded-2xl px-3 py-2 text-xs text-stone-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blush-400/40 dark:focus:ring-cyan-500/40 transition">
-          <option value="all" class="dark:bg-midnight-900">All Priorities</option>
-          <option value="High" class="dark:bg-midnight-900">🔴 High Priority</option>
-          <option value="Medium" class="dark:bg-midnight-900">🟡 Medium Priority</option>
-          <option value="Low" class="dark:bg-midnight-900">🟢 Low Priority</option>
-          <option value="Unset" class="dark:bg-midnight-900">⚪ Not Rated</option>
+        <select id="priority-filter" class="px-2.5 py-1.5 rounded-xl text-xs bg-pastelCard dark:bg-darkCard border border-pastelBorder dark:border-darkBorder text-stone-700 dark:text-slate-300 focus:outline-none">
+          <option value="all">All Priorities</option>
+          <option value="high">High Priority</option>
+          <option value="medium">Medium Priority</option>
+          <option value="low">Low Priority</option>
         </select>
-        <button id="toggle-expand-all" title="Expand / Collapse All" class="bg-white dark:bg-midnight-850 border border-[#ece4d6] dark:border-midnight-700 p-2 rounded-2xl text-stone-600 dark:text-slate-300 hover:bg-[#faf6ee] dark:hover:bg-midnight-800 transition">
-          <i data-lucide="chevrons-up-down" class="w-4 h-4"></i>
-        </button>
       </div>
     </div>
 
-    <!-- Paper Accordions Container -->
-    <main class="mt-6 space-y-4" id="papers-container">
-      <!-- Injected by JavaScript -->
-    </main>
-
+    <!-- Syllabus Checklist -->
+    <div id="syllabus-container" class="space-y-6"></div>
   </div>
 
-  <!-- Note Drawer Modal -->
-  <div id="note-modal" class="fixed inset-0 z-50 bg-stone-900/40 backdrop-blur-sm hidden items-center justify-center p-4">
-    <div class="bg-white dark:bg-midnight-850 rounded-3xl max-w-lg w-full p-6 border border-[#ece4d6] dark:border-midnight-700 shadow-2xl transition-colors">
-      <div class="flex items-center justify-between pb-3.5 border-b border-[#f3ece0] dark:border-midnight-750">
-        <div>
-          <span class="text-[10px] uppercase font-bold text-blush-600 dark:text-cyan-400 tracking-wider">Topic Doubts & Notes</span>
-          <h3 id="modal-chapter-title" class="font-display font-semibold text-stone-800 dark:text-white text-base">Topic Title</h3>
-        </div>
-        <button id="close-modal-btn" class="p-1 rounded-xl text-stone-400 hover:text-stone-700 dark:hover:text-slate-200 hover:bg-stone-100 dark:hover:bg-midnight-800">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-      <div class="mt-4">
-        <textarea id="modal-note-text" rows="5" placeholder="Write exam adjustments, key sections, RTP problem notes, or doubts here..." class="w-full bg-[#faf6ee] dark:bg-midnight-900 border border-[#ebd9c6] dark:border-midnight-700 rounded-2xl p-3.5 text-sm text-stone-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blush-400/40 dark:focus:ring-cyan-500/40 transition"></textarea>
-      </div>
-      <div class="mt-4 flex justify-end gap-2">
-        <button id="save-note-btn" class="px-5 py-2 bg-blush-500 hover:bg-blush-600 dark:bg-cyan-600 dark:hover:bg-cyan-700 text-white rounded-2xl text-xs font-semibold shadow-md shadow-blush-500/20 dark:shadow-cyan-600/20 transition">
-          Save Note
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Mobile Floating Summary Bar with Mini-Pomo -->
-  <div class="sm:hidden fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-midnight-900/95 backdrop-blur-md border-t border-[#ece4d6] dark:border-midnight-800 px-4 py-2.5 flex items-center justify-between shadow-lg z-30 transition-colors">
-    <div class="flex items-center gap-2.5">
-      <div class="w-8 h-8 rounded-full bg-blush-500 dark:bg-cyan-600 text-white font-display font-bold text-xs flex items-center justify-center">
-        <span id="mobile-progress-badge">0%</span>
-      </div>
-      <div>
-        <div class="text-[11px] font-semibold text-stone-800 dark:text-slate-200">CA Inter Progress</div>
-        <div id="mobile-progress-details" class="text-[10px] text-stone-400 dark:text-slate-500">0 tasks done</div>
-      </div>
-    </div>
-    <div class="flex items-center gap-2">
-      <div class="text-right">
-        <span id="mobile-mini-timer" class="font-display font-bold text-xs text-blush-600 dark:text-cyan-400">01:00:00</span>
-      </div>
-      <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="p-1.5 rounded-xl text-stone-500 hover:text-stone-900 dark:text-slate-400 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-midnight-800">
-        <i data-lucide="arrow-up" class="w-4 h-4"></i>
-      </button>
-    </div>
-  </div>
-
-  <!-- Notification Toast -->
-  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-stone-800 dark:bg-midnight-850 text-white text-xs font-medium px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2.5 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none border border-stone-700 dark:border-midnight-700">
-    <i data-lucide="check-circle" class="w-4 h-4 text-matcha-300 dark:text-cyan-400"></i>
-    <span id="toast-message">Action successful</span>
-  </div>
-
+  <!-- Background Web Worker for Unthrottled Countdown -->
   <script>
-    /* ==========================================================================
-       1. COMPLETE ICAI CA INTERMEDIATE (NEW SCHEME) SYLLABUS DATA
-       ========================================================================== */
-    const SYLLABUS_DATA = [
+    const workerCode = `
+      let timerId = null;
+      self.onmessage = function(e) {
+        if (e.data === 'start') {
+          if (!timerId) {
+            timerId = setInterval(() => { self.postMessage('tick'); }, 500);
+          }
+        } else if (e.data === 'stop') {
+          if (timerId) {
+            clearInterval(timerId);
+            timerId = null;
+          }
+        }
+      };
+    `;
+    const blob = new Blob([workerCode], { type: 'application/javascript' });
+    const timerWorker = new Worker(URL.createObjectURL(blob));
+  </script>
+
+  <!-- Complete Application Architecture & State Management -->
+  <script>
+    const PAPERS_SCHEMA = [
       {
-        id: "p1",
-        code: "Paper 1",
-        title: "Advanced Accounting",
-        group: "g1",
-        badge: "100 Marks",
+        id: "p1", group: "g1", title: "Paper 1: Advanced Accounting", marks: "100 Marks",
         sections: [
           {
-            sectionTitle: "Accounting Standards (AS 1 to AS 29 Framework)",
-            items: [
-              { id: "p1_as_intro", title: "Ch 1: Introduction to Accounting Standards", sub: "Standard-setting process, GAAP & NFRA framework" },
-              { id: "p1_as_framewk", title: "Ch 2: Framework for Preparation & Presentation of FS", sub: "Qualitative characteristics, elements & capital maintenance" },
-              { id: "p1_as_applic", title: "Ch 3: Applicability of Accounting Standards", sub: "SMC vs Non-SMC entity thresholds & criteria" },
-              { id: "p1_as_01", title: "AS 1: Disclosure of Accounting Policies", sub: "Going Concern, Consistency, Accrual & fundamental assumptions" },
-              { id: "p1_as_02", title: "AS 2: Valuation of Inventories", sub: "Cost vs NRV, conversion cost, cost formula applications" },
-              { id: "p1_as_03", title: "AS 3: Cash Flow Statement", sub: "Operating (direct/indirect), investing & financing flows" },
-              { id: "p1_as_04", title: "AS 4: Contingencies & Events After Balance Sheet Date", sub: "Adjusting vs non-adjusting events, proposed dividend treatment" },
-              { id: "p1_as_05", title: "AS 5: Net Profit/Loss, Prior Period Items & Accounting Policies", sub: "Prior period items, ordinary vs extraordinary, change in estimates" },
-              { id: "p1_as_07", title: "AS 7: Construction Contracts", sub: "Percentage of completion, contract revenue & expected losses" },
-              { id: "p1_as_09", title: "AS 9: Revenue Recognition", sub: "Sale of goods, services, interest, royalties & dividends" },
-              { id: "p1_as_10", title: "AS 10: Property, Plant and Equipment (PPE)", sub: "Initial recognition, cost vs revaluation model, component depreciation" },
-              { id: "p1_as_11", title: "AS 11: The Effects of Changes in Foreign Exchange Rates", sub: "Monetary/non-monetary items, forward contracts & foreign operations" },
-              { id: "p1_as_12", title: "AS 12: Accounting for Government Grants", sub: "Capital vs revenue grants, asset-specific deductions, refund rules" },
-              { id: "p1_as_13", title: "AS 13: Accounting for Investments", sub: "Current vs long-term valuation, reclassification & disposal" },
-              { id: "p1_as_14", title: "AS 14: Accounting for Amalgamations", sub: "Merger vs purchase method, purchase consideration, statutory reserves" },
-              { id: "p1_as_15", title: "AS 15: Employee Benefits", sub: "Defined contribution vs defined benefit plans, actuarial valuations" },
-              { id: "p1_as_16", title: "AS 16: Borrowing Costs", sub: "Qualifying assets, capitalization rate, suspension & cessation" },
-              { id: "p1_as_17", title: "AS 17: Segment Reporting", sub: "Reportable business & geographical segments (10% test, 75% rule)" },
-              { id: "p1_as_18", title: "AS 18: Related Party Disclosures", sub: "Control, significant influence, key management personnel & transactions" },
-              { id: "p1_as_19", title: "AS 19: Leases", sub: "Finance vs operating lease criteria & accounting (lessee & lessor)" },
-              { id: "p1_as_20", title: "AS 20: Earnings Per Share (EPS)", sub: "Basic EPS, Diluted EPS, bonus issue & rights issue adjustments" },
-              { id: "p1_as_21", title: "AS 21: Consolidated Financial Statements (CFS)", sub: "Minority interest, goodwill/capital reserve, inter-company balances" },
-              { id: "p1_as_22", title: "AS 22: Accounting for Taxes on Income", sub: "Deferred tax assets/liabilities, timing differences vs permanent differences" },
-              { id: "p1_as_23", title: "AS 23: Accounting for Investments in Associates in CFS", sub: "Equity method application & carrying amount calculations" },
-              { id: "p1_as_24", title: "AS 24: Discontinuing Operations", sub: "Initial disclosure event, recognition, presentation & disclosures" },
-              { id: "p1_as_25", title: "AS 25: Interim Financial Reporting", sub: "Form and content of interim reports, measurement rules" },
-              { id: "p1_as_26", title: "AS 26: Intangible Assets", sub: "Recognition criteria, research vs development phase, amortization" },
-              { id: "p1_as_27", title: "AS 27: Financial Reporting of Interests in Joint Ventures", sub: "Proportionate consolidation for jointly controlled entities" },
-              { id: "p1_as_28", title: "AS 28: Impairment of Assets", sub: "Cash Generating Units (CGU), value in use, impairment reversal" },
-              { id: "p1_as_29", title: "AS 29: Provisions, Contingent Liabilities & Contingent Assets", sub: "Present obligation vs possible obligation, outflow probability, disclosures" }
+            title: "ACCOUNTING STANDARDS (AS 1 TO AS 29 FRAMEWORK)",
+            topics: [
+              { id: "p1_ch1", title: "Ch 1: Introduction to Accounting Standards", desc: "Standard-setting process, GAAP & NFRA framework" },
+              { id: "p1_ch2", title: "Ch 2: Framework for Preparation & Presentation of FS", desc: "Qualitative characteristics & capital maintenance" },
+              { id: "p1_ch3", title: "Ch 3: Applicability of Accounting Standards", desc: "SMC vs Non-SMC entity thresholds & criteria" },
+              { id: "p1_as1", title: "AS 1: Disclosure of Accounting Policies", desc: "Going Concern, Consistency, Accrual & fundamental principles" },
+              { id: "p1_as2", title: "AS 2: Valuation of Inventories", desc: "Cost vs NRV, conversion cost, cost formula applications" },
+              { id: "p1_as3", title: "AS 3: Cash Flow Statement", desc: "Operating (direct/indirect), investing & financing flows" },
+              { id: "p1_as4", title: "AS 4: Contingencies & Events After Balance Sheet Date", desc: "Adjusting vs non-adjusting events, proposed dividend treatment" },
+              { id: "p1_as5", title: "AS 5: Net Profit/Loss, Prior Period Items & Accounting Policies", desc: "Prior period items, ordinary vs extraordinary, change in estimates" },
+              { id: "p1_as7", title: "AS 7: Construction Contracts", desc: "Percentage of completion, contract revenue & expected losses" },
+              { id: "p1_as9", title: "AS 9: Revenue Recognition", desc: "Sale of goods, service, interest, royalties & dividends" },
+              { id: "p1_as10", title: "AS 10: Property, Plant and Equipment (PPE)", desc: "Initial recognition, cost vs revaluation model, component depreciation" },
+              { id: "p1_as11", title: "AS 11: The Effects of Changes in Foreign Exchange Rates", desc: "Monetary/non-monetary items, forward contracts & foreign operations" },
+              { id: "p1_as12", title: "AS 12: Accounting for Government Grants", desc: "Capital vs revenue grants, asset-specific deductions, refund rules" },
+              { id: "p1_as13", title: "AS 13: Accounting for Investments", desc: "Current vs long-term valuation, reclassification & disposal" },
+              { id: "p1_as14", title: "AS 14: Accounting for Amalgamations", desc: "Merger vs purchase method, purchase consideration, statutory reserves" },
+              { id: "p1_as15", title: "AS 15: Employee Benefits", desc: "Defined contribution vs defined benefit plans, actuarial valuations" },
+              { id: "p1_as16", title: "AS 16: Borrowing Costs", desc: "Qualifying assets, capitalization rate, suspension & cessation" },
+              { id: "p1_as17", title: "AS 17: Segment Reporting", desc: "Reportable business & geographical segments (10% test, 75% rule)" },
+              { id: "p1_as18", title: "AS 18: Related Party Disclosures", desc: "Control, significant influence, key management personnel & transactions" },
+              { id: "p1_as19", title: "AS 19: Leases", desc: "Finance vs operating lease criteria & accounting (lessee & lessor)" },
+              { id: "p1_as20", title: "AS 20: Earnings Per Share (EPS)", desc: "Basic EPS, Diluted EPS, bonus issue & rights issue adjustments" },
+              { id: "p1_as21", title: "AS 21: Consolidated Financial Statements (CFS)", desc: "Minority interest, goodwill/capital reserve, inter-company balances" },
+              { id: "p1_as22", title: "AS 22: Accounting for Taxes on Income", desc: "Deferred tax assets/liabilities, timing differences vs permanent differences" },
+              { id: "p1_as23", title: "AS 23: Accounting for Investments in Associates in CFS", desc: "Equity method application & carrying amount calculations" },
+              { id: "p1_as24", title: "AS 24: Discontinuing Operations", desc: "Initial disclosure event, recognition, presentation & disclosures" },
+              { id: "p1_as25", title: "AS 25: Interim Financial Reporting", desc: "Form and content of interim reports, measurement rules" },
+              { id: "p1_as26", title: "AS 26: Intangible Assets", desc: "Recognition criteria, research vs development phase, amortization" },
+              { id: "p1_as27", title: "AS 27: Financial Reporting of Interests in Joint Ventures", desc: "Proportionate consolidation for jointly controlled entities" },
+              { id: "p1_as28", title: "AS 28: Impairment of Assets", desc: "Cash Generating Units (CGU), value in use, impairment reversal" },
+              { id: "p1_as29", title: "AS 29: Provisions, Contingent Liabilities & Contingent Assets", desc: "Present obligation vs possible obligation, outflow probability, disclosures" }
             ]
           },
           {
-            sectionTitle: "Company Accounts & Special Transactions",
-            items: [
-              { id: "p1_ca_sch3", title: "Preparation of Financial Statements (Schedule III)", sub: "Division I Balance Sheet and Statement of Profit & Loss format" },
-              { id: "p1_ca_buyback", title: "Buyback of Securities & Differential Voting Rights", sub: "Sec 68-70 tests, CRR capitalization, journal entries" },
-              { id: "p1_ca_recon", title: "Internal Reconstruction", sub: "Capital reduction scheme execution & post-reconstruction balance sheet" },
-              { id: "p1_ca_branch", title: "Accounting for Branches (including Foreign Branches)", sub: "Stock & Debtors method, wholesale branches, currency conversion" }
+            title: "COMPANY ACCOUNTS & SPECIAL TRANSACTIONS",
+            topics: [
+              { id: "p1_sp1", title: "Preparation of Financial Statements (Schedule III)", desc: "Division I Balance Sheet and Statement of Profit & Loss format" },
+              { id: "p1_sp2", title: "Buyback of Securities & Differential Voting Rights", desc: "Sec 68-70 tests, CRR capitalization, journal entries" },
+              { id: "p1_sp3", title: "Internal Reconstruction", desc: "Capital reduction scheme execution & reconstruction balance sheet" },
+              { id: "p1_sp4", title: "Accounting for Branches (including Foreign Branches)", desc: "Stock & Debtors method, wholesale branches, foreign currency conversion" }
             ]
           }
         ]
       },
       {
-        id: "p2",
-        code: "Paper 2",
-        title: "Corporate and Other Laws",
-        group: "g1",
-        badge: "100 Marks",
+        id: "p2", group: "g1", title: "Paper 2: Corporate and Other Laws", marks: "100 Marks",
         sections: [
           {
-            sectionTitle: "Part I: Company Law (The Companies Act, 2013)",
-            items: [
-              { id: "p2_ch1", title: "Ch 1: Preliminary (Sec 1-2)", sub: "Short title, applicability & key definitions" },
-              { id: "p2_ch2", title: "Ch 2: Incorporation of Company & Incidental (Sec 3-22)", sub: "MOA, AOA, Sec 8 company, registered office rules" },
-              { id: "p2_ch3", title: "Ch 3: Prospectus and Allotment of Securities (Sec 23-42)", sub: "Public issue, shelf prospectus, private placement" },
-              { id: "p2_ch4", title: "Ch 4: Share Capital and Debentures (Sec 43-72)", sub: "Sweat equity, bonus shares, transfer/transmission of securities" },
-              { id: "p2_ch5", title: "Ch 5: Acceptance of Deposits by Companies (Sec 73-76A)", sub: "Deposits from members vs public & repayment rules" },
-              { id: "p2_ch6", title: "Ch 6: Registration of Charges (Sec 77-87)", sub: "Creation, modification & satisfaction of charges with RoC" },
-              { id: "p2_ch7", title: "Ch 7: Management and Administration (Sec 88-122)", sub: "Registers, annual returns, AGM, EGM, resolutions, voting" },
-              { id: "p2_ch8", title: "Ch 8: Declaration and Payment of Dividend (Sec 123-127)", sub: "Unpaid dividend account, IEPF, distribution restrictions" },
-              { id: "p2_ch9", title: "Ch 9: Accounts of Companies (Sec 128-138)", sub: "Books of account, financial statements, CSR (Sec 135), internal audit" },
-              { id: "p2_ch10", title: "Ch 10: Audit and Auditors (Sec 139-148)", sub: "Appointment, rotation, removal, qualifications & cost audit" },
-              { id: "p2_ch11", title: "Ch 11: Companies Incorporated Outside India (Sec 379-393A)", sub: "Foreign companies, registration, document delivery" }
+            title: "PART I: COMPANY LAW (THE COMPANIES ACT, 2013)",
+            topics: [
+              { id: "p2_ch1", title: "Ch 1: Preliminary (Sec 1-2)", desc: "Short title, applicability & key definitions" },
+              { id: "p2_ch2", title: "Ch 2: Incorporation of Company & Incidental (Sec 3-22)", desc: "MOA, AOA, Section 8 company, registered office rules" },
+              { id: "p2_ch3", title: "Ch 3: Prospectus and Allotment of Securities (Sec 23-42)", desc: "Public issue, shelf prospectus, private placement" },
+              { id: "p2_ch4", title: "Ch 4: Share Capital and Debentures (Sec 43-72)", desc: "Sweat equity, bonus shares, transfer/transmission of securities" },
+              { id: "p2_ch5", title: "Ch 5: Acceptance of Deposits by Companies (Sec 73-76A)", desc: "Deposits from members vs public & repayment rules" },
+              { id: "p2_ch6", title: "Ch 6: Registration of Charges (Sec 77-87)", desc: "Creation, modification & satisfaction of charges with ROC" },
+              { id: "p2_ch7", title: "Ch 7: Management and Administration (Sec 88-122)", desc: "Registers, annual returns, AGM, EGM, resolutions, voting" },
+              { id: "p2_ch8", title: "Ch 8: Declaration and Payment of Dividend (Sec 123-127)", desc: "Unpaid dividend account, IEPF, distribution restrictions" },
+              { id: "p2_ch9", title: "Ch 9: Accounts of Companies (Sec 128-138)", desc: "Books of account, financial statements, CSR (Sec 135), internal audit" },
+              { id: "p2_ch10", title: "Ch 10: Audit and Auditors (Sec 139-148)", desc: "Appointment, rotation, removal, qualifications & cost audit" },
+              { id: "p2_ch11", title: "Ch 11: Companies Incorporated Outside India (Sec 379-393A)", desc: "Foreign companies, registration, document delivery" }
             ]
           },
           {
-            sectionTitle: "Part II: Limited Liability Partnership Act, 2008",
-            items: [
-              { id: "p2_ch12", title: "The Limited Liability Partnership Act, 2008", sub: "Nature, incorporation, partners, financial disclosures, winding up" }
+            title: "PART II: LIMITED LIABILITY PARTNERSHIP ACT, 2008",
+            topics: [
+              { id: "p2_llp", title: "The Limited Liability Partnership Act, 2008", desc: "Nature, incorporation, partners, financial disclosures, winding up" }
             ]
           },
           {
-            sectionTitle: "Part III: Other Laws",
-            items: [
-              { id: "p2_ol_ch1", title: "The General Clauses Act, 1897", sub: "Preamble, general definitions, principles of interpretation" },
-              { id: "p2_ol_ch2", title: "Interpretation of Statutes", sub: "Primary rules, secondary rules, internal & external aids" },
-              { id: "p2_ol_ch3", title: "The Foreign Exchange Management Act, 1999 (FEMA)", sub: "Definitions, current account vs capital account transactions" }
+            title: "PART III: OTHER LAWS",
+            topics: [
+              { id: "p2_ol1", title: "The General Clauses Act, 1897", desc: "Preamble, general definitions, principles of interpretation" },
+              { id: "p2_ol2", title: "Interpretation of Statutes", desc: "Primary rules, secondary rules, internal & external aids" },
+              { id: "p2_ol3", title: "The Foreign Exchange Management Act, 1999 (FEMA)", desc: "Definitions, current account vs capital account transactions" }
             ]
           }
         ]
       },
       {
-        id: "p3",
-        code: "Paper 3",
-        title: "Taxation",
-        group: "g1",
-        badge: "100 Marks (50 + 50)",
+        id: "p3", group: "g1", title: "Paper 3: Taxation", marks: "100 Marks (50+50)",
         sections: [
           {
-            sectionTitle: "Section A: Income-tax Law (50 Marks)",
-            items: [
-              { id: "p3_it_ch1", title: "Ch 1: Basic Concepts", sub: "Assessment year, previous year, basis of charge, tax slab rates" },
-              { id: "p3_it_ch2", title: "Ch 2: Residence and Scope of Total Income", sub: "Section 6 residential status & Section 5 total scope" },
-              { id: "p3_it_ch3a", title: "Ch 3.1: Heads of Income - Salaries", sub: "Allowances, perquisites, retirement benefits, Sec 16 deductions" },
-              { id: "p3_it_ch3b", title: "Ch 3.2: Heads of Income - House Property", sub: "GAV, NAV, standard deduction, interest on housing loan (Sec 24)" },
-              { id: "p3_it_ch3c", title: "Ch 3.3: Profits & Gains of Business or Profession (PGBP)", sub: "Admissible/inadmissible expenses, depreciation, presumptive 44AD/ADA" },
-              { id: "p3_it_ch3d", title: "Ch 3.4: Heads of Income - Capital Gains", sub: "Short term vs long term, exemptions (Sec 54/54EC/54F), special rates" },
-              { id: "p3_it_ch3e", title: "Ch 3.5: Heads of Income - Other Sources", sub: "Gifts, dividend income, family pension, winning from lotteries" },
-              { id: "p3_it_ch4", title: "Ch 4: Clubbing of Income", sub: "Sec 60 to 65 (income of spouse, minor child, etc.)" },
-              { id: "p3_it_ch5", title: "Ch 5: Set-off and Carry Forward of Losses", sub: "Intra-head & inter-head adjustments, time limits" },
-              { id: "p3_it_ch6", title: "Ch 6: Deductions from Gross Total Income", sub: "Chapter VI-A (80C, 80D, 80G, 80JJAA, etc.)" },
-              { id: "p3_it_ch7", title: "Ch 7: Advance Tax, TDS and TCS", sub: "Key thresholds, withholding provisions, payment schedules" },
-              { id: "p3_it_ch8", title: "Ch 8: Filing of Return of Income & Self-Assessment", sub: "Due dates, revised/belated returns, updated return (139(8A))" },
-              { id: "p3_it_ch9", title: "Ch 9: Computation of Total Income & Tax Liability", sub: "Default regime Sec 115BAC vs optional normal regime" }
+            title: "SECTION A: INCOME-TAX LAW (50 MARKS)",
+            topics: [
+              { id: "p3_it1", title: "Ch 1: Basic Concepts", desc: "Assessment year, previous year, basis of charge, tax slab rates" },
+              { id: "p3_it2", title: "Ch 2: Residence and Scope of Total Income", desc: "Section 6 residential status & Section 5 total scope" },
+              { id: "p3_it3a", title: "Ch 3.1: Heads of Income - Salaries", desc: "Allowances, perquisites, retirement benefits, Sec 16 deductions" },
+              { id: "p3_it3b", title: "Ch 3.2: Heads of Income - House Property", desc: "GAV, NAV, standard deduction, interest on housing loan (Sec 24)" },
+              { id: "p3_it3c", title: "Ch 3.3: Profits & Gains of Business or Profession (PGBP)", desc: "Admissible/inadmissible expenses, depreciation, presumptive 44AD/ADA" },
+              { id: "p3_it3d", title: "Ch 3.4: Heads of Income - Capital Gains", desc: "Short-term vs long-term, exemptions (Sec 54/54EC/54F), special rates" },
+              { id: "p3_it3e", title: "Ch 3.5: Heads of Income - Other Sources", desc: "Gifts, dividend income, family pension, winning from lotteries" },
+              { id: "p3_it4", title: "Ch 4: Clubbing of Income", desc: "Sec 60 to 65 (income of spouse, minor child, etc.)" },
+              { id: "p3_it5", title: "Ch 5: Set-off and Carry Forward of Losses", desc: "Intra-head & inter-head adjustments, time limits" },
+              { id: "p3_it6", title: "Ch 6: Deductions from Gross Total Income", desc: "Chapter VI-A (80C, 80D, 80G, 80JJAA, etc.)" },
+              { id: "p3_it7", title: "Ch 7: Advance Tax, TDS and TCS", desc: "Key thresholds, withholding provisions, payment schedules" },
+              { id: "p3_it8", title: "Ch 8: Filing of Return of Income & Self-Assessment", desc: "Due dates, revised/belated returns, updated return (139(8A))" },
+              { id: "p3_it9", title: "Ch 9: Computation of Total Income & Tax Liability", desc: "Default regime Sec 115BAC vs optional normal regime" }
             ]
           },
           {
-            sectionTitle: "Section B: Goods and Services Tax (GST) (50 Marks)",
-            items: [
-              { id: "p3_gst_ch1", title: "Ch 1: GST in India - An Introduction", sub: "Constitutional provisions, CGST/SGST/IGST framework" },
-              { id: "p3_gst_ch2", title: "Ch 2: Supply under GST", sub: "Section 7, Schedule I, II, III, composite & mixed supply" },
-              { id: "p3_gst_ch3", title: "Ch 3: Charge of GST", sub: "Forward charge, Reverse Charge Mechanism (RCM), Composition scheme" },
-              { id: "p3_gst_ch4", title: "Ch 4: Place of Supply", sub: "Goods and services domestic & cross-border rules" },
-              { id: "p3_gst_ch5", title: "Ch 5: Exemptions from GST", sub: "Important exempt goods & services list" },
-              { id: "p3_gst_ch6", title: "Ch 6: Time of Supply", sub: "Time of supply for goods (Sec 12) & services (Sec 13)" },
-              { id: "p3_gst_ch7", title: "Ch 7: Value of Supply", sub: "Section 15 inclusions, exclusions & discounts" },
-              { id: "p3_gst_ch8", title: "Ch 8: Input Tax Credit (ITC)", sub: "Eligibility, Sec 17(5) blocked credits, utilization order" },
-              { id: "p3_gst_ch9", title: "Ch 9: Registration", sub: "Threshold limits (Sec 22), compulsory registration (Sec 24)" },
-              { id: "p3_gst_ch10", title: "Ch 10: Tax Invoice, Credit & Debit Notes", sub: "E-invoicing thresholds & delivery challan rules" },
-              { id: "p3_gst_ch11", title: "Ch 11: Accounts and Records", sub: "Period of retention & required records" },
-              { id: "p3_gst_ch12", title: "Ch 12: E-Way Bill", sub: "Rule 138 thresholds, validity & exceptions" },
-              { id: "p3_gst_ch13", title: "Ch 13: Payment of Tax", sub: "Electronic cash, credit & liability ledgers" },
-              { id: "p3_gst_ch14", title: "Ch 14: Tax Deduction / Collection at Source", sub: "TDS (Sec 51) & TCS (Sec 52) provisions" },
-              { id: "p3_gst_ch15", title: "Ch 15: Returns", sub: "GSTR-1, GSTR-3B, QRMP scheme & annual returns" }
+            title: "SECTION B: GOODS AND SERVICES TAX (GST) (50 MARKS)",
+            topics: [
+              { id: "p3_gst1", title: "Ch 1: GST in India - An Introduction", desc: "Constitutional provisions, CGST/SGST/IGST framework" },
+              { id: "p3_gst2", title: "Ch 2: Supply under GST", desc: "Section 7, Schedule I, II, III, composite & mixed supply" },
+              { id: "p3_gst3", title: "Ch 3: Charge of GST", desc: "Forward charge, Reverse Charge Mechanism (RCM), Composition scheme" },
+              { id: "p3_gst4", title: "Ch 4: Place of Supply", desc: "Goods and services domestic & cross-border rules" },
+              { id: "p3_gst5", title: "Ch 5: Exemptions from GST", desc: "Important exempt goods & services list" },
+              { id: "p3_gst6", title: "Ch 6: Time of Supply", desc: "Time of supply for goods (Sec 12) & services (Sec 13)" },
+              { id: "p3_gst7", title: "Ch 7: Value of Supply", desc: "Section 15 inclusions, exclusions & discounts" },
+              { id: "p3_gst8", title: "Ch 8: Input Tax Credit (ITC)", desc: "Eligibility, Sec 17(5) blocked credits, utilization order" },
+              { id: "p3_gst9", title: "Ch 9: Registration", desc: "Threshold limits (Sec 22), compulsory registration (Sec 24)" },
+              { id: "p3_gst10", title: "Ch 10: Tax Invoice, Credit & Debit Notes", desc: "E-invoicing thresholds & delivery challan rules" },
+              { id: "p3_gst11", title: "Ch 11: Accounts and Records", desc: "Period of retention & required records" },
+              { id: "p3_gst12", title: "Ch 12: E-Way Bill", desc: "Rule 138 thresholds, validity & exceptions" },
+              { id: "p3_gst13", title: "Ch 13: Payment of Tax", desc: "Electronic cash, credit & liability ledgers" },
+              { id: "p3_gst14", title: "Ch 14: Tax Deduction / Collection at Source", desc: "TDS (Sec 51) & TCS (Sec 52) provisions" },
+              { id: "p3_gst15", title: "Ch 15: Returns", desc: "GSTR-1, GSTR-3B, QRMP scheme & annual returns" }
             ]
           }
         ]
       },
       {
-        id: "p4",
-        code: "Paper 4",
-        title: "Cost and Management Accounting",
-        group: "g2",
-        badge: "100 Marks",
+        id: "p4", group: "g2", title: "Paper 4: Cost and Management Accounting", marks: "100 Marks",
         sections: [
           {
-            sectionTitle: "Cost Accounting Modules (Chapters 1 - 15)",
-            items: [
-              { id: "p4_ch1", title: "Ch 1: Introduction to Cost & Management Accounting", sub: "Cost units, cost objects, cost classification" },
-              { id: "p4_ch2", title: "Ch 2: Material Cost", sub: "EOQ, stock levels, inventory control techniques (ABC/VED/FSN)" },
-              { id: "p4_ch3", title: "Ch 3: Employee Cost and Direct Expenses", sub: "Labor turnover, Halsey/Rowan incentive schemes, idle time" },
-              { id: "p4_ch4", title: "Ch 4: Overheads - Absorption Costing Method", sub: "Primary/secondary distribution, machine hour rate, under/over-absorption" },
-              { id: "p4_ch5", title: "Ch 5: Activity Based Costing (ABC)", sub: "Cost pools, cost drivers, traditional vs ABC comparison" },
-              { id: "p4_ch6", title: "Ch 6: Cost Sheet", sub: "Historical cost sheet & tenders/quotations preparation" },
-              { id: "p4_ch7", title: "Ch 7: Cost Accounting Systems", sub: "Integrated vs non-integrated accounts & reconciliation" },
-              { id: "p4_ch8", title: "Ch 8: Unit and Batch Costing", sub: "Economic batch quantity (EBQ)" },
-              { id: "p4_ch9", title: "Ch 9: Job Costing", sub: "Job order cost computation" },
-              { id: "p4_ch10", title: "Ch 10: Process and Operation Costing", sub: "Normal/abnormal loss, equivalent units (FIFO/weighted average)" },
-              { id: "p4_ch11", title: "Ch 11: Joint Products and By Products", sub: "Apportionment methods at split-off & post-separation" },
-              { id: "p4_ch12", title: "Ch 12: Service Costing (Operating Costing)", sub: "Transport, hotels, hospitals, power supply costing" },
-              { id: "p4_ch13", title: "Ch 13: Standard Costing", sub: "Material, labor, and overhead variance analysis" },
-              { id: "p4_ch14", title: "Ch 14: Marginal Costing", sub: "CVP analysis, BEP, MOS, key factor, decision making" },
-              { id: "p4_ch15", title: "Ch 15: Budget and Budgetary Control", sub: "Flexible budgets, cash budgets & functional budgets" }
+            title: "COST ACCOUNTING MODULES (CHAPTERS 1-15)",
+            topics: [
+              { id: "p4_ch1", title: "Ch 1: Introduction to Cost & Management Accounting", desc: "Cost units, cost objects, cost classification" },
+              { id: "p4_ch2", title: "Ch 2: Material Cost", desc: "EOQ, stock levels, inventory control techniques (ABC/VED/FSN)" },
+              { id: "p4_ch3", title: "Ch 3: Employee Cost and Direct Expenses", desc: "Labor turnover, Halsey/Rowan incentive schemes, idle time" },
+              { id: "p4_ch4", title: "Ch 4: Overheads - Absorption Costing Method", desc: "Primary/secondary distribution, machine hour rate, under/over-absorption" },
+              { id: "p4_ch5", title: "Ch 5: Activity Based Costing (ABC)", desc: "Cost pools, cost drivers, traditional vs ABC comparison" },
+              { id: "p4_ch6", title: "Ch 6: Cost Sheet", desc: "Historical cost sheet & tenders/quotations preparation" },
+              { id: "p4_ch7", title: "Ch 7: Cost Accounting Systems", desc: "Integrated vs non-integrated accounts & reconciliation" },
+              { id: "p4_ch8", title: "Ch 8: Unit and Batch Costing", desc: "Economic batch quantity (EBQ)" },
+              { id: "p4_ch9", title: "Ch 9: Job Costing", desc: "Job order cost computation" },
+              { id: "p4_ch10", title: "Ch 10: Process and Operation Costing", desc: "Normal/abnormal loss, equivalent units (FIFO/weighted average)" },
+              { id: "p4_ch11", title: "Ch 11: Joint Products and By Products", desc: "Apportionment methods at split-off & post-separation" },
+              { id: "p4_ch12", title: "Ch 12: Service Costing (Operating Costing)", desc: "Transport, hotels, hospitals, power supply costing" },
+              { id: "p4_ch13", title: "Ch 13: Standard Costing", desc: "Material, labor, and overhead variance analysis" },
+              { id: "p4_ch14", title: "Ch 14: Marginal Costing", desc: "CVP analysis, BEP, MOS, key factor, decision making" },
+              { id: "p4_ch15", title: "Ch 15: Budget and Budgetary Control", desc: "Flexible budgets, cash budgets & functional budgets" }
             ]
           }
         ]
       },
       {
-        id: "p5",
-        code: "Paper 5",
-        title: "Auditing and Ethics",
-        group: "g2",
-        badge: "100 Marks",
+        id: "p5", group: "g2", title: "Paper 5: Auditing and Ethics", marks: "100 Marks",
         sections: [
           {
-            sectionTitle: "Auditing Standards & Engagement Framework",
-            items: [
-              { id: "p5_ch1", title: "Ch 1: Nature, Objective and Scope of Audit", sub: "SA 200, inherent limitations, ethical principles, SQC 1/SA 220" },
-              { id: "p5_ch2", title: "Ch 2: Audit Strategy, Planning and Programme", sub: "SA 300, overall strategy, planning considerations, audit file" },
-              { id: "p5_ch3", title: "Ch 3: Risk Assessment and Internal Control", sub: "SA 315, internal control evaluation, IT environment risks, IFC" },
-              { id: "p5_ch4", title: "Ch 4: Audit Evidence", sub: "SA 500, SA 501, SA 505 (Confirmations), SA 520 (Analytical), SA 530 (Sampling)" },
-              { id: "p5_ch5", title: "Ch 5: Audit of Items of Financial Statements", sub: "Substantive testing: Share capital, borrowings, PPE, inventory, sales, expenses" },
-              { id: "p5_ch6", title: "Ch 6: Audit Documentation", sub: "SA 230 (Audit files, working papers, assembly & retention)" },
-              { id: "p5_ch7", title: "Ch 7: Completion and Review", sub: "SA 560 (Subsequent Events), SA 570 (Going Concern), SA 580 (Written Reps)" },
-              { id: "p5_ch8", title: "Ch 8: Audit Report", sub: "SA 700, 705 (Modified Opinions), 706 (EOM/OM), CARO 2020 clauses" },
-              { id: "p5_ch9", title: "Ch 9: Special Features of Audit of Different Entities", sub: "Audit of government entities, NGOs, educational institutions, hotels" },
-              { id: "p5_ch10", title: "Ch 10: Audit of Banks", sub: "NPA classification, income recognition norms, LFAR" },
-              { id: "p5_ch11", title: "Ch 11: Ethics and Terms of Audit Engagements", sub: "SA 210 (Engagement letter), independence threats & ICAI code of ethics" }
+            title: "AUDITING STANDARDS & ENGAGEMENT FRAMEWORK",
+            topics: [
+              { id: "p5_ch1", title: "Ch 1: Nature, Objective and Scope of Audit", desc: "SA 200, inherent limitations, ethical principles, SQC 1 / SA 220" },
+              { id: "p5_ch2", title: "Ch 2: Audit Strategy, Planning and Programme", desc: "SA 300, overall strategy, planning considerations, audit file" },
+              { id: "p5_ch3", title: "Ch 3: Risk Assessment and Internal Control", desc: "SA 315, internal control evaluation, IT environment risks, IFC" },
+              { id: "p5_ch4", title: "Ch 4: Audit Evidence", desc: "SA 500, SA 501, SA 505 (Confirmations), SA 520 (Analytical), SA 530 (Sampling)" },
+              { id: "p5_ch5", title: "Ch 5: Audit of Items of Financial Statements", desc: "Substantive testing: Share capital, borrowings, PPE, inventory, sales, expenses" },
+              { id: "p5_ch6", title: "Ch 6: Audit Documentation", desc: "SA 230 (Audit files, working papers, assembly & retention)" },
+              { id: "p5_ch7", title: "Ch 7: Completion and Review", desc: "SA 560 (Subsequent Events), SA 570 (Going Concern), SA 580 (Written Reps)" },
+              { id: "p5_ch8", title: "Ch 8: Audit Report", desc: "SA 700, 705 (Modified Opinions), 706 (EOM/OM), CARO 2020 clauses" },
+              { id: "p5_ch9", title: "Ch 9: Special Features of Audit of Different Entities", desc: "Audit of banks, government entities, NGOs, educational institutions, hotels" },
+              { id: "p5_ch10", title: "Ch 10: Audit of Banks", desc: "NPA classification, income recognition norms, LFAR" },
+              { id: "p5_ch11", title: "Ch 11: Ethics and Terms of Audit Engagements", desc: "SA 210 (Engagement letter), independence threats & ICAI code of ethics" }
             ]
           }
         ]
       },
       {
-        id: "p6",
-        code: "Paper 6",
-        title: "Financial Management and Strategic Management",
-        group: "g2",
-        badge: "100 Marks (50 + 50)",
+        id: "p6", group: "g2", title: "Paper 6: Financial Management and Strategic Management", marks: "100 Marks (50+50)",
         sections: [
           {
-            sectionTitle: "Section A: Financial Management (50 Marks)",
-            items: [
-              { id: "p6_fm_ch1", title: "Ch 1: Scope and Objectives of Financial Management", sub: "Financial decisions, profit vs wealth maximization, agency problem" },
-              { id: "p6_fm_ch2", title: "Ch 2: Types of Financing", sub: "Long-term, medium-term, venture capital, bridge finance" },
-              { id: "p6_fm_ch3", title: "Ch 3: Financial Analysis and Planning - Ratio Analysis", sub: "Liquidity, leverage, turnover, profitability & DuPont analysis" },
-              { id: "p6_fm_ch4", title: "Ch 4: Cost of Capital", sub: "Ke (CAPM/dividend model), Kd, Kp, Kr, and WACC computation" },
-              { id: "p6_fm_ch5", title: "Ch 5: Financing Decisions - Capital Structure", sub: "EBIT-EPS analysis, Net Income, Net Operating Income, MM, Trade-off theory" },
-              { id: "p6_fm_ch6", title: "Ch 6: Financing Decisions - Leverages", sub: "Degree of Operating (DOL), Financial (DFL) & Combined (DCL) leverage" },
-              { id: "p6_fm_ch7", title: "Ch 7: Investment Decisions (Capital Budgeting)", sub: "NPV, IRR, MIRR, Payback, ARR, PI & replacement decisions" },
-              { id: "p6_fm_ch8", title: "Ch 8: Dividend Decisions", sub: "Walter's model, Gordon's model, Modigliani-Miller (MM) hypothesis" },
-              { id: "p6_fm_ch9", title: "Ch 9: Management of Working Capital", sub: "Operating cycle estimation, cash/receivables/inventory management models" }
+            title: "SECTION A: FINANCIAL MANAGEMENT (50 MARKS)",
+            topics: [
+              { id: "p6_fm1", title: "Ch 1: Scope and Objectives of Financial Management", desc: "Financial decisions, profit vs wealth maximization, agency problem" },
+              { id: "p6_fm2", title: "Ch 2: Types of Financing", desc: "Long-term, medium-term, venture capital, bridge finance" },
+              { id: "p6_fm3", title: "Ch 3: Financial Analysis and Planning - Ratio Analysis", desc: "Liquidity, leverage, turnover, profitability & DuPont analysis" },
+              { id: "p6_fm4", title: "Ch 4: Cost of Capital", desc: "Ke (CAPM/dividend model), Kd, Kp, Kr, and WACC computation" },
+              { id: "p6_fm5", title: "Ch 5: Financing Decisions - Capital Structure", desc: "EBIT-EPS analysis, Net Income, Net Operating Income, MM, Trade-off theory" },
+              { id: "p6_fm6", title: "Ch 6: Financing Decisions - Leverages", desc: "Degree of Operating (DOL), Financial (DFL) & Combined (DCL) leverage" },
+              { id: "p6_fm7", title: "Ch 7: Investment Decisions (Capital Budgeting)", desc: "NPV, IRR, MIRR, Payback, ARR, PI & replacement decisions" },
+              { id: "p6_fm8", title: "Ch 8: Dividend Decisions", desc: "Walter's model, Gordon's model, Modigliani-Miller (MM) hypothesis" },
+              { id: "p6_fm9", title: "Ch 9: Management of Working Capital", desc: "Operating cycle estimation, cash/receivables/inventory management models" }
             ]
           },
           {
-            sectionTitle: "Section B: Strategic Management (50 Marks)",
-            items: [
-              { id: "p6_sm_ch1", title: "Ch 1: Introduction to Strategic Management", sub: "Strategic intent, vision, mission, strategic management process" },
-              { id: "p6_sm_ch2", title: "Ch 2: Strategic Analysis - External Environment", sub: "PESTLE analysis, Porter's five forces model, strategic group mapping" },
-              { id: "p6_sm_ch3", title: "Ch 3: Strategic Analysis - Internal Environment", sub: "VRIO framework, Value Chain analysis, SWOT/TOWS matrix, core competence" },
-              { id: "p6_sm_ch4", title: "Ch 4: Strategic Choices", sub: "Porter's generic strategies, growth/diversification, Ansoff matrix, BCG/ADL" },
-              { id: "p6_sm_ch5", title: "Ch 5: Strategy Implementation and Evaluation", sub: "Organizational structure, strategic leadership, strategic control" }
+            title: "SECTION B: STRATEGIC MANAGEMENT (50 MARKS)",
+            topics: [
+              { id: "p6_sm1", title: "Ch 1: Introduction to Strategic Management", desc: "Strategic intent, vision, mission, strategic management process" },
+              { id: "p6_sm2", title: "Ch 2: Strategic Analysis - External Environment", desc: "PESTLE analysis, Porter's five forces model, strategic group mapping" },
+              { id: "p6_sm3", title: "Ch 3: Strategic Analysis - Internal Environment", desc: "VRIO framework, Value Chain analysis, SWOT/TOWS matrix, core competence" },
+              { id: "p6_sm4", title: "Ch 4: Strategic Choices", desc: "Porter's generic strategies, growth/diversification, Ansoff matrix, BCG/ADL" },
+              { id: "p6_sm5", title: "Ch 5: Strategy Implementation and Evaluation", desc: "Organizational structure, strategic leadership, strategic control" }
             ]
           }
         ]
       }
     ];
 
-    /* ==========================================================================
-       2. STATE MANAGEMENT & STORAGE INITIALIZATION
-       ========================================================================== */
-    const STORAGE_KEY = 'ca_inter_pastel_data_v3';
-    const SETTINGS_KEY = 'ca_inter_pastel_settings_v3';
-
-    let userState = {};
-    let appSettings = {
-      examDate: '2026-11-03',
-      pomoCount: 0,
-      spotifyEmbedUri: 'playlist/37i9dQZF1DX8Uebhn9wzrS',
-      ambientTheme: 'mountain_lake',
-      customWallpaperUrl: '',
-      targetTotalMinutes: 180,
-      musicQueue: [
-        { id: "q1", title: "Lofi Hip Hop Study Beats", uri: "playlist/37i9dQZF1DX8Uebhn9wzrS" },
-        { id: "q2", title: "Peaceful Acoustic & Piano", uri: "playlist/37i9dQZF1DX4sWSpwq3LiO" }
+    const STORAGE_KEY = 'ca_inter_studio_data_v8';
+    let appState = {
+      theme: 'light',
+      bgImage: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80",
+      targetDays: 60,
+      selectedMins: 60,
+      activeGroup: 'all',
+      searchQuery: '',
+      priorityFilter: 'all',
+      checkedItems: {},
+      priorities: {},
+      notes: {},
+      completedRounds: 0,
+      currentYtIdx: 0,
+      ytPausedAtSec: 0,
+      ytQueue: [
+        { id: '1', title: 'Lofi Hip Hop Radio - Beats to Study To', videoId: 'jfKfPfyJRdk' },
+        { id: '2', title: 'Peaceful Piano Study Background', videoId: '4xDzrJKXOOY' }
       ]
     };
 
     function loadState() {
       try {
-        const savedData = localStorage.getItem(STORAGE_KEY);
-        if (savedData) userState = JSON.parse(savedData);
-
-        const savedSettings = localStorage.getItem(SETTINGS_KEY);
-        if (savedSettings) {
-          appSettings = { ...appSettings, ...JSON.parse(savedSettings) };
-          if (!appSettings.musicQueue) {
-            appSettings.musicQueue = [];
-          }
-        }
-      } catch (e) {
-        console.error("Storage load error", e);
-      }
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) appState = { ...appState, ...JSON.parse(saved) };
+      } catch (e) { console.warn(e); }
     }
 
     function saveState() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(userState));
-        localStorage.setItem(SETTINGS_KEY, JSON.stringify(appSettings));
-      } catch (e) {
-        console.error("Storage save error", e);
-      }
-      updateAnalytics();
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(appState)); } catch (e) { console.warn(e); }
     }
 
-    /* ==========================================================================
-       THEME MODE HANDLER (PASTEL LIGHT vs INDIGO DARK)
-       ========================================================================== */
-    function applyTheme(themeMode) {
+    function applyTheme(theme) {
+      appState.theme = theme;
+      saveState();
       const html = document.documentElement;
-      const themeLabel = document.getElementById('theme-label');
+      const themeText = document.getElementById('theme-text');
       const themeIcon = document.getElementById('theme-icon');
-      appSettings.themeMode = themeMode;
 
-      if (themeMode === 'dark') {
+      if (theme === 'dark') {
         html.classList.add('dark');
-        if (themeLabel) themeLabel.textContent = 'Pastel Light';
-        if (themeIcon) {
-          themeIcon.setAttribute('data-lucide', 'sun');
-        }
+        html.classList.remove('light');
+        document.body.className = "bg-darkBase text-slate-100 min-h-screen antialiased selection:bg-cyan-500/30 selection:text-cyan-300 custom-scroll";
+        themeText.innerText = "Pastel Light";
+        themeIcon.innerText = "🌸";
       } else {
         html.classList.remove('dark');
-        if (themeLabel) themeLabel.textContent = 'Dark Blue';
-        if (themeIcon) {
-          themeIcon.setAttribute('data-lucide', 'moon');
-        }
+        html.classList.add('light');
+        document.body.className = "bg-pastelBg text-stone-800 min-h-screen antialiased selection:bg-rose-200 selection:text-rose-900 custom-scroll";
+        themeText.innerText = "Dark Blue";
+        themeIcon.innerText = "🌙";
       }
-      lucide.createIcons();
+      renderSyllabus();
     }
 
     document.getElementById('theme-toggle-btn').addEventListener('click', () => {
-      const nextTheme = appSettings.themeMode === 'dark' ? 'light' : 'dark';
-      applyTheme(nextTheme);
-      saveState();
-      renderTracker();
-      showToast(`Switched to ${nextTheme === 'dark' ? 'Deep Blue Dark' : 'Pastel Light'} mode!`);
+      applyTheme(appState.theme === 'dark' ? 'light' : 'dark');
     });
 
-    /* ==========================================================================
-       SPOTIFY EMBED HANDLER & QUEUE MANAGER
-       ========================================================================== */
-    function sanitizeSpotifyLink(link) {
-      if (!link) return '';
-      let clean = link.trim();
-      if (clean.includes('open.spotify.com/')) {
-        clean = clean.split('open.spotify.com/')[1].split('?')[0];
-      }
-      return clean.replace(/^\/+/, '');
+    // Helper: Extract YouTube Video ID from any URL format
+    function extractYouTubeId(url) {
+      if (!url) return null;
+      const clean = url.trim();
+      if (/^[a-zA-Z0-9_-]{11}$/.test(clean)) return clean;
+      const reg = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
+      const match = clean.match(reg);
+      return match ? match[1] : null;
     }
 
-    function loadSpotifyUri(uriPart) {
-      const cleanUri = sanitizeSpotifyLink(uriPart);
-      if (!cleanUri) return;
-      const iframe = document.getElementById('spotify-iframe');
-      iframe.src = `https://open.spotify.com/embed/${cleanUri}?utm_source=generator&theme=0`;
-      appSettings.spotifyEmbedUri = cleanUri;
-      saveState();
-      renderMusicQueue();
-    }
+    // YouTube IFrame API Initialization
+    let ytPlayer = null;
+    let ytApiReady = false;
 
-    function renderMusicQueue() {
-      const container = document.getElementById('queue-items-container');
-      const badge = document.getElementById('queue-count-badge');
-      if (!container || !badge) return;
-
-      const queue = appSettings.musicQueue || [];
-      badge.textContent = queue.length;
-
-      if (queue.length === 0) {
-        container.innerHTML = `
-          <div class="py-3 text-center text-stone-400 dark:text-slate-500 text-[11px]">
-            No tracks in queue. Add songs or playlists above!
-          </div>
-        `;
-        return;
-      }
-
-      container.innerHTML = queue.map((track, idx) => `
-        <div class="flex items-center justify-between gap-1.5 p-1.5 rounded-xl bg-white dark:bg-midnight-800 border border-[#EFE7DA] dark:border-midnight-700 hover:border-peach-300 dark:hover:border-cyan-500 transition">
-          <div class="flex items-center gap-2 min-w-0 flex-1 cursor-pointer" onclick="playQueueItem('${track.uri}')" title="Play Now">
-            <span class="w-4 text-[10px] text-stone-400 dark:text-slate-400 font-bold text-center">${idx + 1}</span>
-            <i data-lucide="play" class="w-3 h-3 text-peach-500 dark:text-cyan-400 fill-current shrink-0"></i>
-            <span class="truncate font-medium text-stone-700 dark:text-slate-200 text-[11px]">${track.title}</span>
-          </div>
-          <div class="flex items-center gap-1 shrink-0">
-            <button onclick="moveQueueItem(${idx}, -1)" ${idx === 0 ? 'disabled class="opacity-30 p-1"' : 'class="p-1 hover:text-stone-800 dark:hover:text-white text-stone-400"'} title="Move Up">
-              <i data-lucide="chevron-up" class="w-3 h-3"></i>
-            </button>
-            <button onclick="moveQueueItem(${idx}, 1)" ${idx === queue.length - 1 ? 'disabled class="opacity-30 p-1"' : 'class="p-1 hover:text-stone-800 dark:hover:text-white text-stone-400"'} title="Move Down">
-              <i data-lucide="chevron-down" class="w-3 h-3"></i>
-            </button>
-            <button onclick="removeQueueItem(${idx})" class="p-1 text-stone-400 hover:text-rose-500 transition" title="Remove">
-              <i data-lucide="trash-2" class="w-3 h-3"></i>
-            </button>
-          </div>
-        </div>
-      `).join('');
-
-      lucide.createIcons();
-    }
-
-    window.playQueueItem = function(uri) {
-      loadSpotifyUri(uri);
-      showToast("Playing from queue!");
-    };
-
-    window.moveQueueItem = function(index, delta) {
-      const queue = appSettings.musicQueue;
-      const targetIndex = index + delta;
-      if (targetIndex < 0 || targetIndex >= queue.length) return;
-      const temp = queue[index];
-      queue[index] = queue[targetIndex];
-      queue[targetIndex] = temp;
-      saveState();
-      renderMusicQueue();
-    };
-
-    window.removeQueueItem = function(index) {
-      appSettings.musicQueue.splice(index, 1);
-      saveState();
-      renderMusicQueue();
-      showToast("Item removed from queue.");
-    };
-
-    document.getElementById('toggle-queue-btn').addEventListener('click', () => {
-      const panel = document.getElementById('queue-panel');
-      panel.classList.toggle('hidden');
-    });
-
-    document.getElementById('add-to-queue-btn').addEventListener('click', () => {
-      const titleInput = document.getElementById('queue-track-title');
-      const urlInput = document.getElementById('queue-track-url');
-      const rawUrl = urlInput.value.trim();
-      let title = titleInput.value.trim();
-
-      if (!rawUrl) {
-        showToast("Please enter a Spotify link or URI.");
-        return;
-      }
-
-      const cleanUri = sanitizeSpotifyLink(rawUrl);
-
-      if (!title) {
-        title = cleanUri.replace('/', ': ');
-      }
-
-      if (!appSettings.musicQueue) appSettings.musicQueue = [];
-      appSettings.musicQueue.push({
-        id: 'q_' + Date.now(),
-        title: title,
-        uri: cleanUri
+    window.onYouTubeIframeAPIReady = function() {
+      ytApiReady = true;
+      const initialVideoId = appState.ytQueue[appState.currentYtIdx]?.videoId || 'jfKfPfyJRdk';
+      ytPlayer = new YT.Player('yt-player-container', {
+        height: '100%',
+        width: '100%',
+        videoId: initialVideoId,
+        playerVars: {
+          'playsinline': 1,
+          'controls': 1,
+          'rel': 0
+        },
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
       });
+    };
 
-      titleInput.value = '';
-      urlInput.value = '';
-      saveState();
-      renderMusicQueue();
-      showToast("Added to queue!");
-    });
+    function onPlayerReady(event) {
+      updateYtDisplay();
+    }
 
-    document.getElementById('clear-queue-btn').addEventListener('click', () => {
-      if (confirm("Clear all items from your queue?")) {
-        appSettings.musicQueue = [];
+    function onPlayerStateChange(event) {
+      // Auto-advance to next song in queue when song completes
+      if (event.data === YT.PlayerState.ENDED) {
+        appState.ytPausedAtSec = 0;
+        appState.currentYtIdx = (appState.currentYtIdx + 1) % appState.ytQueue.length;
         saveState();
-        renderMusicQueue();
-        showToast("Queue cleared.");
+        const nextId = appState.ytQueue[appState.currentYtIdx].videoId;
+        ytPlayer.loadVideoById(nextId, 0);
+        updateYtDisplay();
+        renderYtQueue();
       }
-    });
+    }
 
-    /* ==========================================================================
-       POMODORO FULLSCREEN FOCUS MODE
-       ========================================================================== */
-    let isPomoFullscreen = false;
+    function updateYtDisplay() {
+      const cur = appState.ytQueue[appState.currentYtIdx];
+      if (cur) {
+        document.getElementById('active-track-name').innerText = cur.title;
+        document.getElementById('fs-track-name').innerText = cur.title;
+      }
+    }
 
-    function togglePomoFullscreen() {
-      const container = document.getElementById('pomo-card-container');
-      const fsIcon = document.getElementById('fullscreen-icon');
-      const fsText = document.getElementById('fullscreen-text');
+    function startYtBreakPlayback() {
+      if (!ytPlayer || typeof ytPlayer.playVideo !== 'function') return;
 
-      isPomoFullscreen = !isPomoFullscreen;
+      document.getElementById('break-music-banner').classList.remove('hidden');
+      document.getElementById('fs-track-banner').classList.remove('hidden');
+      document.getElementById('player-status-badge').innerText = "playing in break";
+      document.getElementById('player-status-badge').className = "text-[10px] text-emerald-500 font-bold lowercase";
 
-      if (isPomoFullscreen) {
-        container.classList.add('pomo-fullscreen');
-        if (fsIcon) fsIcon.setAttribute('data-lucide', 'minimize');
-        if (fsText) fsText.textContent = 'Exit Screen';
-        if (document.documentElement.requestFullscreen && !document.fullscreenElement) {
-          document.documentElement.requestFullscreen().catch(() => {});
+      const cur = appState.ytQueue[appState.currentYtIdx];
+      if (cur) {
+        ytPlayer.loadVideoById(cur.videoId, appState.ytPausedAtSec || 0);
+        ytPlayer.playVideo();
+      }
+    }
+
+    function pauseYtBreakPlayback() {
+      if (!ytPlayer || typeof ytPlayer.pauseVideo !== 'function') return;
+
+      document.getElementById('break-music-banner').classList.add('hidden');
+      document.getElementById('fs-track-banner').classList.add('hidden');
+      document.getElementById('player-status-badge').innerText = "paused for focus";
+      document.getElementById('player-status-badge').className = "text-[10px] text-amber-500 font-bold lowercase";
+
+      try {
+        appState.ytPausedAtSec = ytPlayer.getCurrentTime() || 0;
+      } catch (e) {
+        appState.ytPausedAtSec = 0;
+      }
+      saveState();
+      ytPlayer.pauseVideo();
+    }
+
+    let targetEndTime = null;
+    let remainingMs = 60 * 60 * 1000;
+    let timerState = 'idle';
+    let isBreak = false;
+    let roundTotalMins = 60;
+
+    function formatTime(ms) {
+      const totalSec = Math.max(0, Math.floor(ms / 1000));
+      const h = Math.floor(totalSec / 3600);
+      const m = Math.floor((totalSec % 3600) / 60);
+      const s = totalSec % 60;
+      return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    function updateDisplays(str) {
+      document.getElementById('main-timer-display').innerText = str;
+      document.getElementById('fs-timer-display').innerText = str;
+      document.title = `${str} • CA Tracker`;
+    }
+
+    function updateControls() {
+      const sBtn = document.getElementById('start-btn');
+      const pBtn = document.getElementById('pause-btn');
+      const rBtn = document.getElementById('resume-btn');
+      const fsSBtn = document.getElementById('fs-start-btn');
+      const fsPBtn = document.getElementById('fs-pause-btn');
+      const fsRBtn = document.getElementById('fs-resume-btn');
+
+      if (timerState === 'running') {
+        sBtn.classList.add('hidden'); pBtn.classList.remove('hidden'); rBtn.classList.add('hidden');
+        fsSBtn.classList.add('hidden'); fsPBtn.classList.remove('hidden'); fsRBtn.classList.add('hidden');
+      } else if (timerState === 'paused') {
+        sBtn.classList.add('hidden'); pBtn.classList.add('hidden'); rBtn.classList.remove('hidden');
+        fsSBtn.classList.add('hidden'); fsPBtn.classList.add('hidden'); fsRBtn.classList.remove('hidden');
+      } else {
+        sBtn.classList.remove('hidden'); pBtn.classList.add('hidden'); rBtn.classList.add('hidden');
+        fsSBtn.classList.remove('hidden'); fsPBtn.classList.add('hidden'); fsRBtn.classList.add('hidden');
+      }
+    }
+
+    function setPhaseUI(inBreak) {
+      const phaseTag = document.getElementById('session-phase-tag');
+      const breakHint = document.getElementById('session-break-hint');
+      const fsPhase = document.getElementById('fs-session-phase');
+      const roundsSubtext = document.getElementById('rounds-subtext');
+
+      roundsSubtext.innerText = `${roundTotalMins >= 60 ? (roundTotalMins/60) + ' Hours' : roundTotalMins + 'm'} Deep Session • Completed Rounds: ${appState.completedRounds}`;
+
+      if (inBreak) {
+        phaseTag.innerText = "5m Break Active";
+        phaseTag.className = "px-2.5 py-0.5 rounded-md bg-amber-500 text-white font-bold";
+        breakHint.innerText = "☕ YouTube Break Music Active";
+        fsPhase.innerText = "5-Minute Recharge Break";
+        fsPhase.className = "text-xs uppercase tracking-widest font-bold text-amber-400 mb-2";
+      } else {
+        phaseTag.innerText = `Deep work (${roundTotalMins >= 60 ? (roundTotalMins/60) + 'h' : roundTotalMins + 'm'})`;
+        phaseTag.className = "px-2.5 py-0.5 rounded-md bg-stone-200 dark:bg-darkBorder text-stone-700 dark:text-slate-300 font-semibold";
+        breakHint.innerText = "✨ 5m break follows";
+        fsPhase.innerText = `Deep Work (${roundTotalMins >= 60 ? (roundTotalMins/60) + 'h' : roundTotalMins + 'm'})`;
+        fsPhase.className = "text-xs uppercase tracking-widest font-bold text-sky-400 mb-2";
+      }
+    }
+
+    function onTimerTick() {
+      if (timerState !== 'running') return;
+      const now = Date.now();
+      const diff = targetEndTime - now;
+
+      if (diff <= 0) {
+        if (!isBreak) {
+          // Focus finished -> Switch to 5m break & start playing YouTube break song
+          isBreak = true;
+          remainingMs = 5 * 60 * 1000;
+          targetEndTime = Date.now() + remainingMs;
+          setPhaseUI(true);
+          updateDisplays(formatTime(remainingMs));
+          startYtBreakPlayback();
+        } else {
+          // Break ended -> Pause YouTube song at exact second & return to focus session
+          isBreak = false;
+          pauseYtBreakPlayback();
+          appState.completedRounds++;
+          saveState();
+          remainingMs = roundTotalMins * 60 * 1000;
+          targetEndTime = Date.now() + remainingMs;
+          setPhaseUI(false);
+          updateDisplays(formatTime(remainingMs));
         }
       } else {
-        container.classList.remove('pomo-fullscreen');
-        if (fsIcon) fsIcon.setAttribute('data-lucide', 'maximize');
-        if (fsText) fsText.textContent = 'Full Screen';
-        if (document.exitFullscreen && document.fullscreenElement) {
-          document.exitFullscreen().catch(() => {});
-        }
+        updateDisplays(formatTime(diff));
       }
-      lucide.createIcons();
     }
 
-    document.getElementById('pomo-fullscreen-btn').addEventListener('click', togglePomoFullscreen);
+    timerWorker.onmessage = (e) => { if (e.data === 'tick') onTimerTick(); };
+    document.addEventListener('visibilitychange', () => { if (!document.hidden && timerState === 'running') onTimerTick(); });
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && isPomoFullscreen) {
-        togglePomoFullscreen();
+    function startTimer() {
+      targetEndTime = Date.now() + remainingMs;
+      timerState = 'running';
+      timerWorker.postMessage('start');
+      
+      // Pre-arm YouTube player to ensure browser permissions are authorized
+      if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
+        ytPlayer.pauseVideo();
       }
-    });
 
-    document.addEventListener('fullscreenchange', () => {
-      if (!document.fullscreenElement && isPomoFullscreen) {
-        togglePomoFullscreen();
-      }
-    });
-
-    function getItemState(id) {
-      if (!userState[id]) {
-        userState[id] = {
-          lecture: false,
-          sm: false,
-          r1: false,
-          r2: false,
-          r3: false,
-          priority: 'Unset',
-          note: ''
-        };
-      }
-      return userState[id];
+      updateControls();
+      setPhaseUI(isBreak);
     }
 
-    /* ==========================================================================
-       3. AESTHETIC BACKGROUND PRESETS MATCHED TO UPLOADED SCENES
-       ========================================================================== */
-    const AMBIENT_WALLPAPERS = {
-      // 1. Alpine Mountain Lake Balcony with notebooks
-      mountain_lake: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80",
-      // 2. University Library Desk with laptop & highlighters
-      minimal_library: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1600&q=80",
-      // 3. Sunlit Campus Tree Table & outdoor notebook
-      sunny_garden: "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=1600&q=80",
-      // 4. Sunset Desk with Lamp, Notes & Fairy Lights
-      fairy_lights: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&w=1600&q=80",
-      // 5. Rainy Dusk Window & Tablet
-      rainy_window: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1600&q=80",
-      // 6. Morning Soft Light with Flowers & Coffee Mug
-      golden_hour: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&w=1600&q=80",
-      // 7. Open Window, Rain & Lit Candles
-      rain_candles: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1600&q=80"
-    };
+    function pauseTimer() {
+      if (timerState !== 'running') return;
+      remainingMs = Math.max(0, targetEndTime - Date.now());
+      timerState = 'paused';
+      timerWorker.postMessage('stop');
+      if (isBreak) pauseYtBreakPlayback();
+      updateControls();
+      updateDisplays(formatTime(remainingMs));
+    }
 
-    function applyAmbientBackground(themeKey) {
-      const container = document.getElementById('pomo-card-container');
-      let url = AMBIENT_WALLPAPERS[themeKey];
+    function resumeTimer() {
+      if (timerState !== 'paused') return;
+      targetEndTime = Date.now() + remainingMs;
+      timerState = 'running';
+      timerWorker.postMessage('start');
+      if (isBreak) startYtBreakPlayback();
+      updateControls();
+    }
 
-      if (themeKey === 'custom') {
-        const customUrl = prompt("Enter image URL for study wallpaper:", appSettings.customWallpaperUrl || '');
-        if (customUrl && customUrl.trim().length > 5) {
-          appSettings.customWallpaperUrl = customUrl.trim();
-          url = appSettings.customWallpaperUrl;
-        } else {
-          url = AMBIENT_WALLPAPERS.mountain_lake;
-          themeKey = 'mountain_lake';
-          document.getElementById('ambient-theme-select').value = 'mountain_lake';
+    function stopTimer() {
+      timerWorker.postMessage('stop');
+      timerState = 'idle';
+      if (isBreak) pauseYtBreakPlayback();
+      isBreak = false;
+      remainingMs = roundTotalMins * 60 * 1000;
+      targetEndTime = null;
+      updateControls();
+      setPhaseUI(false);
+      updateDisplays(formatTime(remainingMs));
+      document.title = "CA Intermediate Tracker & Study Studio";
+    }
+
+    document.getElementById('start-btn').addEventListener('click', startTimer);
+    document.getElementById('pause-btn').addEventListener('click', pauseTimer);
+    document.getElementById('resume-btn').addEventListener('click', resumeTimer);
+    document.getElementById('stop-btn').addEventListener('click', stopTimer);
+
+    document.getElementById('fs-start-btn').addEventListener('click', startTimer);
+    document.getElementById('fs-pause-btn').addEventListener('click', pauseTimer);
+    document.getElementById('fs-resume-btn').addEventListener('click', resumeTimer);
+    document.getElementById('fs-stop-btn').addEventListener('click', stopTimer);
+
+    document.querySelectorAll('.dur-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const mins = parseInt(btn.dataset.mins, 10);
+        roundTotalMins = mins;
+        appState.selectedMins = mins;
+        saveState();
+
+        document.querySelectorAll('.dur-btn').forEach(b => {
+          b.className = "dur-btn px-3 py-1.5 rounded-xl text-xs font-medium text-stone-600 dark:text-slate-300 bg-stone-100 dark:bg-darkBase border border-pastelBorder dark:border-darkBorder hover:bg-stone-200 transition-all";
+        });
+        btn.className = "dur-btn px-3 py-1.5 rounded-xl text-xs font-bold transition-all bg-pastelAccent text-white shadow-sm";
+
+        if (timerState === 'idle') {
+          remainingMs = mins * 60 * 1000;
+          setPhaseUI(false);
+          updateDisplays(formatTime(remainingMs));
         }
-      }
+      });
+    });
 
-      if (!url) url = AMBIENT_WALLPAPERS.mountain_lake;
-
-      container.style.backgroundImage = `url('${url}')`;
-      appSettings.ambientTheme = themeKey;
+    function applyBgImage(url) {
+      appState.bgImage = url;
       saveState();
+      document.getElementById('timer-ambient-bg').style.backgroundImage = `url('${url}')`;
+      document.getElementById('fullscreen-overlay').style.backgroundImage = `url('${url}')`;
     }
 
-    // Direct local photo uploader from computer or phone storage
-    document.getElementById('local-photo-upload').addEventListener('change', (e) => {
+    document.getElementById('custom-url-btn').addEventListener('click', () => {
+      const url = prompt("Enter an image URL for your study background:", appState.bgImage);
+      if (url) applyBgImage(url);
+    });
+
+    document.getElementById('upload-pic-btn').addEventListener('click', () => {
+      document.getElementById('local-file-input').click();
+    });
+
+    document.getElementById('local-file-input').addEventListener('change', (e) => {
       const file = e.target.files[0];
       if (file) {
         const reader = new FileReader();
-        reader.onload = (event) => {
-          const imgUrl = event.target.result;
-          const container = document.getElementById('pomo-card-container');
-          container.style.backgroundImage = `url('${imgUrl}')`;
-          appSettings.customWallpaperUrl = imgUrl;
-          appSettings.ambientTheme = 'custom';
-          document.getElementById('ambient-theme-select').value = 'custom';
-          saveState();
-          showToast("Custom photo applied as background!");
-        };
+        reader.onload = (evt) => applyBgImage(evt.target.result);
         reader.readAsDataURL(file);
       }
     });
 
-    /* ==========================================================================
-       4. EXTENDED POMODORO ENGINE WITH 5-MIN HOURLY BREAKS
-       ========================================================================== */
-    let sessionQueue = []; 
-    let currentStepIndex = 0;
-    let stepTimeRemaining = 0;
-    let stepInitialDuration = 0;
-    let timerState = 'STOPPED'; // 'STOPPED', 'RUNNING', 'PAUSED'
-    let timerInterval = null;
+    const fsOverlay = document.getElementById('fullscreen-overlay');
+    document.getElementById('fullscreen-btn').addEventListener('click', () => fsOverlay.classList.remove('hidden'));
+    document.getElementById('exit-fullscreen-btn').addEventListener('click', () => fsOverlay.classList.add('hidden'));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !fsOverlay.classList.contains('hidden')) fsOverlay.classList.add('hidden');
+    });
 
-    function buildSessionPlan(totalTargetMinutes) {
-      const plan = [];
-      let remaining = totalTargetMinutes;
-      let cycle = 1;
-
-      if (totalTargetMinutes <= 55) {
-        plan.push({ type: 'study', durationMins: totalTargetMinutes, label: `Focus Session (${totalTargetMinutes}m)`, cycleNum: 1, totalCycles: 1 });
-        return plan;
+    document.getElementById('target-countdown').addEventListener('click', () => {
+      const d = prompt("Enter remaining days for target attempt:", appState.targetDays);
+      if (d !== null && !isNaN(parseInt(d))) {
+        appState.targetDays = parseInt(d);
+        saveState();
+        document.getElementById('target-countdown').innerText = `${appState.targetDays} Days Left`;
       }
+    });
 
-      const totalCycles = Math.ceil(totalTargetMinutes / 60);
+    function renderYtQueue() {
+      const c = document.getElementById('queue-items-container');
+      c.innerHTML = '';
+      document.getElementById('queue-count').innerText = appState.ytQueue.length;
 
-      while (remaining > 0) {
-        const studyBlock = Math.min(60, remaining);
-        plan.push({
-          type: 'study',
-          durationMins: studyBlock,
-          label: `Study Block ${cycle} of ${totalCycles}`,
-          cycleNum: cycle,
-          totalCycles: totalCycles
-        });
-        remaining -= studyBlock;
-
-        // Auto insert 5-minute break if there is another study block ahead
-        if (remaining > 0) {
-          plan.push({
-            type: 'break',
-            durationMins: 5,
-            label: `5-Min Refresh Break (Cycle ${cycle})`,
-            cycleNum: cycle,
-            totalCycles: totalCycles
-          });
-        }
-        cycle++;
-      }
-      return plan;
-    }
-
-    function initTimerFromDuration(minutes, customLabel) {
-      stopTimer();
-      appSettings.targetTotalMinutes = minutes;
-      saveState();
-
-      sessionQueue = buildSessionPlan(minutes);
-      currentStepIndex = 0;
-      loadCurrentStep();
-
-      if (customLabel) {
-        document.getElementById('current-mode-label').textContent = customLabel;
-      }
-    }
-
-    function loadCurrentStep() {
-      if (!sessionQueue || sessionQueue.length === 0) return;
-      const step = sessionQueue[currentStepIndex];
-      stepInitialDuration = step.durationMins * 60;
-      stepTimeRemaining = stepInitialDuration;
-
-      const pill = document.getElementById('current-phase-pill');
-      const info = document.getElementById('current-cycle-info');
-      const breakRule = document.getElementById('hourly-break-rule');
-
-      if (step.type === 'study') {
-        pill.className = "px-3 py-1 rounded-full text-xs font-bold bg-matcha-100 text-matcha-800 border border-matcha-300 shadow-sm";
-        pill.innerHTML = `📚 Focus Block ${step.cycleNum} of ${step.totalCycles}`;
-        info.textContent = `Deep work (${step.durationMins}m)`;
-        breakRule.textContent = step.cycleNum < step.totalCycles ? "5m break follows" : "Final sprint";
-      } else {
-        pill.className = "px-3 py-1 rounded-full text-xs font-bold bg-blush-100 text-blush-800 border border-blush-300 shadow-sm";
-        pill.innerHTML = `☕ 5-Min Refresh Break`;
-        info.textContent = "Stand up, stretch & drink water";
-        breakRule.textContent = `Next: Block ${step.cycleNum + 1}`;
-      }
-
-      updateTimerUI();
-    }
-
-    function updateTimerUI() {
-      const formatted = formatTime(stepTimeRemaining);
-      document.getElementById('timer-display').textContent = formatted;
-      document.getElementById('mobile-mini-timer').textContent = formatted;
-
-      const progress = stepInitialDuration > 0 ? ((stepInitialDuration - stepTimeRemaining) / stepInitialDuration) * 100 : 0;
-      document.getElementById('timer-bar').style.width = `${progress}%`;
-    }
-
-    function formatTime(totalSecs) {
-      const hours = Math.floor(totalSecs / 3600);
-      const minutes = Math.floor((totalSecs % 3600) / 60);
-      const seconds = totalSecs % 60;
-
-      if (hours > 0) {
-        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-      } else {
-        return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-      }
-    }
-
-    function startTimer() {
-      if (timerState === 'RUNNING') return;
-
-      if (timerState === 'STOPPED') {
-        if (!sessionQueue || sessionQueue.length === 0) {
-          sessionQueue = buildSessionPlan(appSettings.targetTotalMinutes || 180);
-          currentStepIndex = 0;
-          loadCurrentStep();
-        }
-      }
-
-      timerState = 'RUNNING';
-      document.getElementById('timer-live-dot').classList.add('animate-ping');
-      document.getElementById('ambient-overlay').classList.replace('bg-stone-900/50', 'bg-stone-900/65');
-
-      clearInterval(timerInterval);
-      timerInterval = setInterval(() => {
-        if (stepTimeRemaining > 0) {
-          stepTimeRemaining--;
-          updateTimerUI();
-        } else {
-          playChime();
-          const completedStep = sessionQueue[currentStepIndex];
-
-          if (currentStepIndex < sessionQueue.length - 1) {
-            currentStepIndex++;
-            loadCurrentStep();
-            if (completedStep.type === 'study') {
-              showToast("1 hour study block finished! Take a 5-minute breather.");
-            } else {
-              showToast("Break over! Let's resume the next focus block.");
-            }
-          } else {
-            stopTimer();
-            appSettings.pomoCount = (appSettings.pomoCount || 0) + 1;
+      appState.ytQueue.forEach((item, idx) => {
+        const isCurrent = idx === appState.currentYtIdx;
+        const row = document.createElement('div');
+        row.className = `flex items-center justify-between p-2 rounded-xl border transition-all cursor-pointer ${isCurrent ? 'bg-rose-50 dark:bg-rose-950/40 border-rose-400 font-bold' : 'bg-white dark:bg-darkCard border-pastelBorder dark:border-darkBorder hover:border-pastelAccent'}`;
+        row.innerHTML = `
+          <div class="truncate pr-2 flex items-center gap-1.5">
+            <span class="${isCurrent ? 'text-rose-600 dark:text-rose-400' : 'text-pastelAccent'} font-bold">#${idx+1}</span>
+            <span class="text-stone-800 dark:text-white truncate">${item.title}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            ${isCurrent ? '<span class="text-[10px] text-rose-500 font-bold uppercase">Active</span>' : ''}
+            <button class="text-stone-400 hover:text-rose-500 remove-q text-xs p-1">✕</button>
+          </div>
+        `;
+        row.addEventListener('click', (e) => {
+          if (!e.target.classList.contains('remove-q')) {
+            appState.ytPausedAtSec = 0;
+            appState.currentYtIdx = idx;
             saveState();
-            document.getElementById('completed-pomo-count').textContent = appSettings.pomoCount;
-            showToast("Deep work session successfully completed!");
+            if (ytPlayer && typeof ytPlayer.loadVideoById === 'function') {
+              ytPlayer.loadVideoById(item.videoId, 0);
+              if (isBreak) ytPlayer.playVideo();
+            }
+            updateYtDisplay();
+            renderYtQueue();
           }
-        }
-      }, 1000);
-    }
-
-    function pauseTimer() {
-      if (timerState !== 'RUNNING') return;
-      clearInterval(timerInterval);
-      timerState = 'PAUSED';
-      document.getElementById('timer-live-dot').classList.remove('animate-ping');
-      document.getElementById('ambient-overlay').classList.replace('bg-stone-900/65', 'bg-stone-900/50');
-      showToast("Timer paused.");
-    }
-
-    function resumeTimer() {
-      if (timerState === 'PAUSED') {
-        startTimer();
-        showToast("Session resumed!");
-      }
-    }
-
-    function stopTimer() {
-      clearInterval(timerInterval);
-      timerState = 'STOPPED';
-      document.getElementById('timer-live-dot').classList.remove('animate-ping');
-      document.getElementById('ambient-overlay').classList.replace('bg-stone-900/65', 'bg-stone-900/50');
-
-      if (sessionQueue && sessionQueue.length > 0) {
-        currentStepIndex = 0;
-        const step = sessionQueue[0];
-        stepInitialDuration = step.durationMins * 60;
-        stepTimeRemaining = stepInitialDuration;
-        loadCurrentStep();
-      }
-    }
-
-    function playChime() {
-      try {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        if (!AudioContext) return;
-        const ctx = new AudioContext();
-
-        [523.25, 659.25].forEach((freq, idx) => {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(freq, ctx.currentTime + (idx * 0.15));
-
-          gain.gain.setValueAtTime(0.3, ctx.currentTime + (idx * 0.15));
-          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (idx * 0.15) + 1.4);
-
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-
-          osc.start(ctx.currentTime + (idx * 0.15));
-          osc.stop(ctx.currentTime + (idx * 0.15) + 1.4);
         });
-      } catch (e) {
-        console.log("Audio play blocked", e);
+        row.querySelector('.remove-q').addEventListener('click', (e) => {
+          e.stopPropagation();
+          appState.ytQueue.splice(idx, 1);
+          if (appState.currentYtIdx >= appState.ytQueue.length) appState.currentYtIdx = 0;
+          saveState();
+          if (appState.ytQueue.length > 0 && ytPlayer) {
+            ytPlayer.cueVideoById(appState.ytQueue[appState.currentYtIdx].videoId);
+          }
+          updateYtDisplay();
+          renderYtQueue();
+        });
+        c.appendChild(row);
+      });
+    }
+
+    document.getElementById('add-yt-btn').addEventListener('click', () => {
+      const urlInput = document.getElementById('yt-url-input').value.trim();
+      const videoId = extractYouTubeId(urlInput);
+
+      if (!videoId) {
+        alert("Please enter a valid YouTube video link (e.g., https://www.youtube.com/watch?v=... or https://youtu.be/...)");
+        return;
       }
-    }
 
-    /* ==========================================================================
-       5. SPOTIFY EMBED HANDLER
-       ========================================================================== */
-    function loadSpotifyUri(uriPart) {
-      const cleanUri = uriPart.replace(/^https:\/\/open\.spotify\.com\//, '').replace(/^\/+/, '');
-      const iframe = document.getElementById('spotify-iframe');
-      iframe.src = `https://open.spotify.com/embed/${cleanUri}?utm_source=generator&theme=0`;
-      appSettings.spotifyEmbedUri = cleanUri;
+      const titleInput = document.getElementById('yt-title-input').value.trim() || ('YouTube Track ' + (appState.ytQueue.length + 1));
+      
+      appState.ytQueue.push({
+        id: Date.now().toString(),
+        title: titleInput,
+        videoId: videoId
+      });
       saveState();
+      renderYtQueue();
+
+      document.getElementById('yt-url-input').value = '';
+      document.getElementById('yt-title-input').value = '';
+    });
+
+    function cyclePriority(id) {
+      const order = ['none', 'high', 'medium', 'low'];
+      const current = appState.priorities[id] || 'none';
+      const next = order[(order.indexOf(current) + 1) % order.length];
+      appState.priorities[id] = next;
+      saveState();
+      renderSyllabus();
     }
 
-    /* ==========================================================================
-       6. TRACKER RENDERING ENGINE
-       ========================================================================== */
-    let activeGroupFilter = 'all';
-    let searchQuery = '';
-    let priorityFilter = 'all';
-
-    function renderTracker() {
-      const container = document.getElementById('papers-container');
+    function renderSyllabus() {
+      const container = document.getElementById('syllabus-container');
       container.innerHTML = '';
 
-      let totalVisiblePapers = 0;
+      let totalTopics = 0;
+      let lecDone = 0;
+      let smDone = 0;
+      let revDone = 0;
+      let totalStepsDone = 0;
 
-      SYLLABUS_DATA.forEach(paper => {
-        if (activeGroupFilter !== 'all' && paper.group !== activeGroupFilter) {
-          return;
-        }
+      PAPERS_SCHEMA.forEach(p => {
+        p.sections.forEach(s => {
+          s.topics.forEach(t => {
+            totalTopics++;
+            const checks = appState.checkedItems[t.id] || {};
+            if (checks.lec) { lecDone++; totalStepsDone++; }
+            if (checks.sm) { smDone++; totalStepsDone++; }
+            if (checks.r1) { revDone++; totalStepsDone++; }
+            if (checks.r2) { revDone++; totalStepsDone++; }
+            if (checks.r3) { revDone++; totalStepsDone++; }
+          });
+        });
+      });
 
-        const filteredSections = [];
+      const totalSteps = totalTopics * 5;
+      const overallPct = Math.round((totalStepsDone / totalSteps) * 100) || 0;
+      const lecPct = Math.round((lecDone / totalTopics) * 100) || 0;
+      const smPct = Math.round((smDone / totalTopics) * 100) || 0;
+      const revPct = Math.round((revDone / (totalTopics * 3)) * 100) || 0;
 
-        paper.sections.forEach(section => {
-          const matchingItems = section.items.filter(item => {
-            const state = getItemState(item.id);
-            const matchesSearch = searchQuery === '' || 
-              item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-              item.sub.toLowerCase().includes(searchQuery.toLowerCase());
-            const matchesPriority = priorityFilter === 'all' || state.priority === priorityFilter;
+      document.getElementById('overall-percentage').innerText = `${overallPct}%`;
+      document.getElementById('steps-completed-txt').innerText = `${totalStepsDone} of ${totalSteps} steps finished`;
+      document.getElementById('total-topics-txt').innerText = `${totalTopics} Total Topics`;
+
+      document.getElementById('lectures-pct').innerText = `${lecPct}%`;
+      document.getElementById('lectures-count').innerText = `${lecDone}/${totalTopics}`;
+      document.getElementById('lectures-bar').style.width = `${lecPct}%`;
+
+      document.getElementById('sm-pct').innerText = `${smPct}%`;
+      document.getElementById('sm-count').innerText = `${smDone}/${totalTopics}`;
+      document.getElementById('sm-bar').style.width = `${smPct}%`;
+
+      document.getElementById('rev-pct').innerText = `${revPct}%`;
+      document.getElementById('rev-count').innerText = `${revDone} of ${totalTopics * 3}`;
+      document.getElementById('rev-bar').style.width = `${revPct}%`;
+
+      const q = appState.searchQuery.toLowerCase();
+      const pFilter = appState.priorityFilter;
+      const gFilter = appState.activeGroup;
+
+      PAPERS_SCHEMA.forEach(paper => {
+        if (gFilter !== 'all' && paper.group !== gFilter) return;
+
+        let paperTopicsCount = 0;
+        let paperDoneCount = 0;
+        paper.sections.forEach(s => {
+          s.topics.forEach(t => {
+            paperTopicsCount++;
+            const c = appState.checkedItems[t.id] || {};
+            if (c.lec && c.sm && c.r1) paperDoneCount++;
+          });
+        });
+        const paperPct = Math.round((paperDoneCount / paperTopicsCount) * 100) || 0;
+
+        const paperWrapper = document.createElement('div');
+        paperWrapper.className = "rounded-2xl border border-pastelBorder dark:border-darkBorder bg-pastelCard dark:bg-darkCard overflow-hidden shadow-sm";
+
+        const pHeader = document.createElement('div');
+        pHeader.className = "px-5 py-3.5 bg-stone-50/80 dark:bg-darkCardHover flex items-center justify-between border-b border-pastelBorder dark:border-darkBorder cursor-pointer";
+        pHeader.innerHTML = `
+          <div class="flex items-center gap-3">
+            <span class="w-7 h-7 rounded-lg bg-pastelAccent/10 text-pastelAccent dark:bg-darkAccent/10 dark:text-darkAccent flex items-center justify-center font-black text-xs">${paper.id.toUpperCase()}</span>
+            <div>
+              <h2 class="text-sm font-extrabold text-stone-900 dark:text-white">${paper.title}</h2>
+              <span class="text-[11px] text-pastelMuted dark:text-slate-400">${paper.marks} • ${paperTopicsCount} Topics</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs font-bold text-pastelAccent dark:text-darkGreen">${paperPct}%</span>
+            <span class="text-xs text-stone-400">▼</span>
+          </div>
+        `;
+        paperWrapper.appendChild(pHeader);
+
+        const contentDiv = document.createElement('div');
+        contentDiv.className = "divide-y divide-pastelBorder/60 dark:divide-darkBorder/60";
+
+        let sectionVisibleTotal = 0;
+
+        paper.sections.forEach(sec => {
+          const matchingTopics = sec.topics.filter(t => {
+            const matchesSearch = t.title.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q);
+            const pr = appState.priorities[t.id] || 'none';
+            const matchesPriority = pFilter === 'all' || pr === pFilter;
             return matchesSearch && matchesPriority;
           });
 
-          if (matchingItems.length > 0) {
-            filteredSections.push({
-              sectionTitle: section.sectionTitle,
-              items: matchingItems
+          if (matchingTopics.length === 0) return;
+          sectionVisibleTotal += matchingTopics.length;
+
+          const secHead = document.createElement('div');
+          secHead.className = "px-5 py-2 text-[10px] uppercase font-extrabold tracking-wider bg-stone-100/50 dark:bg-darkBase/40 text-pastelMuted dark:text-slate-400";
+          secHead.innerText = sec.title;
+          contentDiv.appendChild(secHead);
+
+          matchingTopics.forEach(top => {
+            const checks = appState.checkedItems[top.id] || {};
+            const pr = appState.priorities[top.id] || 'none';
+            const note = appState.notes[top.id] || '';
+
+            const row = document.createElement('div');
+            row.className = "px-5 py-3 flex flex-col md:flex-row md:items-center justify-between gap-3 hover:bg-stone-50/50 dark:hover:bg-darkCardHover/40 transition-colors";
+            row.innerHTML = `
+              <div class="flex-1 pr-2">
+                <div class="flex items-center gap-2 mb-0.5">
+                  <span class="text-xs font-bold text-stone-900 dark:text-white">${top.title}</span>
+                  <button class="priority-pill px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider priority-${pr}">${pr === 'none' ? 'Priority' : pr}</button>
+                </div>
+                <p class="text-[11px] text-pastelMuted dark:text-slate-400">${top.desc}</p>
+                <div class="note-box mt-1 ${note ? '' : 'hidden'}">
+                  <input type="text" value="${note}" placeholder="Add revision notes / RTP references..." class="note-input w-full text-[11px] px-2 py-1 rounded bg-stone-100 dark:bg-darkBase border border-pastelBorder dark:border-darkBorder text-stone-700 dark:text-slate-300 focus:outline-none" />
+                </div>
+              </div>
+              <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
+                <label class="flex items-center gap-1.5 text-xs text-stone-700 dark:text-slate-300 font-medium cursor-pointer">
+                  <input type="checkbox" ${checks.lec ? 'checked' : ''} data-type="lec" class="w-4 h-4 rounded text-pastelAccent focus:ring-pastelAccent border-stone-300 dark:border-slate-600 cursor-pointer" />
+                  <span>Lectures</span>
+                </label>
+                <label class="flex items-center gap-1.5 text-xs text-stone-700 dark:text-slate-300 font-medium cursor-pointer">
+                  <input type="checkbox" ${checks.sm ? 'checked' : ''} data-type="sm" class="w-4 h-4 rounded text-pastelAccent focus:ring-pastelAccent border-stone-300 dark:border-slate-600 cursor-pointer" />
+                  <span>ICAI SM</span>
+                </label>
+                <div class="inline-flex rounded-lg border border-pastelBorder dark:border-darkBorder p-0.5 bg-stone-100 dark:bg-darkBase text-xs">
+                  <label class="flex items-center gap-1 px-1.5 py-0.5 rounded cursor-pointer ${checks.r1 ? 'bg-emerald-500 text-white font-bold' : 'text-stone-600 dark:text-slate-400'}">
+                    <input type="checkbox" ${checks.r1 ? 'checked' : ''} data-type="r1" class="hidden" />
+                    <span>R1</span>
+                  </label>
+                  <label class="flex items-center gap-1 px-1.5 py-0.5 rounded cursor-pointer ${checks.r2 ? 'bg-emerald-500 text-white font-bold' : 'text-stone-600 dark:text-slate-400'}">
+                    <input type="checkbox" ${checks.r2 ? 'checked' : ''} data-type="r2" class="hidden" />
+                    <span>R2</span>
+                  </label>
+                  <label class="flex items-center gap-1 px-1.5 py-0.5 rounded cursor-pointer ${checks.r3 ? 'bg-emerald-500 text-white font-bold' : 'text-stone-600 dark:text-slate-400'}">
+                    <input type="checkbox" ${checks.r3 ? 'checked' : ''} data-type="r3" class="hidden" />
+                    <span>R3</span>
+                  </label>
+                </div>
+                <button class="note-toggle-btn text-xs text-stone-400 hover:text-stone-700 dark:hover:text-white p-1" title="Notes">📝</button>
+              </div>
+            `;
+
+            row.querySelectorAll('input[type="checkbox"]').forEach(chk => {
+              chk.addEventListener('change', (e) => {
+                const type = e.target.dataset.type;
+                if (!appState.checkedItems[top.id]) appState.checkedItems[top.id] = {};
+                appState.checkedItems[top.id][type] = e.target.checked;
+                saveState();
+                renderSyllabus();
+              });
             });
-          }
-        });
 
-        if (filteredSections.length === 0) return;
-        totalVisiblePapers++;
+            row.querySelector('.priority-pill').addEventListener('click', () => cyclePriority(top.id));
 
-        let paperTotalTasks = 0;
-        let paperDoneTasks = 0;
-        paper.sections.forEach(sec => {
-          sec.items.forEach(it => {
-            const st = getItemState(it.id);
-            paperTotalTasks += 5;
-            if (st.lecture) paperDoneTasks++;
-            if (st.sm) paperDoneTasks++;
-            if (st.r1) paperDoneTasks++;
-            if (st.r2) paperDoneTasks++;
-            if (st.r3) paperDoneTasks++;
+            const noteBox = row.querySelector('.note-box');
+            row.querySelector('.note-toggle-btn').addEventListener('click', () => {
+              noteBox.classList.toggle('hidden');
+              if (!noteBox.classList.contains('hidden')) noteBox.querySelector('input').focus();
+            });
+
+            row.querySelector('.note-input').addEventListener('change', (e) => {
+              appState.notes[top.id] = e.target.value;
+              saveState();
+            });
+
+            contentDiv.appendChild(row);
           });
         });
-        const paperPct = paperTotalTasks > 0 ? Math.round((paperDoneTasks / paperTotalTasks) * 100) : 0;
 
-        const paperCard = document.createElement('div');
-        paperCard.className = "bg-white dark:bg-midnight-850 rounded-3xl border border-[#ece4d6] dark:border-midnight-700 shadow-sm overflow-hidden transition-all duration-200";
-        paperCard.id = `paper-card-${paper.id}`;
-
-        paperCard.innerHTML = `
-          <div class="paper-header cursor-pointer px-5 sm:px-6 py-4.5 flex items-center justify-between bg-[#fbf9f5] dark:bg-midnight-800 hover:bg-[#f6f0e4] dark:hover:bg-midnight-700 transition select-none" data-target="content-${paper.id}">
-            <div class="flex items-center gap-3.5">
-              <span class="w-9 h-9 rounded-2xl bg-blush-50 dark:bg-cyan-950 text-blush-600 dark:text-cyan-400 font-bold text-xs flex items-center justify-center border border-blush-200/60 dark:border-cyan-800">
-                ${paper.code.replace('Paper ', 'P')}
-              </span>
-              <div>
-                <div class="flex items-center gap-2">
-                  <h2 class="font-display font-bold text-base sm:text-lg text-stone-800 dark:text-white">
-                    ${paper.code}: ${paper.title}
-                  </h2>
-                  <span class="hidden sm:inline-block text-[11px] font-semibold text-stone-500 dark:text-slate-400 bg-[#f3ece0] dark:bg-midnight-900 px-2.5 py-0.5 rounded-full">
-                    ${paper.badge}
-                  </span>
-                </div>
-                <div class="text-xs text-stone-400 dark:text-slate-400 font-medium">
-                  ${filteredSections.reduce((acc, s) => acc + s.items.length, 0)} Topics
-                </div>
-              </div>
-            </div>
-
-            <div class="flex items-center gap-4">
-              <div class="text-right">
-                <span class="text-xs sm:text-sm font-bold font-display text-stone-800 dark:text-slate-100">${paperPct}%</span>
-                <div class="w-16 sm:w-28 bg-[#ebd9c6] dark:bg-midnight-950 h-2 rounded-full mt-1 overflow-hidden">
-                  <div class="bg-blush-500 dark:bg-cyan-400 h-full rounded-full transition-all duration-300" style="width: ${paperPct}%"></div>
-                </div>
-              </div>
-              <div class="text-stone-400 dark:text-slate-400 transition-transform duration-200 chevron-icon">
-                <i data-lucide="chevron-down" class="w-5 h-5"></i>
-              </div>
-            </div>
-          </div>
-
-          <div id="content-${paper.id}" class="divide-y divide-[#f3ece0] dark:divide-midnight-800">
-            ${filteredSections.map(sec => `
-              <div class="p-4 sm:p-6">
-                <h3 class="text-xs uppercase font-bold tracking-wider text-matcha-700 dark:text-cyan-400 mb-3.5 flex items-center gap-2">
-                  <span class="w-2 h-2 rounded-full bg-matcha-600 dark:bg-cyan-400"></span>
-                  ${sec.sectionTitle}
-                </h3>
-                
-                <div class="space-y-2">
-                  ${sec.items.map(item => renderRowItem(item)).join('')}
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        `;
-
-        container.appendChild(paperCard);
-      });
-
-      if (totalVisiblePapers === 0) {
-        container.innerHTML = `
-          <div class="bg-white dark:bg-midnight-850 rounded-3xl p-12 text-center border border-[#ece4d6] dark:border-midnight-700">
-            <div class="w-12 h-12 bg-cream-100 dark:bg-midnight-900 rounded-full flex items-center justify-center mx-auto text-stone-400 dark:text-slate-500">
-              <i data-lucide="search-x" class="w-6 h-6"></i>
-            </div>
-            <h4 class="mt-3 font-semibold text-stone-800 dark:text-slate-200">No topics match your filters</h4>
-            <p class="text-xs text-stone-400 dark:text-slate-500 mt-1">Try resetting search keywords or priority filter.</p>
-          </div>
-        `;
-      }
-
-      lucide.createIcons();
-      attachRowEventListeners();
-      attachAccordionListeners();
-    }
-
-    function renderRowItem(item) {
-      const st = getItemState(item.id);
-      
-      const priorityColors = {
-        'High': 'bg-blush-50 dark:bg-rose-950/60 text-blush-600 dark:text-rose-400 border-blush-200 dark:border-rose-900',
-        'Medium': 'bg-honey-100 dark:bg-amber-950/60 text-honey-600 dark:text-amber-400 border-honey-200 dark:border-amber-900',
-        'Low': 'bg-matcha-50 dark:bg-emerald-950/60 text-matcha-700 dark:text-emerald-400 border-matcha-200 dark:border-emerald-900',
-        'Unset': 'bg-[#faf6ee] dark:bg-midnight-900 text-stone-400 dark:text-slate-500 border-[#ebd9c6] dark:border-midnight-750'
-      };
-
-      const hasNote = st.note && st.note.trim().length > 0;
-
-      return `
-        <div class="item-row p-3.5 rounded-2xl border border-[#ece4d6] dark:border-midnight-750 bg-[#fdfbf7] dark:bg-midnight-900/60 hover:bg-white dark:hover:bg-midnight-800 transition flex flex-col md:flex-row md:items-center justify-between gap-3" data-id="${item.id}">
-          <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2">
-              <span class="font-medium text-xs sm:text-sm text-stone-800 dark:text-slate-100 truncate">
-                ${item.title}
-              </span>
-              <button class="priority-badge text-[10px] font-semibold px-2.5 py-0.5 rounded-full border transition cursor-pointer select-none ${priorityColors[st.priority] || priorityColors.Unset}" data-id="${item.id}" title="Tap to cycle Priority (High / Med / Low)">
-                ${st.priority === 'Unset' ? 'Priority' : st.priority}
-              </button>
-            </div>
-            <div class="text-[11px] text-stone-400 dark:text-slate-400 truncate mt-0.5">
-              ${item.sub}
-            </div>
-          </div>
-
-          <div class="flex items-center flex-wrap gap-2.5 sm:gap-3.5 text-xs">
-            <label class="flex items-center gap-1.5 cursor-pointer select-none text-stone-600 dark:text-slate-300">
-              <input type="checkbox" class="custom-checkbox task-check" data-id="${item.id}" data-task="lecture" ${st.lecture ? 'checked' : ''}>
-              <span class="text-[11px] font-medium">Lectures</span>
-            </label>
-
-            <label class="flex items-center gap-1.5 cursor-pointer select-none text-stone-600 dark:text-slate-300">
-              <input type="checkbox" class="custom-checkbox task-check" data-id="${item.id}" data-task="sm" ${st.sm ? 'checked' : ''}>
-              <span class="text-[11px] font-medium">ICAI SM</span>
-            </label>
-
-            <div class="flex items-center gap-1.5 bg-[#faf6ee] dark:bg-midnight-900 px-2.5 py-1 rounded-xl border border-[#ebd9c6] dark:border-midnight-750">
-              <label class="flex items-center gap-1 cursor-pointer select-none" title="Revision 1">
-                <input type="checkbox" class="custom-checkbox task-check" data-id="${item.id}" data-task="r1" ${st.r1 ? 'checked' : ''}>
-                <span class="text-[10px] font-bold text-stone-500 dark:text-slate-400">R1</span>
-              </label>
-              <label class="flex items-center gap-1 cursor-pointer select-none" title="Revision 2">
-                <input type="checkbox" class="custom-checkbox task-check" data-id="${item.id}" data-task="r2" ${st.r2 ? 'checked' : ''}>
-                <span class="text-[10px] font-bold text-stone-500 dark:text-slate-400">R2</span>
-              </label>
-              <label class="flex items-center gap-1 cursor-pointer select-none" title="Revision 3">
-                <input type="checkbox" class="custom-checkbox task-check" data-id="${item.id}" data-task="r3" ${st.r3 ? 'checked' : ''}>
-                <span class="text-[10px] font-bold text-stone-500 dark:text-slate-400">R3</span>
-              </label>
-            </div>
-
-            <button class="open-note-btn p-1.5 rounded-xl border border-[#ebd9c6] dark:border-midnight-700 text-stone-400 hover:text-blush-500 dark:hover:text-cyan-400 hover:border-blush-300 dark:hover:border-cyan-500 transition relative" data-id="${item.id}" data-title="${item.title}" title="Add Notes">
-              <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
-              ${hasNote ? '<span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-blush-500 dark:bg-cyan-400 rounded-full"></span>' : ''}
-            </button>
-          </div>
-        </div>
-      `;
-    }
-
-    function attachAccordionListeners() {
-      document.querySelectorAll('.paper-header').forEach(header => {
-        header.addEventListener('click', () => {
-          const targetId = header.getAttribute('data-target');
-          const content = document.getElementById(targetId);
-          const chevron = header.querySelector('.chevron-icon');
-
-          if (content.classList.contains('hidden')) {
-            content.classList.remove('hidden');
-            chevron.classList.remove('rotate-180');
-          } else {
-            content.classList.add('hidden');
-            chevron.classList.add('rotate-180');
-          }
-        });
-      });
-    }
-
-    function attachRowEventListeners() {
-      document.querySelectorAll('.task-check').forEach(chk => {
-        chk.addEventListener('change', (e) => {
-          const id = e.target.getAttribute('data-id');
-          const task = e.target.getAttribute('data-task');
-          const st = getItemState(id);
-          st[task] = e.target.checked;
-          saveState();
-        });
-      });
-
-      document.querySelectorAll('.priority-badge').forEach(badge => {
-        badge.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const id = badge.getAttribute('data-id');
-          const st = getItemState(id);
-          const cycle = ['Unset', 'High', 'Medium', 'Low'];
-          const nextIdx = (cycle.indexOf(st.priority) + 1) % cycle.length;
-          st.priority = cycle[nextIdx];
-          saveState();
-          renderTracker();
-        });
-      });
-
-      document.querySelectorAll('.open-note-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const id = btn.getAttribute('data-id');
-          const title = btn.getAttribute('data-title');
-          openNoteModal(id, title);
-        });
-      });
-    }
-
-    /* ==========================================================================
-       7. NOTE DRAWER MODAL
-       ========================================================================== */
-    let currentModalItemId = null;
-    const modal = document.getElementById('note-modal');
-    const modalTitle = document.getElementById('modal-chapter-title');
-    const modalText = document.getElementById('modal-note-text');
-
-    function openNoteModal(id, title) {
-      currentModalItemId = id;
-      const st = getItemState(id);
-      modalTitle.textContent = title;
-      modalText.value = st.note || '';
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-      modalText.focus();
-    }
-
-    function closeNoteModal() {
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-      currentModalItemId = null;
-    }
-
-    document.getElementById('close-modal-btn').addEventListener('click', closeNoteModal);
-    document.getElementById('save-note-btn').addEventListener('click', () => {
-      if (currentModalItemId) {
-        const st = getItemState(currentModalItemId);
-        st.note = modalText.value;
-        saveState();
-        renderTracker();
-        showToast("Note saved!");
-      }
-      closeNoteModal();
-    });
-
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeNoteModal();
-    });
-
-    /* ==========================================================================
-       8. ANALYTICS & STATS ENGINE
-       ========================================================================== */
-    function updateAnalytics() {
-      let totalItems = 0;
-      let totalTasks = 0;
-      let doneTasks = 0;
-
-      let lecturesTotal = 0;
-      let lecturesDone = 0;
-
-      let smTotal = 0;
-      let smDone = 0;
-
-      let revTotal = 0;
-      let revDone = 0;
-
-      SYLLABUS_DATA.forEach(paper => {
-        paper.sections.forEach(section => {
-          section.items.forEach(item => {
-            totalItems++;
-            totalTasks += 5;
-
-            const st = getItemState(item.id);
-
-            lecturesTotal++;
-            if (st.lecture) lecturesDone++;
-
-            smTotal++;
-            if (st.sm) smDone++;
-
-            revTotal += 3;
-            if (st.r1) revDone++;
-            if (st.r2) revDone++;
-            if (st.r3) revDone++;
-
-            if (st.lecture) doneTasks++;
-            if (st.sm) doneTasks++;
-            if (st.r1) doneTasks++;
-            if (st.r2) doneTasks++;
-            if (st.r3) doneTasks++;
-          });
-        });
-      });
-
-      const overallPct = totalTasks > 0 ? Math.round((doneTasks / totalTasks) * 100) : 0;
-      const lecPct = lecturesTotal > 0 ? Math.round((lecturesDone / lecturesTotal) * 100) : 0;
-      const smPct = smTotal > 0 ? Math.round((smDone / smTotal) * 100) : 0;
-      const revPct = revTotal > 0 ? Math.round((revDone / revTotal) * 100) : 0;
-
-      document.getElementById('overall-percentage').textContent = `${overallPct}%`;
-      document.getElementById('overall-bar').style.width = `${overallPct}%`;
-      document.getElementById('overall-tasks-count').textContent = `${doneTasks} of ${totalTasks} steps finished`;
-      document.getElementById('total-chapters-count').textContent = `${totalItems} Total Topics`;
-
-      document.getElementById('lectures-stat-pct').textContent = `${lecPct}%`;
-      document.getElementById('lectures-stat-ratio').textContent = `${lecturesDone}/${lecturesTotal}`;
-      document.getElementById('lectures-bar').style.width = `${lecPct}%`;
-
-      document.getElementById('sm-stat-pct').textContent = `${smPct}%`;
-      document.getElementById('sm-stat-ratio').textContent = `${smDone}/${smTotal}`;
-      document.getElementById('sm-bar').style.width = `${smPct}%`;
-
-      document.getElementById('rev-stat-pct').textContent = `${revPct}%`;
-      document.getElementById('rev-stat-ratio').textContent = `${revDone} total`;
-      document.getElementById('rev-bar').style.width = `${revPct}%`;
-
-      document.getElementById('mobile-progress-badge').textContent = `${overallPct}%`;
-      document.getElementById('mobile-progress-details').textContent = `${doneTasks} / ${totalTasks} done`;
-    }
-
-    /* ==========================================================================
-       9. COUNTDOWN, EXPORT/IMPORT & TOAST
-       ========================================================================== */
-    function updateCountdown() {
-      const targetDate = new Date(appSettings.examDate);
-      const today = new Date();
-      const diffTime = targetDate - today;
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-      const display = document.getElementById('countdown-display');
-      if (diffDays > 0) {
-        display.textContent = `${diffDays} Days Left`;
-      } else if (diffDays === 0) {
-        display.textContent = `Exam Today!`;
-      } else {
-        display.textContent = `Target Completed`;
-      }
-    }
-
-    document.getElementById('edit-exam-date-btn').addEventListener('click', () => {
-      const newDate = prompt("Enter target exam date (YYYY-MM-DD):", appSettings.examDate);
-      if (newDate && !isNaN(new Date(newDate).getTime())) {
-        appSettings.examDate = newDate;
-        saveState();
-        updateCountdown();
-        showToast("Target date updated!");
-      }
-    });
-
-    document.getElementById('export-btn').addEventListener('click', () => {
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({
-        state: userState,
-        settings: appSettings,
-        exportedAt: new Date().toISOString()
-      }, null, 2));
-      const dlAnchor = document.createElement('a');
-      dlAnchor.setAttribute("href", dataStr);
-      dlAnchor.setAttribute("download", `CA_Intermediate_Pastel_${new Date().toISOString().slice(0,10)}.json`);
-      document.body.appendChild(dlAnchor);
-      dlAnchor.click();
-      dlAnchor.remove();
-      showToast("Data backup downloaded!");
-    });
-
-    document.getElementById('import-input').addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        try {
-          const parsed = JSON.parse(event.target.result);
-          if (parsed.state) {
-            userState = parsed.state;
-            if (parsed.settings) appSettings = parsed.settings;
-            saveState();
-            renderTracker();
-            updateCountdown();
-            if (appSettings.spotifyEmbedUri) loadSpotifyUri(appSettings.spotifyEmbedUri);
-            if (appSettings.ambientTheme) applyAmbientBackground(appSettings.ambientTheme);
-            document.getElementById('completed-pomo-count').textContent = appSettings.pomoCount || 0;
-            showToast("Backup imported successfully!");
-          } else {
-            showToast("Invalid JSON file.");
-          }
-        } catch (err) {
-          showToast("Failed to parse JSON file.");
+        if (sectionVisibleTotal > 0) {
+          paperWrapper.appendChild(contentDiv);
+          container.appendChild(paperWrapper);
         }
-      };
-      reader.readAsText(file);
-    });
-
-    document.getElementById('reset-all-btn').addEventListener('click', () => {
-      if (window.confirm("Are you sure you want to reset all checklist marks and notes?")) {
-        userState = {};
-        appSettings.pomoCount = 0;
-        saveState();
-        renderTracker();
-        document.getElementById('completed-pomo-count').textContent = 0;
-        showToast("Tracker has been reset.");
-      }
-    });
-
-    function showToast(message) {
-      const toast = document.getElementById('toast');
-      const toastMsg = document.getElementById('toast-message');
-      toastMsg.textContent = message;
-      toast.classList.remove('translate-y-20', 'opacity-0');
-      setTimeout(() => {
-        toast.classList.add('translate-y-20', 'opacity-0');
-      }, 2500);
+      });
     }
 
-    /* ==========================================================================
-       10. EVENT BINDINGS
-       ========================================================================== */
-    const studioSection = document.getElementById('focus-studio-section');
-    document.getElementById('toggle-focus-suite-btn').addEventListener('click', () => {
-      studioSection.classList.toggle('hidden');
-    });
-
-    const ambientSelect = document.getElementById('ambient-theme-select');
-    ambientSelect.addEventListener('change', (e) => {
-      applyAmbientBackground(e.target.value);
-    });
-
-    // Dedicated timer controls: Start, Pause, Resume, Stop
-    document.getElementById('pomo-start')?.addEventListener('click', startTimer);
-    document.getElementById('pomo-pause')?.addEventListener('click', pauseTimer);
-    document.getElementById('pomo-resume')?.addEventListener('click', resumeTimer);
-    document.getElementById('pomo-stop')?.addEventListener('click', stopTimer);
-
-    // Preset duration buttons
-    document.querySelectorAll('.pomo-mode-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.pomo-mode-btn').forEach(b => {
-          b.classList.remove('bg-peach-500', 'font-semibold', 'shadow-lg');
-          b.classList.add('bg-white/20');
+    document.querySelectorAll('#group-filter-tabs button').forEach(b => {
+      b.addEventListener('click', () => {
+        appState.activeGroup = b.dataset.group;
+        saveState();
+        document.querySelectorAll('#group-filter-tabs button').forEach(btn => {
+          btn.className = "px-3.5 py-1.5 rounded-xl text-xs font-medium bg-pastelCard dark:bg-darkCard border border-pastelBorder dark:border-darkBorder text-stone-600 dark:text-slate-300 hover:bg-stone-50 dark:hover:bg-darkCardHover whitespace-nowrap";
         });
-        btn.classList.add('bg-peach-500', 'font-semibold', 'shadow-lg');
-        btn.classList.remove('bg-white/20');
-
-        const mins = parseInt(btn.getAttribute('data-duration'), 10);
-        const label = btn.getAttribute('data-label');
-        initTimerFromDuration(mins, label);
-      });
-    });
-
-    // Spotify presets
-    document.querySelectorAll('.spotify-preset').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const uri = btn.getAttribute('data-spotify-uri');
-        loadSpotifyUri(uri);
-        showToast("Playlist loaded!");
-      });
-    });
-
-    // Custom Spotify link loader
-    document.getElementById('apply-custom-spotify')?.addEventListener('click', () => {
-      const input = document.getElementById('custom-spotify-url')?.value.trim();
-      if (!input) return;
-      loadSpotifyUri(input);
-      showToast("Audio loaded!");
-    });
-
-    // Group filter tabs
-    document.querySelectorAll('.filter-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.filter-tab').forEach(t => {
-          t.classList.remove('bg-blush-500', 'text-white', 'font-semibold', 'shadow-sm');
-          t.classList.add('bg-white', 'text-stone-600');
-        });
-        tab.classList.add('bg-blush-500', 'text-white', 'font-semibold', 'shadow-sm');
-        tab.classList.remove('bg-white', 'text-stone-600');
-
-        activeGroupFilter = tab.getAttribute('data-group');
-        renderTracker();
+        b.className = "px-3.5 py-1.5 rounded-xl text-xs font-bold bg-pastelAccent text-white shadow-sm whitespace-nowrap";
+        renderSyllabus();
       });
     });
 
     document.getElementById('search-input').addEventListener('input', (e) => {
-      searchQuery = e.target.value.trim();
-      renderTracker();
+      appState.searchQuery = e.target.value;
+      renderSyllabus();
     });
 
-    document.getElementById('confidence-filter').addEventListener('change', (e) => {
-      priorityFilter = e.target.value;
-      renderTracker();
+    document.getElementById('priority-filter').addEventListener('change', (e) => {
+      appState.priorityFilter = e.target.value;
+      renderSyllabus();
     });
 
-    let allExpanded = true;
-    document.getElementById('toggle-expand-all').addEventListener('click', () => {
-      allExpanded = !allExpanded;
-      document.querySelectorAll('[id^="content-p"]').forEach(content => {
-        if (allExpanded) {
-          content.classList.remove('hidden');
-        } else {
-          content.classList.add('hidden');
-        }
-      });
-      document.querySelectorAll('.chevron-icon').forEach(icon => {
-        if (allExpanded) {
-          icon.classList.remove('rotate-180');
-        } else {
-          icon.classList.add('rotate-180');
-        }
-      });
+    document.getElementById('export-btn').addEventListener('click', () => {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appState, null, 2));
+      const a = document.createElement('a');
+      a.setAttribute("href", dataStr);
+      a.setAttribute("download", `ca_inter_progress_${new Date().toISOString().slice(0,10)}.json`);
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
     });
 
-    /* ==========================================================================
-       11. INITIALIZATION ON LOAD
-       ========================================================================== */
-    window.addEventListener('DOMContentLoaded', () => {
-      loadState();
-      applyTheme(appSettings.themeMode || 'light');
-      renderTracker();
-      updateAnalytics();
-      updateCountdown();
-
-      if (appSettings.ambientTheme) {
-        applyAmbientBackground(appSettings.ambientTheme);
-        ambientSelect.value = appSettings.ambientTheme;
+    document.getElementById('import-file').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const r = new FileReader();
+        r.onload = (evt) => {
+          try {
+            appState = { ...appState, ...JSON.parse(evt.target.result) };
+            saveState();
+            location.reload();
+          } catch (err) { alert("Invalid backup JSON file."); }
+        };
+        r.readAsText(file);
       }
-
-      const initialMins = appSettings.targetTotalMinutes || 180;
-      sessionQueue = buildSessionPlan(initialMins);
-      currentStepIndex = 0;
-      loadCurrentStep();
-
-      document.getElementById('completed-pomo-count').textContent = appSettings.pomoCount || 0;
-      if (appSettings.spotifyEmbedUri) {
-        loadSpotifyUri(appSettings.spotifyEmbedUri);
-      }
-      renderMusicQueue();
-      lucide.createIcons();
     });
+
+    document.getElementById('reset-all-btn').addEventListener('click', () => {
+      if (confirm("Reset all syllabus progress checkboxes? Your timer and queue settings will remain.")) {
+        appState.checkedItems = {};
+        appState.priorities = {};
+        saveState();
+        renderSyllabus();
+      }
+    });
+
+    loadState();
+    applyTheme(appState.theme);
+    applyBgImage(appState.bgImage);
+    document.getElementById('target-countdown').innerText = `${appState.targetDays} Days Left`;
+    renderYtQueue();
+    updateDisplays(formatTime(remainingMs));
+    updateControls();
+    renderSyllabus();
   </script>
 </body>
 </html>
